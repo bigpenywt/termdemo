@@ -18,6 +18,7 @@ public class LoginController {
 	public String login(User user){
 		System.out.println(user.getUsername());
 		System.out.println(user.getPassword());
+		System.out.println(user.getPassword());
 		
 		User loginuser = userDao.login(user);
 		System.out.println(loginuser.getUserrole());
