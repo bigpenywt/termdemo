@@ -7,7 +7,7 @@ public class Term {
 	private String definition;
 	private String source;
 	private String example;
-	private String character;
+	private String term_char;
 	private String pronunciation;
 	private String translation;
 	private String basis;
@@ -51,11 +51,11 @@ public class Term {
 	public void setExample(String example) {
 		this.example = example;
 	}
-	public String getCharacter() {
-		return character;
+	public String getTerm_char() {
+		return term_char;
 	}
-	public void setCharacter(String character) {
-		this.character = character;
+	public void setTerm_char(String term_char) {
+		this.term_char = term_char;
 	}
 	public String getPronunciation() {
 		return pronunciation;
@@ -132,10 +132,11 @@ public class Term {
 	@Override
 	public String toString() {
 		return "Term [term=" + term + ", origin=" + origin + ", definition=" + definition + ", source=" + source
-				+ ", example=" + example + ", character=" + character + ", pronunciation=" + pronunciation
+				+ ", example=" + example + ", term_char=" + term_char + ", pronunciation=" + pronunciation
 				+ ", translation=" + translation + ", basis=" + basis + ", status=" + status + ", create_user="
 				+ create_user + ", create_time=" + create_time + ", review_user=" + review_user + ", review_time="
 				+ review_time + ", publish_user=" + publish_user + ", publish_time=" + publish_time + ", reject_user="
 				+ reject_user + ", reject_reason=" + reject_reason + "]";
 	}
+	
 }
