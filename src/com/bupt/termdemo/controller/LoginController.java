@@ -7,27 +7,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bupt.termdemo.dao.IUserDao;
 import com.bupt.termdemo.model.User;
+import com.bupt.termdemo.service.ILoginService;
 
 @Controller
 @RequestMapping("/loginCtl")
 public class LoginController {
 
 	@Autowired
-	private IUserDao userDao;
+	private ILoginService loginService;
 	
 	@RequestMapping("/login")
 	public String login(User user, Model model, HttpServletRequest request){
-		System.out.println(user.getUsername());
-		System.out.println(user.getPassword());
-
-		System.out.println();
-		
-		User loginuser = userDao.login(user);
+		User loginuser = loginService.login(user);
 		
 		if (loginuser == null) {
-			model.addAttribute("msg", "用户名或者密码错误");
+			model.addAttribute("msg", "鐢ㄦ埛鍚嶆垨瀵嗙爜閿欒");
 			return "forward:/login.jsp";
 		} else {
 			request.getSession().setAttribute("user", loginuser);
