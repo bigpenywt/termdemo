@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="./public/css/base.min.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -12,7 +13,7 @@
 		<jsp:param value="common" name="module"/>
 		<jsp:param value="admin_main" name="resource"/>
 	</jsp:forward>
-	
+
 	<%-- 根据角色不同进入不同页面
 		<c:if test="${userrole == 1}">
 			<jsp:param value="common" name="module"/>
