@@ -11,16 +11,20 @@
 	<jsp:forward page="/page.do">
 		<jsp:param value="common" name="module"/>
 		<jsp:param value="admin_main" name="resource"/>
-		<%-- 根据角色不同进入不同页面
+	</jsp:forward>
+	
+	<%-- 根据角色不同进入不同页面
 		<c:if test="${userrole == 1}">
+			<jsp:param value="common" name="module"/>
 			<jsp:param value="admin_main" name="resource"/>
 		</c:if>
 		<c:if test="${userrole == 2 }">
+			<jsp:param value="common" name="module"/>
 			<jsp:param value="reviewer_main" name="resource"/>
 		</c:if>
 		<c:if test="${userrole == 3 }">
+			<jsp:param value="common" name="module"/>
 			<jsp:param value="creator_main" name="resource"/>
 		</c:if> --%>
-	</jsp:forward>
 </body>
 </html>

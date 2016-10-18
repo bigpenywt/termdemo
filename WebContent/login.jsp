@@ -12,6 +12,7 @@
 		<input type="password" name="password">
 		<button type="submit">登录</button>
 	</form>
+	${msg }
 
 </body>
 </html>
