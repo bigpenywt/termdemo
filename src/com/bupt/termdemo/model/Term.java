@@ -16,9 +16,10 @@ public class Term {
 	private String create_time;
 	private String review_user;
 	private String review_time;
-	private String reject_reason;
 	private String publish_user;
 	private String publish_time;
+	private String reject_user;
+	private String reject_reason;
 	
 	public String getTerm() {
 		return term;
@@ -122,14 +123,19 @@ public class Term {
 	public void setPublish_time(String publish_time) {
 		this.publish_time = publish_time;
 	}
+	public String getReject_user() {
+		return reject_user;
+	}
+	public void setReject_user(String reject_user) {
+		this.reject_user = reject_user;
+	}
 	@Override
 	public String toString() {
 		return "Term [term=" + term + ", origin=" + origin + ", definition=" + definition + ", source=" + source
 				+ ", example=" + example + ", character=" + character + ", pronunciation=" + pronunciation
 				+ ", translation=" + translation + ", basis=" + basis + ", status=" + status + ", create_user="
 				+ create_user + ", create_time=" + create_time + ", review_user=" + review_user + ", review_time="
-				+ review_time + ", reject_reason=" + reject_reason + ", publish_user=" + publish_user
-				+ ", publish_time=" + publish_time + "]";
+				+ review_time + ", publish_user=" + publish_user + ", publish_time=" + publish_time + ", reject_user="
+				+ reject_user + ", reject_reason=" + reject_reason + "]";
 	}
-	
 }
