@@ -4,14 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" href="./css/public/css/base.min.css">
+  <link rel="stylesheet" href="./public/css/login.min.css">
 <title>Insert title here</title>
 </head>
 <body>
 	<form action="/termdemo/loginCtl/login">
-		<input type="text" name="username">
-		<input type="password" name="password">
-		<button type="submit">登录</button>
+    <div class="login-block">
+      <p class="login-title">登陆到术语库</p>
+      <p class="login-tips">用户名</p>
+  		<input type="text" placeholder="请输入您的用户名" name="username"/>
+      <p class="login-tips">密码</p>
+  		<input type="password" placeholder="请输入您的密码" name="password"/>
+  		<button class="submit-btn" type="submit">登录</button>
+    </div>
 	</form>
 	${msg }
 
