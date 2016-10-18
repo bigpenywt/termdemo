@@ -31,7 +31,6 @@ public class LoginController {
 			return "forward:/login.jsp";
 		} else {
 			request.getSession().setAttribute("user", loginuser);
-			request.getSession().setAttribute("userrole", loginuser.getUserrole());
 		    return "redirect:/index.jsp";
 		}
 	}
