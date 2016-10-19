@@ -17,6 +17,8 @@ public class LoginController {
 	@Autowired
 	private ILoginService loginService;
 	
+	private String role = "";
+	
 	@RequestMapping("/login")
 	public String login(User user, Model model, HttpServletRequest request){
 		User loginuser = loginService.login(user);
@@ -26,9 +28,25 @@ public class LoginController {
 			return "forward:/login.jsp";
 		} else {
 			request.getSession().setAttribute("user", loginuser);
-			request.getSession().setAttribute("userrole", loginuser.getUserrole());
-		    return "redirect:/index.jsp";
+			if(loginuser.getUserrole().equals("1")){
+				role = "admin";
+			}
+			if(loginuser.getUserrole().equals("2")){
+				role = "publisher";
+			}
+			if(loginuser.getUserrole().equals("3")){
+				role = "reviewer";
+			}
+			if(loginuser.getUserrole().equals("4")){
+				role = "creator";
+			}
+		    return "redirect:/loginCtl/jump";
 		}
+	}
+	
+	@RequestMapping("/jump")
+	public String pagejump(){
+		return "common/" + role + "_main";
 	}
 	
 }
