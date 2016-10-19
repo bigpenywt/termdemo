@@ -23,8 +23,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<!-- 拦截/index.jsp下面跳转过来的 /page.do路径 -->
-			<mvc:mapping path="/*" />
-			<mvc:exclude-mapping path="/login.jsp"/>
+			<mvc:mapping path="/page.do" />
 			<bean class="com.bupt.termdemo.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
