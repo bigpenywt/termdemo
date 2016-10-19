@@ -11,6 +11,7 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 	<mvc:resources location="/public/" mapping="/public/**"/>
 	<mvc:resources location="/assets/" mapping="/assets/**"/>
+	<mvc:resources location="/img/" mapping="/img/**"/>
 	
 	<context:component-scan base-package="com.bupt.termdemo" />
 	

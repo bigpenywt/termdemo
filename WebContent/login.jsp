@@ -10,7 +10,7 @@
 </head>
 <body>
 	<form action="/termdemo/loginCtl/login">
-    <img src="./assets/img/login_bg.jpeg"/>
+    <img src="./img/login_bg.jpeg"/>
     <div class="login-block">
       <p class="login-title">登陆到术语库</p>
       <p class="login-tips">用户名</p>
