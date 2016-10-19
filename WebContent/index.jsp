@@ -5,13 +5,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>跳转页</title>
 </head>
 <body>
-	<jsp:forward page="/page.do">
-		<jsp:param value="common" name="module"/>
-		<jsp:param value="admin_main" name="resource"/>
-	</jsp:forward>
+	<%if(request.getSession().getAttribute("userrole").equals("1")){ %>
+		<jsp:forward page="/page.do">
+			<jsp:param value="common" name="module"/>
+			<jsp:param value="admin_main" name="resource"/>
+		</jsp:forward>
+	<%}if(request.getSession().getAttribute("userrole").equals("2")){ %>
+		<jsp:forward page="/page.do">
+			<jsp:param value="common" name="module"/>
+			<jsp:param value="publisher_main" name="resource"/>
+		</jsp:forward>
+	<%}if(request.getSession().getAttribute("userrole").equals("3")){ %>
+		<jsp:forward page="/page.do">
+			<jsp:param value="common" name="module"/>
+			<jsp:param value="reviewer_main" name="resource"/>
+		</jsp:forward>
+	<%}if(request.getSession().getAttribute("userrole").equals("4")){ %>
+		<jsp:forward page="/page.do">
+			<jsp:param value="common" name="module"/>
+			<jsp:param value="creator_main" name="resource"/>
+		</jsp:forward>
+	<%} %>
 
 	<%-- 根据角色不同进入不同页面
 		<c:if test="${userrole == 1}">

@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
   <link rel="stylesheet" href="./public/css/page/login.css">
-<title>Insert title here</title>
+<title>登录页</title>
 </head>
 <body>
 	<form action="/termdemo/loginCtl/login">
