@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-  <link rel="stylesheet" href="./public/css/page/login.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/public/css/page/login.css">
 <title>登录页</title>
 </head>
 <body>
