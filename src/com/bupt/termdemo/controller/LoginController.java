@@ -27,6 +27,7 @@ public class LoginController {
 		} else {
 			request.getSession().setAttribute("user", loginuser);
 			request.getSession().setAttribute("userrole", loginuser.getUserrole());
+			request.getSession().setAttribute("username", loginuser.getUsername());
 		    return "redirect:/index.jsp";
 		}
 	}

@@ -12,11 +12,11 @@ public class Term {
 	private String translation;
 	private String basis;
 	private String status;
-	private String create_user;
+	private String creator;
 	private String create_time;
-	private String review_user;
+	private String reviewer;
 	private String review_time;
-	private String publish_user;
+	private String publisher;
 	private String publish_time;
 	private String reject_user;
 	private String reject_reason;
@@ -81,23 +81,11 @@ public class Term {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getCreate_user() {
-		return create_user;
-	}
-	public void setCreate_user(String create_user) {
-		this.create_user = create_user;
-	}
 	public String getCreate_time() {
 		return create_time;
 	}
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
-	}
-	public String getReview_user() {
-		return review_user;
-	}
-	public void setReview_user(String review_user) {
-		this.review_user = review_user;
 	}
 	public String getReview_time() {
 		return review_time;
@@ -111,12 +99,6 @@ public class Term {
 	public void setReject_reason(String reject_reason) {
 		this.reject_reason = reject_reason;
 	}
-	public String getPublish_user() {
-		return publish_user;
-	}
-	public void setPublish_user(String publish_user) {
-		this.publish_user = publish_user;
-	}
 	public String getPublish_time() {
 		return publish_time;
 	}
@@ -129,14 +111,32 @@ public class Term {
 	public void setReject_user(String reject_user) {
 		this.reject_user = reject_user;
 	}
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	public String getReviewer() {
+		return reviewer;
+	}
+	public void setReviewer(String reviewer) {
+		this.reviewer = reviewer;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
 	@Override
 	public String toString() {
 		return "Term [term=" + term + ", origin=" + origin + ", definition=" + definition + ", source=" + source
 				+ ", example=" + example + ", term_char=" + term_char + ", pronunciation=" + pronunciation
-				+ ", translation=" + translation + ", basis=" + basis + ", status=" + status + ", create_user="
-				+ create_user + ", create_time=" + create_time + ", review_user=" + review_user + ", review_time="
-				+ review_time + ", publish_user=" + publish_user + ", publish_time=" + publish_time + ", reject_user="
-				+ reject_user + ", reject_reason=" + reject_reason + "]";
+				+ ", translation=" + translation + ", basis=" + basis + ", status=" + status + ", creator=" + creator
+				+ ", create_time=" + create_time + ", reviewer=" + reviewer + ", review_time=" + review_time
+				+ ", publisher=" + publisher + ", publish_time=" + publish_time + ", reject_user=" + reject_user
+				+ ", reject_reason=" + reject_reason + "]";
 	}
 	
 }
