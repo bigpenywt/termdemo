@@ -3,6 +3,25 @@
 
 <mapper namespace="termModule" >
 
-	<!-- 表列名与类属性名一致，省略resultmap -->
+	<resultMap id="TermResultMap" type="com.bupt.termdemo.model.Term" >
+	    <result column="term" property="term" jdbcType="VARCHAR" />
+	    <result column="origin" property="origin" jdbcType="VARCHAR" />
+	    <result column="definition" property="definition" jdbcType="VARCHAR" />
+	    <result column="source" property="source" jdbcType="VARCHAR" />
+	    <result column="example" property="example" jdbcType="VARCHAR" />
+	    <result column="term_char" property="term_char" jdbcType="VARCHAR" />
+	    <result column="pronunciation" property="pronunciation" jdbcType="VARCHAR" />
+	    <result column="translation" property="translation" jdbcType="VARCHAR" />
+	    <result column="basis" property="basis" jdbcType="VARCHAR" />
+	    <result column="status" property="status" jdbcType="VARCHAR" />
+	    <result column="create_user" property="create_user" jdbcType="VARCHAR" />
+	    <result column="create_time" property="create_time" jdbcType="VARCHAR" />
+	    <result column="review_user" property="review_user" jdbcType="VARCHAR" />
+	    <result column="review_time" property="review_time" jdbcType="VARCHAR" />
+	    <result column="publish_user" property="publish_user" jdbcType="VARCHAR" />
+	    <result column="publish_time" property="publish_time" jdbcType="VARCHAR" />
+	    <result column="reject_user" property="reject_user" jdbcType="VARCHAR" />
+	    <result column="reject_reason" property="reject_reason" jdbcType="VARCHAR" />
+	</resultMap>
 	
 </mapper>

@@ -3,4 +3,11 @@
 
 <mapper namespace="logModule" >
 	
+	<resultMap id="LogResultMap" type="com.bupt.termdemo.model.Log" >
+	    <result column="log_time" property="log_time" jdbcType="VARCHAR" />
+	    <result column="oper_user" property="oper_user" jdbcType="VARCHAR" />
+	    <result column="operation" property="operation" jdbcType="VARCHAR" />
+	    <result column="oper_term" property="oper_term" jdbcType="VARCHAR" />
+	</resultMap>
+	
 </mapper>
