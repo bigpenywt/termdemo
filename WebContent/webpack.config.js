@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        'home/index': './assest/js/home/index.js'
+        'creator': './assets/js/creator/creator.js'
     },
     output: {
         path:'./public/js/',

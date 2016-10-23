@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>创建者</title>
 </head>
 <body>
-	<h1>creator main</h1>
+  <div id="creator"></div>
+	<script src="${resourcePath}/public/js/creator.bundle.js"></script>
 </body>
 </html>
