@@ -8,6 +8,6 @@
 </head>
 <body>
   <div id="creator"></div>
-	<script src="${resourcePath}/public/js/creator.bundle.js"></script>
+	<script src="<%=request.getContextPath()%>/public/js/creator.bundle.js"></script>
 </body>
 </html>
