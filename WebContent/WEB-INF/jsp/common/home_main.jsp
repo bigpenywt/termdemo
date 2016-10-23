@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>首页</title>
 </head>
 <body>
-	<h1>admin main</h1>
+  ${userrole }
+  <div id="creator"></div>
+	<script src="<%=request.getContextPath()%>/public/js/creator.bundle.js"></script>
 </body>
 </html>

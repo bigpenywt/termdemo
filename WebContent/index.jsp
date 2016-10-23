@@ -7,27 +7,9 @@
 <title>跳转页</title>
 </head>
 <body>
-	<%if(request.getSession().getAttribute("userrole").equals("admin")){ %>
-		<jsp:forward page="/page.do">
-			<jsp:param value="common" name="module"/>
-			<jsp:param value="admin_main" name="resource"/>
-		</jsp:forward>
-	<%}if(request.getSession().getAttribute("userrole").equals("publisher")){ %>
-		<jsp:forward page="/page.do">
-			<jsp:param value="common" name="module"/>
-			<jsp:param value="publisher_main" name="resource"/>
-		</jsp:forward>
-	<%}if(request.getSession().getAttribute("userrole").equals("reviewer")){ %>
-		<jsp:forward page="/page.do">
-			<jsp:param value="common" name="module"/>
-			<jsp:param value="reviewer_main" name="resource"/>
-		</jsp:forward>
-	<%}if(request.getSession().getAttribute("userrole").equals("creator")){ %>
-		<jsp:forward page="/page.do">
-			<jsp:param value="common" name="module"/>
-			<jsp:param value="creator_main" name="resource"/>
-		</jsp:forward>
-	<%} %>
-
+	<jsp:forward page="/page.do">
+		<jsp:param value="common" name="module"/>
+		<jsp:param value="home_main" name="resource"/>
+	</jsp:forward>
 </body>
 </html>
