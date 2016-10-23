@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Creator extends React.Component {
+export default class Main extends React.Component {
     constructor(props) {
         super(props);
     }

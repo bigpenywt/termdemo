@@ -8,7 +8,7 @@
 </head>
 <body>
   ${userrole }
-  <div id="creator"></div>
-	<script src="<%=request.getContextPath()%>/public/js/creator.bundle.js"></script>
+  <div id="index"></div>
+	<script src="<%=request.getContextPath()%>/public/js/index.bundle.js"></script>
 </body>
 </html>
