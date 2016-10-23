@@ -6,6 +6,10 @@
 	<resultMap id="UserResultMap" type="com.bupt.termdemo.model.User" >
 	    <result column="username" property="username" jdbcType="VARCHAR" />
 	    <result column="password" property="password" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+	    <result column="tel" property="tel" jdbcType="VARCHAR" />
+	    <result column="email" property="email" jdbcType="VARCHAR" />
 	    <result column="userrole" property="userrole" jdbcType="VARCHAR" />
 	</resultMap>
 	
