@@ -7,8 +7,8 @@
 <title>首页</title>
 </head>
 <body>
-  ${userrole }
   <div id="index"></div>
+  <input type="hidden" value="${userrole}"/>
 	<script src="<%=request.getContextPath()%>/public/js/index.bundle.js"></script>
 </body>
 </html>
