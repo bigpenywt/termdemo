@@ -24,14 +24,6 @@
 	    <result column="reject_reason" property="reject_reason" jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<select id="QueryTermByUserAndStatus" resultMap="TermResultMap">
-		select * from term where #{userrole}=#{username} and status=#{status}
-	</select>
-	
-	<select id="GetTermCountByUserAndStatus" resultType="Integer">
-		select count(*) from term where #{userrole}=#{username} and status=#{status}
-	</select>
-	
 	<select id="QueryTermByStatus" resultMap="TermResultMap">
 		select * from term where status=#{status}
 	</select>
