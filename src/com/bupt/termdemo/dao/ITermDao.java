@@ -3,15 +3,12 @@ package com.bupt.termdemo.dao;
 import java.util.List;
 
 import com.bupt.termdemo.model.Term;
-import com.bupt.termdemo.model.User;
 
 public interface ITermDao {
 
-	public List<Term> QueryTermByUserAndStatus(User user, String status, int page, int rows) throws Exception;
+	public List<Term> GetCreateTerm(String username , String status, int page, int rows) throws Exception;
 	
-	public List<Term> QueryTermByStatus(String status, int page, int rows) throws Exception;
+	public int GetCreateTermCount(String username, String status) throws Exception;
 	
-	public int GetTermCountByUserAndStatus(User user, String status) throws Exception;
-	
-	public int GetTermCountByStatus(String status) throws Exception;
+	public void SaveTerm(Term term) throws Exception;
 }
