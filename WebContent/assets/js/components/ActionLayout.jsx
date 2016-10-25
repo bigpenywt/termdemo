@@ -21,6 +21,10 @@ export default class ActionLayout extends React.Component {
         return (
             <div>
                 <div className="action-list">
+                    <div theme="dark" className="header">
+                      <h2>英汉医学新术语库后台管理系统</h2>
+                      <span style={{ float: 'right' }}>欢迎您${userName}</span>
+                    </div>
                     <Menu theme={'dark'} onClick={this.handleClick} style={{
                         width: 220
                     }} selectedKeys={[this.state.current]} mode="inline">
