@@ -24,12 +24,19 @@
 	    <result column="reject_reason" property="reject_reason" jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<select id="QueryTermByStatus" resultMap="TermResultMap">
-		select * from term where status=#{status}
+	<select id="GetCreateTerm" resultMap="TermResultMap">
+		select * from term where creator=#{username} and status=#{status}
 	</select>
 	
-	<select id="GetTermCountByStatus" resultType="Integer">
-		select count(*) from term where status=#{status}
+	<select id="GetCreateTermCount" resultType="Integer">
+		select count(*) from term where creator=#{username} and status=#{status}
 	</select>
+	
+	<insert id="SaveTerm" parameterType="com.bupt.termdemo.model.Term">
+		insert into term(term, origin, definition, source, example, term_char, pronunciation, translation, basis,
+		status, creator, create_time) 
+		values(#{term}, #{origin}, #{definition}, #{source}, #{example}, #{term_char}, #{pronunciation}, #{translation},
+		#{basis}, #{status}, #{creator}, #{create_time})
+	</insert>
 	
 </mapper>
