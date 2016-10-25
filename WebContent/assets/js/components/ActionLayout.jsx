@@ -21,7 +21,7 @@ export default class ActionLayout extends React.Component {
             <div>
                 <div className="action-list">
                     <Menu theme={'dark'} onClick={this.handleClick} style={{
-                        width: 190
+                        width: 220
                     }} selectedKeys={[this.state.current]} mode="inline">
                         <SubMenu key="create" title={< span > <Icon type="mail"/> < span > 新词操作 < /span></span >}>
                             <Menu.Item key="1">创建新词</Menu.Item>
