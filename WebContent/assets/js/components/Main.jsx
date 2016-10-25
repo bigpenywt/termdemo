@@ -10,6 +10,8 @@ import PublishTerm from './PublishTerm.jsx';
 import SafeguardHouse from './SafeguardHouse.jsx';
 import ReeditRejected from './ReeditRejected.jsx';
 
+import '../../../public/css/page/app/main.css'
+
 export default class Main extends React.Component {
     constructor(props) {
         super(props)
@@ -29,3 +31,7 @@ export default class Main extends React.Component {
         )
     }
 }
+
+Main.propTypes = {
+    userRole: React.PropTypes.string.isRequired
+};
