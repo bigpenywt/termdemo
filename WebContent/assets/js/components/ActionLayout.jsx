@@ -14,6 +14,7 @@ export default class ActionLayout extends React.Component {
     }
     handleClick(e) {
         this.setState({current: e.key});
+        this.context.router.push(e.key);
     }
     render() {
 
@@ -23,25 +24,25 @@ export default class ActionLayout extends React.Component {
                     <Menu theme={'dark'} onClick={this.handleClick} style={{
                         width: 220
                     }} selectedKeys={[this.state.current]} mode="inline">
-                        <SubMenu key="create" title={< span > <Icon type="mail"/> < span > 新词操作 < /span></span >}>
-                            <Menu.Item key="1">创建新词</Menu.Item>
-                            <Menu.Item key="2">待校验的单词（我添加的）</Menu.Item>
-                            <Menu.Item key="3">被驳回的单词</Menu.Item>
+                        <SubMenu key="newWorld" title={< span > <Icon type="mail"/> < span > 新词操作 < /span></span >}>
+                            <Menu.Item key="creat">创建新词</Menu.Item>
+                            <Menu.Item key="toBeReviewByMe">待校验的单词（我添加的）</Menu.Item>
+                            <Menu.Item key="beReject">被驳回的单词</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub2" title={< span > <Icon type="appstore"/> < span > 校验操作 < /span></span >}>
-                            <Menu.Item key="5">待校验的单词（所有的）</Menu.Item>
-                            <Menu.Item key="6">已驳回的单词</Menu.Item>
+                        <SubMenu key="calibrate" title={< span > <Icon type="appstore"/> < span > 校验操作 < /span></span >}>
+                            <Menu.Item key="toBeReviewByAll">待校验的单词（所有的）</Menu.Item>
+                            <Menu.Item key="hasRejectedWhenCalibrate">已驳回的单词</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub4" title={< span > <Icon type="setting"/> < span > 单词发布 < /span></span >}>
-                            <Menu.Item key="9">待发布的单词</Menu.Item>
-                            <Menu.Item key="10">已驳回的单词</Menu.Item>
+                        <SubMenu key="publish" title={< span > <Icon type="setting"/> < span > 单词发布 < /span></span >}>
+                            <Menu.Item key="toBePublish">待发布的单词</Menu.Item>
+                            <Menu.Item key="hasRejectedWhenPublish">已驳回的单词</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub5" title={< span > <Icon type="setting"/> < span > 词库维护 < /span></span >}>
-                            <Menu.Item key="11">已发布的单词</Menu.Item>
+                        <SubMenu key="storage" title={< span > <Icon type="setting"/> < span > 词库维护 < /span></span >}>
+                            <Menu.Item key="hasPublished">已发布的单词</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub6" title={< span > <Icon type="setting"/> < span > 系统管理 < /span></span >}>
-                            <Menu.Item key="12">用户管理</Menu.Item>
-                            <Menu.Item key="13">查看日志</Menu.Item>
+                        <SubMenu key="manage" title={< span > <Icon type="setting"/> < span > 系统管理 < /span></span >}>
+                            <Menu.Item key="user">用户管理</Menu.Item>
+                            <Menu.Item key="log">查看日志</Menu.Item>
                         </SubMenu>
                     </Menu>
                 </div>
@@ -51,4 +52,7 @@ export default class ActionLayout extends React.Component {
             </div>
         )
     }
+}
+ActionLayout.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }

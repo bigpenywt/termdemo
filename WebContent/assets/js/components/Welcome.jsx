@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default class PublishTerm extends React.Component {
+export default class Welcome extends React.Component {
     constructor(props) {
         super(props)
     }
     render() {
         return (
             <div>
-                发布
+                欢迎回来，狗儿子
             </div>
         )
     }

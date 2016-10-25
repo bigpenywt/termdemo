@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default class ReeditRejected extends React.Component {
+export default class ToBePublishTerm extends React.Component {
     constructor(props) {
         super(props)
     }
     render() {
         return (
             <div>
-                编辑被驳回单词
+                代发布
             </div>
         )
     }
