@@ -24,7 +24,6 @@ export default class CreatTerm extends React.Component {
                 pronunciation: '',
                 example: '',
                 source: '',
-                // status: 0,
                 translation: '',
                 basis: ''
             }
@@ -54,7 +53,21 @@ export default class CreatTerm extends React.Component {
         request.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
-                ? message.success('添加成功～（可以在「校验操作」－>「待校验的单词」中查看单词）', 3)
+                ? (() => {
+                    message.success('添加成功～（可以在「校验操作」－>「待校验的单词」中查看单词）', 3);
+                    let emptyRecord = {
+                        term: '',
+                        term_char: '',
+                        definition: '',
+                        origin: '',
+                        pronunciation: '',
+                        example: '',
+                        source: '',
+                        translation: '',
+                        basis: ''
+                    }
+                    this.setState({record: emptyRecord});
+                })()
                 : message.error(data.msg, 3);
         });
     }
