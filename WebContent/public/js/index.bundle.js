@@ -34445,7 +34445,7 @@
 
 
 	// module
-	exports.push([module.id, ".header{background-color:#333;height:60px;line-height:60px;padding:0 30px}.header .title{display:inline-block;color:#ffffff}.action-list{height:100%;background-color:#333;display:inline-block;position:relative;float:left}.children-block{display:inline-block;height:100%;position:relative;float:left;margin:20px}\n", ""]);
+	exports.push([module.id, ".header{background-color:#333;height:60px;line-height:60px;padding:0 30px}.header .title{display:inline-block;color:#ffffff}.action-list{height:100%;background-color:#333;display:inline-block;position:relative;float:left}.children-block{display:inline-block;height:100%;position:relative;float:left;margin:20px;width:-moz-calc(100% - 260px);width:-webkit-calc(100% - 260px);width:calc(100% - 260px)}\n", ""]);
 
 	// exports
 
@@ -34478,19 +34478,25 @@
 
 	var _input2 = _interopRequireDefault(_input);
 
-	var _css4 = __webpack_require__(397);
+	var _css4 = __webpack_require__(471);
+
+	var _message = __webpack_require__(474);
+
+	var _message2 = _interopRequireDefault(_message);
+
+	var _css5 = __webpack_require__(397);
 
 	var _row = __webpack_require__(400);
 
 	var _row2 = _interopRequireDefault(_row);
 
-	var _css5 = __webpack_require__(404);
+	var _css6 = __webpack_require__(404);
 
 	var _col = __webpack_require__(405);
 
 	var _col2 = _interopRequireDefault(_col);
 
-	var _css6 = __webpack_require__(406);
+	var _css7 = __webpack_require__(406);
 
 	var _form = __webpack_require__(410);
 
@@ -34530,11 +34536,12 @@
 	                term_char: '',
 	                definition: '',
 	                origin: '',
-	                pronounciation: '',
+	                pronunciation: '',
 	                example: '',
 	                source: '',
 	                // status: 0,
-	                translation: ''
+	                translation: '',
+	                basis: ''
 	            }
 	        }, _this.typeForm = _this.typeForm.bind(_this);
 	        _this.creatTerm = _this.creatTerm.bind(_this);
@@ -34580,8 +34587,9 @@
 	        key: 'creatTerm',
 	        value: function creatTerm(e) {
 	            e.preventDefault();
-	            _superagent2.default.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end(function (result) {
-	                console.log(result);
+	            _superagent2.default.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end(function (err, res) {
+	                var data = JSON.parse(res.text);
+	                data.status === 1 ? _message2.default.success(data.msg, 3) : _message2.default.error(data.msg, 3);
 	            });
 	        }
 	    }, {
@@ -34646,12 +34654,12 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    FormItem,
-	                                    { label: 'pronounciation', labelCol: {
+	                                    { label: 'pronunciation', labelCol: {
 	                                            span: 10
 	                                        }, wrapperCol: {
 	                                            span: 14
 	                                        } },
-	                                    _react2.default.createElement(_input2.default, { name: 'pronounciation', value: this.state.record.pronounciation, onChange: this.typeForm })
+	                                    _react2.default.createElement(_input2.default, { name: 'pronunciation', value: this.state.record.pronunciation, onChange: this.typeForm })
 	                                ),
 	                                _react2.default.createElement(
 	                                    FormItem,
@@ -34683,6 +34691,15 @@
 	                                            span: 14
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { type: 'textarea', name: 'translation', value: this.state.record.translation, onChange: this.typeForm })
+	                                ),
+	                                _react2.default.createElement(
+	                                    FormItem,
+	                                    { label: 'basis', labelCol: {
+	                                            span: 10
+	                                        }, wrapperCol: {
+	                                            span: 14
+	                                        } },
+	                                    _react2.default.createElement(_input2.default, { type: 'textarea', name: 'basis', value: this.state.record.basis, onChange: this.typeForm })
 	                                ),
 	                                _react2.default.createElement(
 	                                    FormItem,
@@ -40096,7 +40113,7 @@
 
 
 	// module
-	exports.push([module.id, "#index{height:100%;width:100%}#index>div{height:100%;width:100%;background-color:#ececec}\n", ""]);
+	exports.push([module.id, "/*! normalize.css v2.1.0 | MIT License | git.io/normalize */article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}a:focus{outline:thin dotted}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace, serif;font-size:1em}pre{white-space:pre-wrap}q{quotes:\"\\201C\" \"\\201D\" \"\\2018\" \"\\2019\"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em}legend{border:0;padding:0}button,input,select,textarea{-webkit-appearance:none;border:none;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:none}button,html input[type=\"button\"],input[type=\"reset\"],input[type=\"submit\"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type=\"checkbox\"],input[type=\"radio\"]{box-sizing:border-box;padding:0}input[type=\"search\"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=\"search\"]::-webkit-search-cancel-button,input[type=\"search\"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{vertical-align:top}table{border-collapse:collapse;border-spacing:0}*{-webkit-tap-highlight-color:rgba(255,255,255,0) !important;-webkit-focus-ring-color:rgba(255,255,255,0) !important;outline:none !important}html{width:100%;height:100%;-webkit-tap-highlight-color:transparent}body{margin:0;padding:0;width:100%;height:100%;word-wrap:break-word}body a{text-decoration:none}body a:active,body a:hover,body a:link,body a:visited{outline:0}body a:visited{color:inherit}body h1,body h2,body h3,body h4,body h5,body h6{color:#111;font-weight:normal}body h1,body h2{font-size:18px;margin:0}body h3,body h4{font-size:14px;margin:0}body h5,body h6{font-size:12px;margin:0}img{vertical-align:middle;border:0}p,ul,ol,dl,dd,textarea{margin:0}ul,ol{padding-left:0;list-style:none}textarea{-webkit-appearance:none}#index{height:100%;width:100%}#index>div{height:100%;width:100%;background-color:#ececec}\n", ""]);
 
 	// exports
 
@@ -42009,6 +42026,462 @@
 
 	module.exports = request;
 
+
+/***/ },
+/* 471 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(239);
+
+	__webpack_require__(472);
+
+/***/ },
+/* 472 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(473);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(242)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../css-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../../css-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 473 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(241)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".ant-message {\n  font-size: 12px;\n  position: fixed;\n  z-index: 1010;\n  width: 100%;\n  top: 16px;\n  left: 0;\n}\n.ant-message-notice {\n  width: auto;\n  vertical-align: middle;\n  position: absolute;\n  left: 50%;\n}\n.ant-message-notice-content {\n  position: relative;\n  right: 50%;\n  padding: 8px 16px;\n  border-radius: 6px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n  background: #fff;\n  display: block;\n}\n.ant-message-success .anticon {\n  color: #87d068;\n}\n.ant-message-error .anticon {\n  color: #f50;\n}\n.ant-message-warning .anticon {\n  color: #fa0;\n}\n.ant-message-info .anticon,\n.ant-message-loading .anticon {\n  color: #2db7f5;\n}\n.ant-message .anticon {\n  margin-right: 8px;\n  font-size: 14px;\n  top: 1px;\n  position: relative;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 474 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _rcNotification = __webpack_require__(475);
+
+	var _rcNotification2 = _interopRequireDefault(_rcNotification);
+
+	var _icon = __webpack_require__(245);
+
+	var _icon2 = _interopRequireDefault(_icon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var defaultDuration = 1.5;
+	var defaultTop = void 0;
+	var messageInstance = void 0;
+	var key = 1;
+	var prefixCls = 'ant-message';
+	function getMessageInstance() {
+	    messageInstance = messageInstance || _rcNotification2["default"].newInstance({
+	        prefixCls: prefixCls,
+	        transitionName: 'move-up',
+	        style: { top: defaultTop }
+	    });
+	    return messageInstance;
+	}
+	function notice(content) {
+	    var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultDuration;
+	    var type = arguments[2];
+	    var onClose = arguments[3];
+
+	    var iconType = {
+	        info: 'info-circle',
+	        success: 'check-circle',
+	        error: 'cross-circle',
+	        warning: 'exclamation-circle',
+	        loading: 'loading'
+	    }[type];
+	    var instance = getMessageInstance();
+	    instance.notice({
+	        key: key,
+	        duration: duration,
+	        style: {},
+	        content: _react2["default"].createElement(
+	            'div',
+	            { className: prefixCls + '-custom-content ' + prefixCls + '-' + type },
+	            _react2["default"].createElement(_icon2["default"], { type: iconType }),
+	            _react2["default"].createElement(
+	                'span',
+	                null,
+	                content
+	            )
+	        ),
+	        onClose: onClose
+	    });
+	    return function () {
+	        var target = key++;
+	        return function () {
+	            instance.removeNotice(target);
+	        };
+	    }();
+	}
+	exports["default"] = {
+	    info: function info(content, duration, onClose) {
+	        return notice(content, duration, 'info', onClose);
+	    },
+	    success: function success(content, duration, onClose) {
+	        return notice(content, duration, 'success', onClose);
+	    },
+	    error: function error(content, duration, onClose) {
+	        return notice(content, duration, 'error', onClose);
+	    },
+
+	    // Departed usage, please use warning()
+	    warn: function warn(content, duration, onClose) {
+	        return notice(content, duration, 'warning', onClose);
+	    },
+	    warning: function warning(content, duration, onClose) {
+	        return notice(content, duration, 'warning', onClose);
+	    },
+	    loading: function loading(content, duration, onClose) {
+	        return notice(content, duration, 'loading', onClose);
+	    },
+	    config: function config(options) {
+	        if ('top' in options) {
+	            defaultTop = options.top;
+	        }
+	        if ('duration' in options) {
+	            defaultDuration = options.duration;
+	        }
+	        if ('prefixCls' in options) {
+	            prefixCls = options.prefixCls;
+	        }
+	    },
+	    destroy: function destroy() {
+	        if (messageInstance) {
+	            messageInstance.destroy();
+	            messageInstance = null;
+	        }
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 475 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _Notification = __webpack_require__(476);
+
+	var _Notification2 = _interopRequireDefault(_Notification);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	exports["default"] = _Notification2["default"];
+	module.exports = exports['default'];
+
+/***/ },
+/* 476 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _rcAnimate = __webpack_require__(352);
+
+	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
+
+	var _createChainedFunction = __webpack_require__(477);
+
+	var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
+
+	var _classnames = __webpack_require__(288);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _Notice = __webpack_require__(478);
+
+	var _Notice2 = _interopRequireDefault(_Notice);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var seed = 0;
+	var now = Date.now();
+
+	function getUuid() {
+	  return 'rcNotification_' + now + '_' + seed++;
+	}
+
+	var Notification = _react2["default"].createClass({
+	  displayName: 'Notification',
+
+	  propTypes: {
+	    prefixCls: _react.PropTypes.string,
+	    transitionName: _react.PropTypes.string,
+	    animation: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.object]),
+	    style: _react.PropTypes.object
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      prefixCls: 'rc-notification',
+	      animation: 'fade',
+	      style: {
+	        top: 65,
+	        left: '50%'
+	      }
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      notices: []
+	    };
+	  },
+	  getTransitionName: function getTransitionName() {
+	    var props = this.props;
+	    var transitionName = props.transitionName;
+	    if (!transitionName && props.animation) {
+	      transitionName = props.prefixCls + '-' + props.animation;
+	    }
+	    return transitionName;
+	  },
+	  add: function add(notice) {
+	    var key = notice.key = notice.key || getUuid();
+	    this.setState(function (previousState) {
+	      var notices = previousState.notices;
+	      if (!notices.filter(function (v) {
+	        return v.key === key;
+	      }).length) {
+	        return {
+	          notices: notices.concat(notice)
+	        };
+	      }
+	    });
+	  },
+	  remove: function remove(key) {
+	    this.setState(function (previousState) {
+	      return {
+	        notices: previousState.notices.filter(function (notice) {
+	          return notice.key !== key;
+	        })
+	      };
+	    });
+	  },
+	  render: function render() {
+	    var _this = this,
+	        _className;
+
+	    var props = this.props;
+	    var noticeNodes = this.state.notices.map(function (notice) {
+	      var onClose = (0, _createChainedFunction2["default"])(_this.remove.bind(_this, notice.key), notice.onClose);
+	      return _react2["default"].createElement(
+	        _Notice2["default"],
+	        _extends({
+	          prefixCls: props.prefixCls
+	        }, notice, {
+	          onClose: onClose
+	        }),
+	        notice.content
+	      );
+	    });
+	    var className = (_className = {}, _defineProperty(_className, props.prefixCls, 1), _defineProperty(_className, props.className, !!props.className), _className);
+	    return _react2["default"].createElement(
+	      'div',
+	      { className: (0, _classnames2["default"])(className), style: props.style },
+	      _react2["default"].createElement(
+	        _rcAnimate2["default"],
+	        { transitionName: this.getTransitionName() },
+	        noticeNodes
+	      )
+	    );
+	  }
+	});
+
+	Notification.newInstance = function newNotificationInstance(properties) {
+	  var props = properties || {};
+	  var div = document.createElement('div');
+	  document.body.appendChild(div);
+	  var notification = _reactDom2["default"].render(_react2["default"].createElement(Notification, props), div);
+	  return {
+	    notice: function notice(noticeProps) {
+	      notification.add(noticeProps);
+	    },
+	    removeNotice: function removeNotice(key) {
+	      notification.remove(key);
+	    },
+
+	    component: notification,
+	    destroy: function destroy() {
+	      _reactDom2["default"].unmountComponentAtNode(div);
+	      document.body.removeChild(div);
+	    }
+	  };
+	};
+
+	exports["default"] = Notification;
+	module.exports = exports['default'];
+
+/***/ },
+/* 477 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	/**
+	 * Safe chained function
+	 *
+	 * Will only create a new function if needed,
+	 * otherwise will pass back existing functions or null.
+	 *
+	 * @returns {function|null}
+	 */
+	function createChainedFunction() {
+	  var args = arguments;
+	  return function chainedFunction() {
+	    for (var i = 0; i < args.length; i++) {
+	      if (args[i] && args[i].apply) {
+	        args[i].apply(this, arguments);
+	      }
+	    }
+	  };
+	}
+
+	module.exports = createChainedFunction;
+
+/***/ },
+/* 478 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(288);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var Notice = _react2["default"].createClass({
+	  displayName: 'Notice',
+
+	  propTypes: {
+	    duration: _react.PropTypes.number,
+	    onClose: _react.PropTypes.func,
+	    children: _react.PropTypes.any
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      onEnd: function onEnd() {},
+	      onClose: function onClose() {},
+
+	      duration: 1.5,
+	      style: {
+	        right: '50%'
+	      }
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+
+	    if (this.props.duration) {
+	      this.closeTimer = setTimeout(function () {
+	        _this.close();
+	      }, this.props.duration * 1000);
+	    }
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.clearCloseTimer();
+	  },
+	  clearCloseTimer: function clearCloseTimer() {
+	    if (this.closeTimer) {
+	      clearTimeout(this.closeTimer);
+	      this.closeTimer = null;
+	    }
+	  },
+	  close: function close() {
+	    this.clearCloseTimer();
+	    this.props.onClose();
+	  },
+	  render: function render() {
+	    var _className;
+
+	    var props = this.props;
+	    var componentClass = props.prefixCls + '-notice';
+	    var className = (_className = {}, _defineProperty(_className, '' + componentClass, 1), _defineProperty(_className, componentClass + '-closable', props.closable), _defineProperty(_className, props.className, !!props.className), _className);
+	    return _react2["default"].createElement(
+	      'div',
+	      { className: (0, _classnames2["default"])(className), style: props.style },
+	      _react2["default"].createElement(
+	        'div',
+	        { className: componentClass + '-content' },
+	        props.children
+	      ),
+	      props.closable ? _react2["default"].createElement(
+	        'a',
+	        { tabIndex: '0', onClick: this.close, className: componentClass + '-close' },
+	        _react2["default"].createElement('span', { className: componentClass + '-close-x' })
+	      ) : null
+	    );
+	  }
+	});
+
+	exports["default"] = Notice;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

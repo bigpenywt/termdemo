@@ -7,7 +7,8 @@ import {
     Row,
     Col,
     Button,
-    Table
+    Table,
+    message
 } from 'antd';
 const FormItem = Form.Item;
 
@@ -20,11 +21,12 @@ export default class CreatTerm extends React.Component {
                 term_char: '',
                 definition: '',
                 origin: '',
-                pronounciation: '',
+                pronunciation: '',
                 example: '',
                 source: '',
                 // status: 0,
-                translation: ''
+                translation: '',
+                basis: ''
             }
         },
         this.typeForm = this.typeForm.bind(this);
@@ -49,8 +51,11 @@ export default class CreatTerm extends React.Component {
     }
     creatTerm(e) {
         e.preventDefault();
-        request.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end((result) => {
-            console.log(result);
+        request.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end((err, res) => {
+            let data = JSON.parse(res.text);
+            data.status === 1
+                ? message.success(data.msg, 3)
+                : message.error(data.msg, 3);
         });
     }
     render() {
@@ -92,12 +97,12 @@ export default class CreatTerm extends React.Component {
                                 }}>
                                     <Input name="origin" value={this.state.record.origin} onChange={this.typeForm}/>
                                 </FormItem>
-                                <FormItem label="pronounciation" labelCol={{
+                                <FormItem label="pronunciation" labelCol={{
                                     span: 10
                                 }} wrapperCol={{
                                     span: 14
                                 }}>
-                                    <Input name="pronounciation" value={this.state.record.pronounciation} onChange={this.typeForm}/>
+                                    <Input name="pronunciation" value={this.state.record.pronunciation} onChange={this.typeForm}/>
                                 </FormItem>
                                 <FormItem label="example" labelCol={{
                                     span: 10
@@ -128,6 +133,13 @@ export default class CreatTerm extends React.Component {
                                     span: 14
                                 }}>
                                     <Input type="textarea" name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
+                                </FormItem>
+                                <FormItem label="basis" labelCol={{
+                                    span: 10
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Input type="textarea" name="basis" value={this.state.record.basis} onChange={this.typeForm}/>
                                 </FormItem>
                                 <FormItem wrapperCol={{
                                     span: 16,

@@ -1,3 +1,5 @@
+@import "../../common/functions.scss";
+
 .header {
     background-color: #333;
     height: 60px;
@@ -24,4 +26,5 @@
     position: relative;
     float: left;
     margin: 20px;
+    @include calc( 'width', '100% - 260px');
 }
