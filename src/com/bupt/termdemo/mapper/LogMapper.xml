@@ -10,4 +10,9 @@
 	    <result column="oper_term" property="oper_term" jdbcType="VARCHAR" />
 	</resultMap>
 	
+	<insert id="WriteLog" parameterType="com.bupt.termdemo.model.Log">
+		insert into log(log_time, oper_user, operation, oper_term) 
+		values(#{log_time}, #{oper_user}, #{operation}, #{oper_term})
+	</insert>
+	
 </mapper>

@@ -24,7 +24,7 @@ export default class Main extends React.Component {
     render() {
         return (
             <Router history={history}>
-                <Route path="/" component={ActionLayout}>
+                <Route path="/" userName={this.props.userName} component={ActionLayout}>
                     <IndexRoute component={Welcome}/>
                     <Route path="/creat" component={CreatTerm}/>
                     <Route path="/toBeReviewByMe" author="me" component={ToBeReviewTerm}/>

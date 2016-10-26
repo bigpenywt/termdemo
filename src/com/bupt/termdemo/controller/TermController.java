@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bupt.termdemo.dao.ILogDao;
+import com.bupt.termdemo.model.Log;
 import com.bupt.termdemo.model.Term;
+import com.bupt.termdemo.service.ILogService;
 import com.bupt.termdemo.service.ITermService;
 
 @Controller
@@ -24,6 +27,9 @@ public class TermController {
 
 	@Autowired
 	private ITermService termService;
+	
+	@Autowired
+	private ILogService logService;
 	
 	@RequestMapping("/GetCreateTerm")
 	@ResponseBody
@@ -57,17 +63,21 @@ public class TermController {
 	@RequestMapping("/SaveTerm")
 	@ResponseBody
 	public Map<String, Object> SaveTerm(HttpServletRequest request, Term term){
+		Log log = new Log();
 		Map<String, Object> resultmap = new HashMap<>();
-		term.setCreator(request.getSession().getAttribute("username")+"");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		
+		term.setCreator(request.getSession().getAttribute("username")+"");
 		term.setCreate_time(df.format(new Date()));// new Date()为获取当前系统时间
 		term.setStatus("0");
+		
 		int ifexist = 0;
 		try {
 			ifexist = termService.FindTerm(term);
 			if(ifexist == 0){
 				termService.SaveTerm(term);
 				resultmap.put("status", "1");
+				logService.WriteLog(request.getSession().getAttribute("username")+"", "创建", term.getTerm());
 			}
 			else{
 				resultmap.put("status", "0");
@@ -75,7 +85,7 @@ public class TermController {
 			}
 		} catch (Exception e) {
 			resultmap.put("status", "0");
-			resultmap.put("msg", e.getMessage());
+			resultmap.put("msg", "系统异常，请重新创建！"+ e.getMessage());
 		} finally {
 			return resultmap;
 		}

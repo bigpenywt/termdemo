@@ -14,6 +14,7 @@ response.setDateHeader("Expires", 0);
 <body>
   <div id="index"></div>
   <input type="hidden" id="userrole" value="${userrole}"/>
+  <input type="hidden" id="username" value="${username}"/>
 	<script src="<%=request.getContextPath()%>/public/js/index.bundle.js"></script>
 </body>
 </html>
