@@ -33,12 +33,16 @@ public class TermController {
 		int rows = Integer.valueOf(params.get("rows"));
 		String username = (String) request.getSession().getAttribute("username");
 		
+		Term term = new Term();
+		term.setCreator(username);
+		term.setStatus(status);
+		
 		Map<String, Object> resultmap = new HashMap<>();
 		List<Term> terms = new ArrayList<>();
 		int total = 0;
 		try {
-			terms = termService.GetCreateTerm(username, status, page, rows);
-			total = termService.GetCreateTermCount(username, status);
+			terms = termService.GetCreateTerm(term, page, rows);
+			total = termService.GetCreateTermCount(term);
 			resultmap.put("status", "1");
 			resultmap.put("records", terms);
 			resultmap.put("total", total);
@@ -53,11 +57,13 @@ public class TermController {
 	@RequestMapping("/SaveTerm")
 	@ResponseBody
 	public Map<String, Object> SaveTerm(HttpServletRequest request, Term term){
+		System.out.println(term);
 		Map<String, Object> resultmap = new HashMap<>();
 		term.setCreator(request.getSession().getAttribute("username")+"");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		term.setCreate_time(df.format(new Date()));// new Date()为获取当前系统时间
 		term.setStatus("0");
+		System.out.println(term);
 		int ifexist = 0;
 		try {
 			ifexist = termService.FindTerm(term);

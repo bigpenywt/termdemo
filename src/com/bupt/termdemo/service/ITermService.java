@@ -6,9 +6,9 @@ import com.bupt.termdemo.model.Term;
 
 public interface ITermService {
 
-	public List<Term> GetCreateTerm(String username, String status, int page, int rows) throws Exception;
+	public List<Term> GetCreateTerm(Term term, int page, int rows) throws Exception;
 	
-	public int GetCreateTermCount(String username, String status) throws Exception;
+	public int GetCreateTermCount(Term term) throws Exception;
 	
 	public void SaveTerm(Term term) throws Exception;
 	

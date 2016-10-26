@@ -25,11 +25,11 @@
 	</resultMap>
 	
 	<select id="GetCreateTerm" resultMap="TermResultMap">
-		select * from term where creator=#{username} and status=#{status}
+		select * from term where creator=#{creator} and status=#{status}
 	</select>
 	
 	<select id="GetCreateTermCount" resultType="Integer">
-		select count(*) from term where creator=#{username} and status=#{status}
+		select count(*) from term where creator=#{creator} and status=#{status}
 	</select>
 	
 	<insert id="SaveTerm" parameterType="com.bupt.termdemo.model.Term">

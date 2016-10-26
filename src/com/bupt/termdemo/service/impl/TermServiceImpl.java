@@ -16,15 +16,15 @@ public class TermServiceImpl implements ITermService {
 	private ITermDao termDao;
 
 	@Override
-	public List<Term> GetCreateTerm(String username, String status, int page, int rows) throws Exception {
+	public List<Term> GetCreateTerm(Term term, int page, int rows) throws Exception {
 		// TODO Auto-generated method stub
-		return termDao.GetCreateTerm(username, status, page, rows);
+		return termDao.GetCreateTerm(term, page, rows);
 	}
 
 	@Override
-	public int GetCreateTermCount(String username, String status) throws Exception {
+	public int GetCreateTermCount(Term term) throws Exception {
 		// TODO Auto-generated method stub
-		return termDao.GetCreateTermCount(username, status);
+		return termDao.GetCreateTermCount(term);
 	}
 
 	@Override

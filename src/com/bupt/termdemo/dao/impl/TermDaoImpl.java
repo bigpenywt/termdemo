@@ -21,15 +21,13 @@ public class TermDaoImpl implements ITermDao {
 	private SqlSessionFactory sessionFactory;
 	
 	@Override
-	public List<Term> GetCreateTerm(String username, String status, int page, int rows) throws Exception {
+	public List<Term> GetCreateTerm(Term term, int page, int rows) throws Exception {
 		SqlSession session = sessionFactory.openSession();
 		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
-		Map<String, String> params = new HashMap<>();
-		params.put("status", status);
-		params.put("username", username);
+
 		List<Term> terms = new ArrayList<>();
 		try {
-			terms = session.selectList("termModule.GetCreateTerm", params,rowBounds);
+			terms = session.selectList("termModule.GetCreateTerm", term,rowBounds);
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -39,14 +37,12 @@ public class TermDaoImpl implements ITermDao {
 	}
 
 	@Override
-	public int GetCreateTermCount(String username, String status) throws Exception {
+	public int GetCreateTermCount(Term term) throws Exception {
 		SqlSession session = sessionFactory.openSession();
 		Map<String, String> params = new HashMap<>();
-		params.put("status", status);
-		params.put("username", username);
 		int result = 0;
 		try {
-			result = session.selectOne("termModule.GetCreateTermCount", params);
+			result = session.selectOne("termModule.GetCreateTermCount", term);
 		} catch (Exception e) {
 			throw e;
 		} finally {
