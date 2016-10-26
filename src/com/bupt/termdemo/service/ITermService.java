@@ -11,4 +11,6 @@ public interface ITermService {
 	public int GetCreateTermCount(String username, String status) throws Exception;
 	
 	public void SaveTerm(Term term) throws Exception;
+	
+	public int FindTerm(Term term) throws Exception;
 }

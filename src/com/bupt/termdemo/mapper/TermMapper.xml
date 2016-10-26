@@ -39,4 +39,8 @@
 		#{basis}, #{status}, #{creator}, #{create_time})
 	</insert>
 	
+	<select id="FindTerm" resultType="Integer">
+		select count(*) from term where term = #{term}
+	</select>
+	
 </mapper>

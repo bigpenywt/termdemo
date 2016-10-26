@@ -58,9 +58,16 @@ public class TermController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		term.setCreate_time(df.format(new Date()));// new Date()为获取当前系统时间
 		term.setStatus("0");
+		int ifexist = 0;
 		try {
-			termService.SaveTerm(term);
-			resultmap.put("status", "1");
+			ifexist = termService.FindTerm(term);
+			if(ifexist == 0){
+				termService.SaveTerm(term);
+				resultmap.put("status", "1");
+			}
+			else{
+				resultmap.put("status", "-1");
+			}
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			resultmap.put("msg", e.getMessage());

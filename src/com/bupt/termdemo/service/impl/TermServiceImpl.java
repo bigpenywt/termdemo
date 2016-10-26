@@ -31,4 +31,10 @@ public class TermServiceImpl implements ITermService {
 	public void SaveTerm(Term term) throws Exception {
 		termDao.SaveTerm(term);
 	}
+
+	@Override
+	public int FindTerm(Term term) throws Exception {
+		// TODO Auto-generated method stub
+		return termDao.FindTerm(term);
+	}
 }
