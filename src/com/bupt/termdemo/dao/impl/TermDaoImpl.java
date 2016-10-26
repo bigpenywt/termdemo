@@ -1,9 +1,7 @@
 package com.bupt.termdemo.dao.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -39,7 +37,6 @@ public class TermDaoImpl implements ITermDao {
 	@Override
 	public int GetCreateTermCount(Term term) throws Exception {
 		SqlSession session = sessionFactory.openSession();
-		Map<String, String> params = new HashMap<>();
 		int result = 0;
 		try {
 			result = session.selectOne("termModule.GetCreateTermCount", term);
