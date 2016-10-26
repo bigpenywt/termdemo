@@ -85,7 +85,7 @@ public class TermController {
 			}
 		} catch (Exception e) {
 			resultmap.put("status", "0");
-			resultmap.put("msg", e.getMessage());
+			resultmap.put("msg", "系统异常，请重新创建！"+ e.getMessage());
 		} finally {
 			return resultmap;
 		}
