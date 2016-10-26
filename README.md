@@ -10,9 +10,15 @@
 ###开发环境与编译
 
 - 在assets中进行开发，之后将代码编译、打包、压缩到public
+
 - 样式文件使用scss进行预编译，编译压缩至public/css
   1. $ cd termdemo/webcontent/assets
   2. $ sass --watch sass:../public/css --style compressed  --sourcemap=none
+
+  - webpack打包的js文件至public
+    1. $ cd termdemo/webcontent
+    2. $webpack --watch（每次保存后要手动刷新exlipse才能生效）
+
 - 对于没有使用webpack打包的js文件，使用gulp压缩至public
   1. $ cd termdemo/webcontent
   2. $gulp jsmin
