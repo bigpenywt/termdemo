@@ -15,7 +15,7 @@
   1. $ cd termdemo/webcontent/assets
   2. $ sass --watch sass:../public/css --style compressed  --sourcemap=none
 
-  - webpack打包的js文件至public
+- webpack打包的js文件至public
     1. $ cd termdemo/webcontent
     2. $webpack --watch（每次保存后要手动刷新exlipse才能生效）
 
