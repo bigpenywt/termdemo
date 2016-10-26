@@ -74,7 +74,7 @@ export default class CreatTerm extends React.Component {
     render() {
         return (
             <div>
-                <Card title="填写属性" style={{
+                <Card title="填写新词属性" style={{
                     width: '100%'
                 }}>
                     <Form horizontal onSubmit={this.creatTerm}>

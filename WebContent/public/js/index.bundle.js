@@ -34617,7 +34617,7 @@
 	                null,
 	                _react2.default.createElement(
 	                    _card2.default,
-	                    { title: '\u586B\u5199\u5C5E\u6027', style: {
+	                    { title: '\u586B\u5199\u65B0\u8BCD\u5C5E\u6027', style: {
 	                            width: '100%'
 	                        } },
 	                    _react2.default.createElement(
