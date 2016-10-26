@@ -53,8 +53,8 @@ export default class CreatTerm extends React.Component {
         e.preventDefault();
         request.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end((err, res) => {
             let data = JSON.parse(res.text);
-            data.status === 1
-                ? message.success(data.msg, 3)
+            data.status === '1'
+                ? message.success('添加成功～（可以在「校验操作」－>「待校验的单词」中查看单词）', 3)
                 : message.error(data.msg, 3);
         });
     }

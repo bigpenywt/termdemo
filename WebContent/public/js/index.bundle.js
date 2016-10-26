@@ -27309,7 +27309,7 @@
 	                                    'span',
 	                                    null,
 	                                    ' ',
-	                                    _react2.default.createElement(_icon2.default, { type: 'mail' }),
+	                                    _react2.default.createElement(_icon2.default, { type: 'plus-square-o' }),
 	                                    ' ',
 	                                    _react2.default.createElement(
 	                                        'span',
@@ -27339,8 +27339,7 @@
 	                                    'span',
 	                                    null,
 	                                    ' ',
-	                                    _react2.default.createElement(_icon2.default, { type: 'appstore' }),
-	                                    ' ',
+	                                    _react2.default.createElement(_icon2.default, { type: 'edit' }),
 	                                    _react2.default.createElement(
 	                                        'span',
 	                                        null,
@@ -27364,7 +27363,7 @@
 	                                    'span',
 	                                    null,
 	                                    ' ',
-	                                    _react2.default.createElement(_icon2.default, { type: 'setting' }),
+	                                    _react2.default.createElement(_icon2.default, { type: 'laptop' }),
 	                                    ' ',
 	                                    _react2.default.createElement(
 	                                        'span',
@@ -27389,7 +27388,7 @@
 	                                    'span',
 	                                    null,
 	                                    ' ',
-	                                    _react2.default.createElement(_icon2.default, { type: 'setting' }),
+	                                    _react2.default.createElement(_icon2.default, { type: 'hdd' }),
 	                                    ' ',
 	                                    _react2.default.createElement(
 	                                        'span',
@@ -34589,7 +34588,7 @@
 	            e.preventDefault();
 	            _superagent2.default.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end(function (err, res) {
 	                var data = JSON.parse(res.text);
-	                data.status === 1 ? _message2.default.success(data.msg, 3) : _message2.default.error(data.msg, 3);
+	                data.status === '1' ? _message2.default.success('添加成功～（可以在「校验操作」－>「待校验的单词」中查看单词）', 3) : _message2.default.error(data.msg, 3);
 	            });
 	        }
 	    }, {
