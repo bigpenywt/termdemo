@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'superagent';
 import {
     Card,
     Form,
@@ -22,11 +23,12 @@ export default class CreatTerm extends React.Component {
                 pronounciation: '',
                 example: '',
                 source: '',
-                status: 0,
+                // status: 0,
                 translation: ''
             }
         },
         this.typeForm = this.typeForm.bind(this);
+        this.creatTerm = this.creatTerm.bind(this);
     }
     renderRecordInfo() {
         return (
@@ -45,13 +47,19 @@ export default class CreatTerm extends React.Component {
         tempRecord[e.target.name] = e.target.value
         this.setState({record: tempRecord})
     }
+    creatTerm(e) {
+        e.preventDefault();
+        request.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end((result) => {
+            console.log(result);
+        });
+    }
     render() {
         return (
             <div>
                 <Card title="填写属性" style={{
                     width: '100%'
                 }}>
-                    <Form horizontal>
+                    <Form horizontal onSubmit={this.creatTerm}>
                         <Row>
                             <Col span={8}>
                                 <FormItem label="term" labelCol={{
@@ -107,19 +115,27 @@ export default class CreatTerm extends React.Component {
                                 }}>
                                     <Input name="source" value={this.state.record.source} onChange={this.typeForm}/>
                                 </FormItem>
-                                <FormItem label="status" labelCol={{
+                                {/* <FormItem label="status" labelCol={{
                                     span: 10
                                 }} wrapperCol={{
                                     span: 14
                                 }}>
                                     <Input name="status" value={this.state.record.status} onChange={this.typeForm}/>
-                                </FormItem>
+                                </FormItem> */}
                                 <FormItem label="translation" labelCol={{
                                     span: 10
                                 }} wrapperCol={{
                                     span: 14
                                 }}>
                                     <Input type="textarea" name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
+                                </FormItem>
+                                <FormItem wrapperCol={{
+                                    span: 16,
+                                    offset: 6
+                                }} style={{
+                                    marginTop: 24
+                                }}>
+                                    <Button type="primary" htmlType="submit">新建单词</Button>
                                 </FormItem>
                             </Col>
                         </Row>
