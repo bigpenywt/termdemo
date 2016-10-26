@@ -68,7 +68,7 @@ public class TermDaoImpl implements ITermDao {
 		SqlSession session = sessionFactory.openSession();
 		int result = 0;
 		try {
-			result = session.selectOne("termModule.GetCreateTermCount", term);
+			result = session.selectOne("termModule.FindTerm", term);
 		} catch (Exception e) {
 			throw e;
 		} finally {

@@ -12,6 +12,7 @@ public class PageController {
 	@RequestMapping("/page.do")
 	public String page(String module, String resource, Model model, HttpServletRequest request){
 		model.addAttribute("userrole", request.getSession().getAttribute("userrole"));
+		model.addAttribute("username", request.getSession().getAttribute("username"));
 		return module + "/" + resource;
 	}
 	

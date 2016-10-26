@@ -70,7 +70,8 @@ public class TermController {
 				resultmap.put("status", "1");
 			}
 			else{
-				resultmap.put("status", "-1");
+				resultmap.put("status", "0");
+				resultmap.put("msg", "单词已经存在");
 			}
 		} catch (Exception e) {
 			resultmap.put("status", "0");
