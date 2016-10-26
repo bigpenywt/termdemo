@@ -1,3 +1,15 @@
+.header {
+    background-color: #333;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 30px;
+
+    .title {
+        display: inline-block;
+        color: #ffffff;
+    }
+}
+
 .action-list {
     height: 100%;
     background-color: #333;
@@ -11,4 +23,5 @@
     height: 100%;
     position: relative;
     float: left;
+    margin: 20px;
 }

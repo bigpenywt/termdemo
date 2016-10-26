@@ -20,8 +20,8 @@ export default class ActionLayout extends React.Component {
 
         return (
             <div>
-                <div theme={'dark'} className="header">
-                    <h2>英汉医学新术语库后台管理系统</h2>
+                <div className="header">
+                    <h2 className="title">英汉医学新术语库后台管理系统</h2>
                     <span style={{
                         float: 'right'
                     }}>欢迎您，狗儿子</span>

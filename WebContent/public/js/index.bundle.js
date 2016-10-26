@@ -27281,10 +27281,10 @@
 	                null,
 	                _react2.default.createElement(
 	                    'div',
-	                    { theme: 'dark', className: 'header' },
+	                    { className: 'header' },
 	                    _react2.default.createElement(
 	                        'h2',
-	                        null,
+	                        { className: 'title' },
 	                        '\u82F1\u6C49\u533B\u5B66\u65B0\u672F\u8BED\u5E93\u540E\u53F0\u7BA1\u7406\u7CFB\u7EDF'
 	                    ),
 	                    _react2.default.createElement(
@@ -34445,7 +34445,7 @@
 
 
 	// module
-	exports.push([module.id, ".action-list{height:100%;background-color:#333;display:inline-block;position:relative;float:left}.children-block{display:inline-block;height:100%;position:relative;float:left}\n", ""]);
+	exports.push([module.id, ".header{background-color:#333;height:60px;line-height:60px;padding:0 30px}.header .title{display:inline-block;color:#ffffff}.action-list{height:100%;background-color:#333;display:inline-block;position:relative;float:left}.children-block{display:inline-block;height:100%;position:relative;float:left;margin:20px}\n", ""]);
 
 	// exports
 
