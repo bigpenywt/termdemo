@@ -57,13 +57,11 @@ public class TermController {
 	@RequestMapping("/SaveTerm")
 	@ResponseBody
 	public Map<String, Object> SaveTerm(HttpServletRequest request, Term term){
-		System.out.println(term);
 		Map<String, Object> resultmap = new HashMap<>();
 		term.setCreator(request.getSession().getAttribute("username")+"");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		term.setCreate_time(df.format(new Date()));// new Date()为获取当前系统时间
 		term.setStatus("0");
-		System.out.println(term);
 		int ifexist = 0;
 		try {
 			ifexist = termService.FindTerm(term);
