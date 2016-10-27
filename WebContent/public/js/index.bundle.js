@@ -34592,7 +34592,7 @@
 	                for (var _iterator = Object.keys(tempRecord.origin)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	                    var key = _step.value;
 
-	                    origin = origin + key + ':' + tempRecord.origin[key] + ';';
+	                    origin = origin + ',' + tempRecord.origin[key];
 	                }
 	            } catch (err) {
 	                _didIteratorError = true;
@@ -34609,7 +34609,7 @@
 	                }
 	            }
 
-	            tempRecord.origin = origin;
+	            tempRecord.origin = origin.replace(',', '');
 	            _superagent2.default.post('/termdemo/Term/SaveTerm').type('form').send(tempRecord).end(function (err, res) {
 	                var data = JSON.parse(res.text);
 	                data.status === '1' ? function () {
