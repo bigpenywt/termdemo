@@ -25,10 +25,12 @@ export default class ToBeReviewTerm extends React.Component {
             termsTotal: 0,
             pagination: {},
             record: {},
-            loading: false
+            loading: false,
+            modifyTerm: false
         }
         this.hideDetails = this.hideDetails.bind(this);
         this.fetchNewData = this.fetchNewData.bind(this);
+        this.reEditTerm = this.reEditTerm.bind(this);
     }
     componentDidMount() {
         request.get('/termdemo/Term/GetCreateTerm/').query({status: 0, page: 0, rows: 10}).end((err, res) => {
@@ -42,8 +44,8 @@ export default class ToBeReviewTerm extends React.Component {
             }
         });
     }
-    reEditTerm(index) {
-        console.log(index);
+    reEditTerm() {
+        this.setState({modifyTerm: true});
     }
     deleteTerm(index) {
         console.log(index);
@@ -110,9 +112,9 @@ export default class ToBeReviewTerm extends React.Component {
                     }}>
                         <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
                     </Card>
-                    <Modal title="单词详情" visible={this.state.showTermDetails} onCancel={this.hideDetails} footer={[< Button type = "ghost" size = "large" onClick = {
+                    <Modal title="单词详情" visible={this.state.showTermDetails} onCancel={this.hideDetails} width={'75%'} footer={[< Button type = "ghost" size = "large" onClick = {
                             this.hideDetails
-                        } > 返回 < /Button>, <Button type="primary" size="large" onClick={this.hideDetails}> 重新编辑 </Button >]}>
+                        } > 返回 < /Button>, <Button type="primary" size="large" onClick={this.reEditTerm}> 重新编辑 </Button >]}>
                         <Form horizontal disabled onSubmit={this.creatTerm}>
                             <Row>
                                 <Col span={6}>
@@ -120,8 +122,9 @@ export default class ToBeReviewTerm extends React.Component {
                                         span: 6
                                     }} wrapperCol={{
                                         span: 14
-                                    }}>
-                                        <Input name="term" value={this.state.record.term}/>
+                                    }}>{this.state.modifyTerm
+                                            ? <Input name="term" value={this.state.record.term}/>
+                                            : <Input disabled name="term" value={this.state.record.term}/>}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -132,10 +135,15 @@ export default class ToBeReviewTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 14
                                     }}>
-                                        <Select name="term_char" value={this.state.record.term_char}>
-                                            <Option value="n">名词.n</Option>
-                                            <Option value="adj">形容词.adj</Option>
-                                        </Select>
+                                        {this.state.modifyTerm
+                                            ? <Select name="term_char" value={this.state.record.term_char}>
+                                                    <Option value="n">名词.n</Option>
+                                                    <Option value="adj">形容词.adj</Option>
+                                                </Select>
+                                            : <Select disabled name="term_char" value={this.state.record.term_char}>
+                                                <Option value="n">名词.n</Option>
+                                                <Option value="adj">形容词.adj</Option>
+                                            </Select>}
                                     </FormItem>
                                 </Col>
                                 <Col span={6}>
@@ -143,8 +151,9 @@ export default class ToBeReviewTerm extends React.Component {
                                         span: 5
                                     }} wrapperCol={{
                                         span: 14
-                                    }}>
-                                        <Input name="pronunciation" value={this.state.record.pronunciation}/>
+                                    }}>{this.state.modifyTerm
+                                            ? <Input name="pronunciation" value={this.state.record.pronunciation}/>
+                                            : <Input disabled name="pronunciation" value={this.state.record.pronunciation}/>}
                                     </FormItem>
                                 </Col>
                                 <Col span={6}>
@@ -152,8 +161,9 @@ export default class ToBeReviewTerm extends React.Component {
                                         span: 6
                                     }} wrapperCol={{
                                         span: 14
-                                    }}>
-                                        <Input name="translation" value={this.state.record.translation}/>
+                                    }}>{this.state.modifyTerm
+                                            ? <Input name="translation" value={this.state.record.translation}/>
+                                            : <Input disabled name="translation" value={this.state.record.translation}/>}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -212,7 +222,9 @@ export default class ToBeReviewTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 19
                                     }}>
-                                        <Input type="textarea" name="definition" value={this.state.record.definition}/>
+                                        {this.state.modifyTerm
+                                            ? <Input type="textarea" name="definition" value={this.state.record.definition}/>
+                                            : <Input disabled type="textarea" name="definition" value={this.state.record.definition}/>}
                                     </FormItem>
                                 </Col>
                                 <Col span={12}>
@@ -220,8 +232,9 @@ export default class ToBeReviewTerm extends React.Component {
                                         span: 3
                                     }} wrapperCol={{
                                         span: 19
-                                    }}>
-                                        <Input type="textarea" name="source" value={this.state.record.source}/>
+                                    }}>{this.state.modifyTerm
+                                            ? <Input type="textarea" name="source" value={this.state.record.source}/>
+                                            : <Input disabled type="textarea" name="source" value={this.state.record.source}/>}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -231,8 +244,9 @@ export default class ToBeReviewTerm extends React.Component {
                                         span: 2
                                     }} wrapperCol={{
                                         span: 19
-                                    }}>
-                                        <Input type="textarea" name="example" value={this.state.record.example}/>
+                                    }}>{this.state.modifyTerm
+                                            ? <Input type="textarea" name="example" value={this.state.record.example}/>
+                                            : <Input disabled type="textarea" name="example" value={this.state.record.example}/>}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -242,8 +256,9 @@ export default class ToBeReviewTerm extends React.Component {
                                         span: 2
                                     }} wrapperCol={{
                                         span: 19
-                                    }}>
-                                        <Input type="textarea" name="basis" value={this.state.record.basis}/>
+                                    }}>{this.state.modifyTerm
+                                            ? <Input type="textarea" name="basis" value={this.state.record.basis}/>
+                                            : <Input disabled type="textarea" name="basis" value={this.state.record.basis}/>}
                                     </FormItem>
                                 </Col>
                             </Row>

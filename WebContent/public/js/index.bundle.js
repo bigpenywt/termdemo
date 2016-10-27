@@ -48381,10 +48381,12 @@
 	            termsTotal: 0,
 	            pagination: {},
 	            record: {},
-	            loading: false
+	            loading: false,
+	            modifyTerm: false
 	        };
 	        _this.hideDetails = _this.hideDetails.bind(_this);
 	        _this.fetchNewData = _this.fetchNewData.bind(_this);
+	        _this.reEditTerm = _this.reEditTerm.bind(_this);
 	        return _this;
 	    }
 
@@ -48406,8 +48408,8 @@
 	        }
 	    }, {
 	        key: 'reEditTerm',
-	        value: function reEditTerm(index) {
-	            console.log(index);
+	        value: function reEditTerm() {
+	            this.setState({ modifyTerm: true });
 	        }
 	    }, {
 	        key: 'deleteTerm',
@@ -48509,13 +48511,13 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _modal2.default,
-	                        { title: '\u5355\u8BCD\u8BE6\u60C5', visible: this.state.showTermDetails, onCancel: this.hideDetails, footer: [_react2.default.createElement(
+	                        { title: '\u5355\u8BCD\u8BE6\u60C5', visible: this.state.showTermDetails, onCancel: this.hideDetails, width: '75%', footer: [_react2.default.createElement(
 	                                _button2.default,
 	                                { type: 'ghost', size: 'large', onClick: this.hideDetails },
 	                                ' \u8FD4\u56DE '
 	                            ), _react2.default.createElement(
 	                                _button2.default,
-	                                { type: 'primary', size: 'large', onClick: this.hideDetails },
+	                                { type: 'primary', size: 'large', onClick: this.reEditTerm },
 	                                ' \u91CD\u65B0\u7F16\u8F91 '
 	                            )] },
 	                        _react2.default.createElement(
@@ -48534,7 +48536,7 @@
 	                                            }, wrapperCol: {
 	                                                span: 14
 	                                            } },
-	                                        _react2.default.createElement(_input2.default, { name: 'term', value: this.state.record.term })
+	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'term', value: this.state.record.term }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'term', value: this.state.record.term })
 	                                    )
 	                                )
 	                            ),
@@ -48551,9 +48553,22 @@
 	                                            }, wrapperCol: {
 	                                                span: 14
 	                                            } },
-	                                        _react2.default.createElement(
+	                                        this.state.modifyTerm ? _react2.default.createElement(
 	                                            _select2.default,
 	                                            { name: 'term_char', value: this.state.record.term_char },
+	                                            _react2.default.createElement(
+	                                                Option,
+	                                                { value: 'n' },
+	                                                '\u540D\u8BCD.n'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                Option,
+	                                                { value: 'adj' },
+	                                                '\u5F62\u5BB9\u8BCD.adj'
+	                                            )
+	                                        ) : _react2.default.createElement(
+	                                            _select2.default,
+	                                            { disabled: true, name: 'term_char', value: this.state.record.term_char },
 	                                            _react2.default.createElement(
 	                                                Option,
 	                                                { value: 'n' },
@@ -48577,7 +48592,7 @@
 	                                            }, wrapperCol: {
 	                                                span: 14
 	                                            } },
-	                                        _react2.default.createElement(_input2.default, { name: 'pronunciation', value: this.state.record.pronunciation })
+	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'pronunciation', value: this.state.record.pronunciation }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'pronunciation', value: this.state.record.pronunciation })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
@@ -48590,7 +48605,7 @@
 	                                            }, wrapperCol: {
 	                                                span: 14
 	                                            } },
-	                                        _react2.default.createElement(_input2.default, { name: 'translation', value: this.state.record.translation })
+	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'translation', value: this.state.record.translation }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'translation', value: this.state.record.translation })
 	                                    )
 	                                )
 	                            ),
@@ -48612,7 +48627,7 @@
 	                                            }, wrapperCol: {
 	                                                span: 19
 	                                            } },
-	                                        _react2.default.createElement(_input2.default, { type: 'textarea', name: 'definition', value: this.state.record.definition })
+	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'definition', value: this.state.record.definition }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'definition', value: this.state.record.definition })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
@@ -48625,7 +48640,7 @@
 	                                            }, wrapperCol: {
 	                                                span: 19
 	                                            } },
-	                                        _react2.default.createElement(_input2.default, { type: 'textarea', name: 'source', value: this.state.record.source })
+	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'source', value: this.state.record.source }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'source', value: this.state.record.source })
 	                                    )
 	                                )
 	                            ),
@@ -48642,7 +48657,7 @@
 	                                            }, wrapperCol: {
 	                                                span: 19
 	                                            } },
-	                                        _react2.default.createElement(_input2.default, { type: 'textarea', name: 'example', value: this.state.record.example })
+	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'example', value: this.state.record.example }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'example', value: this.state.record.example })
 	                                    )
 	                                )
 	                            ),
@@ -48659,7 +48674,7 @@
 	                                            }, wrapperCol: {
 	                                                span: 19
 	                                            } },
-	                                        _react2.default.createElement(_input2.default, { type: 'textarea', name: 'basis', value: this.state.record.basis })
+	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'basis', value: this.state.record.basis }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'basis', value: this.state.record.basis })
 	                                    )
 	                                )
 	                            )
