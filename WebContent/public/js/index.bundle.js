@@ -48291,59 +48291,29 @@
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _css2 = __webpack_require__(420);
-
-	var _select = __webpack_require__(423);
-
-	var _select2 = _interopRequireDefault(_select);
-
-	var _css3 = __webpack_require__(396);
-
-	var _row = __webpack_require__(399);
-
-	var _row2 = _interopRequireDefault(_row);
-
-	var _css4 = __webpack_require__(403);
-
-	var _col = __webpack_require__(404);
-
-	var _col2 = _interopRequireDefault(_col);
-
-	var _css5 = __webpack_require__(405);
-
-	var _input = __webpack_require__(408);
-
-	var _input2 = _interopRequireDefault(_input);
-
-	var _css6 = __webpack_require__(390);
+	var _css2 = __webpack_require__(390);
 
 	var _button = __webpack_require__(393);
 
 	var _button2 = _interopRequireDefault(_button);
 
-	var _css7 = __webpack_require__(376);
+	var _css3 = __webpack_require__(376);
 
 	var _card = __webpack_require__(379);
 
 	var _card2 = _interopRequireDefault(_card);
 
-	var _css8 = __webpack_require__(531);
+	var _css4 = __webpack_require__(531);
 
 	var _table = __webpack_require__(549);
 
 	var _table2 = _interopRequireDefault(_table);
 
-	var _css9 = __webpack_require__(630);
+	var _css5 = __webpack_require__(630);
 
 	var _popconfirm = __webpack_require__(634);
 
 	var _popconfirm2 = _interopRequireDefault(_popconfirm);
-
-	var _css10 = __webpack_require__(464);
-
-	var _form = __webpack_require__(468);
-
-	var _form2 = _interopRequireDefault(_form);
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -48357,6 +48327,10 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
+	var _ToBeReviewTermForm = __webpack_require__(969);
+
+	var _ToBeReviewTermForm2 = _interopRequireDefault(_ToBeReviewTermForm);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -48364,8 +48338,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var FormItem = _form2.default.Item;
 
 	var ToBeReviewTerm = function (_React$Component) {
 	    _inherits(ToBeReviewTerm, _React$Component);
@@ -48411,6 +48383,15 @@
 	        key: 'reEditTerm',
 	        value: function reEditTerm() {
 	            this.setState({ modifyTerm: true });
+	        }
+	    }, {
+	        key: 'reEditItemTerm',
+	        value: function reEditItemTerm(record) {
+	            this.setState({
+	                showTermDetails: true,
+	                modifyTerm: true,
+	                record: this.state.terms[record.key - 0]
+	            });
 	        }
 	    }, {
 	        key: 'deleteTerm',
@@ -48481,7 +48462,7 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                'a',
-	                                { href: 'javascript:void(0);', onClick: _this4.reEditTerm.bind(_this4, record.key) },
+	                                { href: 'javascript:void(0);', onClick: _this4.reEditItemTerm.bind(_this4, record) },
 	                                '\u91CD\u65B0\u7F16\u8F91'
 	                            ),
 	                            _react2.default.createElement('span', { className: 'ant-divider' }),
@@ -48521,165 +48502,7 @@
 	                                { type: 'primary', size: 'large', onClick: this.reEditTerm },
 	                                ' \u91CD\u65B0\u7F16\u8F91 '
 	                            )] },
-	                        _react2.default.createElement(
-	                            _form2.default,
-	                            { horizontal: true, disabled: true, onSubmit: this.creatTerm },
-	                            _react2.default.createElement(
-	                                _row2.default,
-	                                null,
-	                                _react2.default.createElement(
-	                                    _col2.default,
-	                                    { span: 6 },
-	                                    _react2.default.createElement(
-	                                        FormItem,
-	                                        { label: '\u6761\u76EE', labelCol: {
-	                                                span: 6
-	                                            }, wrapperCol: {
-	                                                span: 14
-	                                            } },
-	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'term', value: this.state.record.term }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'term', value: this.state.record.term })
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                _row2.default,
-	                                null,
-	                                _react2.default.createElement(
-	                                    _col2.default,
-	                                    { span: 6 },
-	                                    _react2.default.createElement(
-	                                        FormItem,
-	                                        { label: '\u8BCD\u6027', labelCol: {
-	                                                span: 6
-	                                            }, wrapperCol: {
-	                                                span: 14
-	                                            } },
-	                                        this.state.modifyTerm ? _react2.default.createElement(
-	                                            _select2.default,
-	                                            { name: 'term_char', value: this.state.record.term_char },
-	                                            _react2.default.createElement(
-	                                                Option,
-	                                                { value: 'n' },
-	                                                '\u540D\u8BCD.n'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                Option,
-	                                                { value: 'adj' },
-	                                                '\u5F62\u5BB9\u8BCD.adj'
-	                                            )
-	                                        ) : _react2.default.createElement(
-	                                            _select2.default,
-	                                            { disabled: true, name: 'term_char', value: this.state.record.term_char },
-	                                            _react2.default.createElement(
-	                                                Option,
-	                                                { value: 'n' },
-	                                                '\u540D\u8BCD.n'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                Option,
-	                                                { value: 'adj' },
-	                                                '\u5F62\u5BB9\u8BCD.adj'
-	                                            )
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    _col2.default,
-	                                    { span: 6 },
-	                                    _react2.default.createElement(
-	                                        FormItem,
-	                                        { label: '\u53D1\u97F3', labelCol: {
-	                                                span: 5
-	                                            }, wrapperCol: {
-	                                                span: 14
-	                                            } },
-	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'pronunciation', value: this.state.record.pronunciation }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'pronunciation', value: this.state.record.pronunciation })
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    _col2.default,
-	                                    { span: 6 },
-	                                    _react2.default.createElement(
-	                                        FormItem,
-	                                        { label: '\u4E2D\u6587\u7FFB\u8BD1', labelCol: {
-	                                                span: 6
-	                                            }, wrapperCol: {
-	                                                span: 14
-	                                            } },
-	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'translation', value: this.state.record.translation }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'translation', value: this.state.record.translation })
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                _row2.default,
-	                                null,
-	                                '\u9996\u6B21\u6765\u6E90'
-	                            ),
-	                            _react2.default.createElement(
-	                                _row2.default,
-	                                null,
-	                                _react2.default.createElement(
-	                                    _col2.default,
-	                                    { span: 12 },
-	                                    _react2.default.createElement(
-	                                        FormItem,
-	                                        { label: '\u82F1\u6587\u5B9A\u4E49', labelCol: {
-	                                                span: 3
-	                                            }, wrapperCol: {
-	                                                span: 19
-	                                            } },
-	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'definition', value: this.state.record.definition }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'definition', value: this.state.record.definition })
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    _col2.default,
-	                                    { span: 12 },
-	                                    _react2.default.createElement(
-	                                        FormItem,
-	                                        { label: '\u5B9A\u4E49\u6765\u6E90', labelCol: {
-	                                                span: 3
-	                                            }, wrapperCol: {
-	                                                span: 19
-	                                            } },
-	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'source', value: this.state.record.source }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'source', value: this.state.record.source })
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                _row2.default,
-	                                null,
-	                                _react2.default.createElement(
-	                                    _col2.default,
-	                                    { span: 18 },
-	                                    _react2.default.createElement(
-	                                        FormItem,
-	                                        { label: '\u793A\u4F8B', labelCol: {
-	                                                span: 2
-	                                            }, wrapperCol: {
-	                                                span: 19
-	                                            } },
-	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'example', value: this.state.record.example }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'example', value: this.state.record.example })
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                _row2.default,
-	                                null,
-	                                _react2.default.createElement(
-	                                    _col2.default,
-	                                    { span: 18 },
-	                                    _react2.default.createElement(
-	                                        FormItem,
-	                                        { label: '\u7FFB\u8BD1\u7406\u636E', labelCol: {
-	                                                span: 2
-	                                            }, wrapperCol: {
-	                                                span: 19
-	                                            } },
-	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'basis', value: this.state.record.basis }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'basis', value: this.state.record.basis })
-	                                    )
-	                                )
-	                            )
-	                        )
+	                        _react2.default.createElement(_ToBeReviewTermForm2.default, { record: this.state.record, modifyTerm: this.state.modifyTerm })
 	                    )
 	                );
 	            } else return false;
@@ -72391,6 +72214,251 @@
 
 	// exports
 
+
+/***/ },
+/* 969 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _css = __webpack_require__(420);
+
+	var _select = __webpack_require__(423);
+
+	var _select2 = _interopRequireDefault(_select);
+
+	var _css2 = __webpack_require__(396);
+
+	var _row = __webpack_require__(399);
+
+	var _row2 = _interopRequireDefault(_row);
+
+	var _css3 = __webpack_require__(403);
+
+	var _col = __webpack_require__(404);
+
+	var _col2 = _interopRequireDefault(_col);
+
+	var _css4 = __webpack_require__(405);
+
+	var _input = __webpack_require__(408);
+
+	var _input2 = _interopRequireDefault(_input);
+
+	var _css5 = __webpack_require__(464);
+
+	var _form = __webpack_require__(468);
+
+	var _form2 = _interopRequireDefault(_form);
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FormItem = _form2.default.Item;
+
+	var ToBeReviewTermForm = function (_React$Component) {
+	    _inherits(ToBeReviewTermForm, _React$Component);
+
+	    function ToBeReviewTermForm(props) {
+	        _classCallCheck(this, ToBeReviewTermForm);
+
+	        return _possibleConstructorReturn(this, (ToBeReviewTermForm.__proto__ || Object.getPrototypeOf(ToBeReviewTermForm)).call(this, props));
+	    }
+
+	    _createClass(ToBeReviewTermForm, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                _form2.default,
+	                { horizontal: true, disabled: true },
+	                _react2.default.createElement(
+	                    _row2.default,
+	                    null,
+	                    _react2.default.createElement(
+	                        _col2.default,
+	                        { span: 6 },
+	                        _react2.default.createElement(
+	                            FormItem,
+	                            { label: '\u6761\u76EE', labelCol: {
+	                                    span: 6
+	                                }, wrapperCol: {
+	                                    span: 14
+	                                } },
+	                            this.props.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'term', value: this.props.record.term }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'term', value: this.props.record.term })
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _row2.default,
+	                    null,
+	                    _react2.default.createElement(
+	                        _col2.default,
+	                        { span: 6 },
+	                        _react2.default.createElement(
+	                            FormItem,
+	                            { label: '\u8BCD\u6027', labelCol: {
+	                                    span: 6
+	                                }, wrapperCol: {
+	                                    span: 14
+	                                } },
+	                            this.props.modifyTerm ? _react2.default.createElement(
+	                                _select2.default,
+	                                { name: 'term_char', value: this.props.record.term_char },
+	                                _react2.default.createElement(
+	                                    Option,
+	                                    { value: 'n' },
+	                                    '\u540D\u8BCD.n'
+	                                ),
+	                                _react2.default.createElement(
+	                                    Option,
+	                                    { value: 'adj' },
+	                                    '\u5F62\u5BB9\u8BCD.adj'
+	                                )
+	                            ) : _react2.default.createElement(
+	                                _select2.default,
+	                                { disabled: true, name: 'term_char', value: this.props.record.term_char },
+	                                _react2.default.createElement(
+	                                    Option,
+	                                    { value: 'n' },
+	                                    '\u540D\u8BCD.n'
+	                                ),
+	                                _react2.default.createElement(
+	                                    Option,
+	                                    { value: 'adj' },
+	                                    '\u5F62\u5BB9\u8BCD.adj'
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _col2.default,
+	                        { span: 6 },
+	                        _react2.default.createElement(
+	                            FormItem,
+	                            { label: '\u53D1\u97F3', labelCol: {
+	                                    span: 5
+	                                }, wrapperCol: {
+	                                    span: 14
+	                                } },
+	                            this.props.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'pronunciation', value: this.props.record.pronunciation }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'pronunciation', value: this.props.record.pronunciation })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _col2.default,
+	                        { span: 6 },
+	                        _react2.default.createElement(
+	                            FormItem,
+	                            { label: '\u4E2D\u6587\u7FFB\u8BD1', labelCol: {
+	                                    span: 6
+	                                }, wrapperCol: {
+	                                    span: 14
+	                                } },
+	                            this.props.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'translation', value: this.props.record.translation }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'translation', value: this.props.record.translation })
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _row2.default,
+	                    null,
+	                    '\u9996\u6B21\u6765\u6E90'
+	                ),
+	                _react2.default.createElement(
+	                    _row2.default,
+	                    null,
+	                    _react2.default.createElement(
+	                        _col2.default,
+	                        { span: 12 },
+	                        _react2.default.createElement(
+	                            FormItem,
+	                            { label: '\u82F1\u6587\u5B9A\u4E49', labelCol: {
+	                                    span: 3
+	                                }, wrapperCol: {
+	                                    span: 19
+	                                } },
+	                            this.props.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'definition', value: this.props.record.definition }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'definition', value: this.props.record.definition })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _col2.default,
+	                        { span: 12 },
+	                        _react2.default.createElement(
+	                            FormItem,
+	                            { label: '\u5B9A\u4E49\u6765\u6E90', labelCol: {
+	                                    span: 3
+	                                }, wrapperCol: {
+	                                    span: 19
+	                                } },
+	                            this.props.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'source', value: this.props.record.source }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'source', value: this.props.record.source })
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _row2.default,
+	                    null,
+	                    _react2.default.createElement(
+	                        _col2.default,
+	                        { span: 18 },
+	                        _react2.default.createElement(
+	                            FormItem,
+	                            { label: '\u793A\u4F8B', labelCol: {
+	                                    span: 2
+	                                }, wrapperCol: {
+	                                    span: 19
+	                                } },
+	                            this.props.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'example', value: this.props.record.example }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'example', value: this.props.record.example })
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _row2.default,
+	                    null,
+	                    _react2.default.createElement(
+	                        _col2.default,
+	                        { span: 18 },
+	                        _react2.default.createElement(
+	                            FormItem,
+	                            { label: '\u7FFB\u8BD1\u7406\u636E', labelCol: {
+	                                    span: 2
+	                                }, wrapperCol: {
+	                                    span: 19
+	                                } },
+	                            this.props.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'basis', value: this.props.record.basis }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'basis', value: this.props.record.basis })
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ToBeReviewTermForm;
+	}(_react2.default.Component);
+
+	exports.default = ToBeReviewTermForm;
+
+
+	ToBeReviewTermForm.propTypes = {
+	    record: _react2.default.PropTypes.object.isRequired,
+	    modifyTerm: _react2.default.PropTypes.bool
+	};
+
+	ToBeReviewTermForm.defaultProps = {
+	    modifyTerm: false
+	};
 
 /***/ }
 /******/ ]);
