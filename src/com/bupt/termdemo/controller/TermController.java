@@ -1,8 +1,6 @@
 package com.bupt.termdemo.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bupt.termdemo.dao.ILogDao;
-import com.bupt.termdemo.model.Log;
 import com.bupt.termdemo.model.Term;
 import com.bupt.termdemo.service.ILogService;
 import com.bupt.termdemo.service.ITermService;
