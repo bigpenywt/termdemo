@@ -46,5 +46,12 @@
 	<delete id="DeleteTerm" parameterType="String">  
         delete from term where term = #{term}  
     </delete>
+    
+    <update id="ModifyTerm" parameterType="com.bupt.termdemo.model.Term">  
+        update term 
+        set origin = #{origin},definition = #{definition},source=#{source},example=#{example},term_char=#{term_char},
+        pronunciation=#{pronunciation},translation=#{translation},source=#{basis}
+        where term = #{term}  
+    </update>  
 	
 </mapper>

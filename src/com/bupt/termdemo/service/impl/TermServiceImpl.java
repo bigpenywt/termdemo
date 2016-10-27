@@ -1,5 +1,7 @@
 package com.bupt.termdemo.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,12 @@ public class TermServiceImpl implements ITermService {
 	}
 
 	@Override
-	public void SaveTerm(Term term) throws Exception {
+	public void SaveTerm(Term term, String username) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式	
+		
+		term.setCreator(username);
+		term.setCreate_time(df.format(new Date()));// new Date()为获取当前系统时间
+		term.setStatus("0");
 		termDao.SaveTerm(term);
 	}
 
@@ -41,5 +48,10 @@ public class TermServiceImpl implements ITermService {
 	@Override
 	public void DeleteTerm(String term) throws Exception {
 		termDao.DeleteTerm(term);
+	}
+
+	@Override
+	public void ModifyTerm(Term term) throws Exception {
+		termDao.ModifyTerm(term);
 	}
 }

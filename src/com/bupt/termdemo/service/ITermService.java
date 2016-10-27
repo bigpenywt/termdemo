@@ -10,9 +10,11 @@ public interface ITermService {
 	
 	public int GetCreateTermCount(Term term) throws Exception;
 	
-	public void SaveTerm(Term term) throws Exception;
+	public void SaveTerm(Term term, String username) throws Exception;
 	
 	public int FindTerm(Term term) throws Exception;
 	
 	public void DeleteTerm(String term) throws Exception;
+	
+	public void ModifyTerm(Term term) throws Exception;
 }

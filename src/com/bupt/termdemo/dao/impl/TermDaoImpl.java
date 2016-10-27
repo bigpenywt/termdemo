@@ -85,4 +85,16 @@ public class TermDaoImpl implements ITermDao {
 			session.close();
 		}
 	}
+
+	@Override
+	public void ModifyTerm(Term term) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.insert("termModule.ModifyTerm", term);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
 }

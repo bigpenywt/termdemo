@@ -64,19 +64,15 @@ public class TermController {
 	@ResponseBody
 	public Map<String, Object> SaveTerm(HttpServletRequest request, Term term){
 		Map<String, Object> resultmap = new HashMap<>();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		
-		term.setCreator(request.getSession().getAttribute("username")+"");
-		term.setCreate_time(df.format(new Date()));// new Date()为获取当前系统时间
-		term.setStatus("0");
+		String username = request.getSession().getAttribute("username") + "";
 		
 		int ifexist = 0;
 		try {
 			ifexist = termService.FindTerm(term);
 			if(ifexist == 0){
-				termService.SaveTerm(term);
+				termService.SaveTerm(term, username);
 				resultmap.put("status", "1");
-				logService.WriteLog(request.getSession().getAttribute("username")+"", "创建", term.getTerm());
+				logService.WriteLog(username, "创建", term.getTerm());
 			}
 			else{
 				resultmap.put("status", "0");
@@ -98,6 +94,23 @@ public class TermController {
 		try {
 			termService.DeleteTerm(term);
 			logService.WriteLog(request.getSession().getAttribute("username")+"", "删除", term);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg", "系统异常，请重新创建！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/ModifyTerm")
+	@ResponseBody
+	public Map<String, Object> ModifyTerm(HttpServletRequest request, Term term){
+		Map<String, Object> resultmap = new HashMap<>();
+		String username = request.getSession().getAttribute("username") + "";
+		try {
+			termService.ModifyTerm(term);
+			logService.WriteLog(username, "重新编辑", term.getTerm());
 			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
