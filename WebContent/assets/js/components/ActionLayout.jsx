@@ -25,7 +25,6 @@ export default class ActionLayout extends React.Component {
                     <span style={{
                         float: 'right'
                     }}>欢迎回来，{this.props.route.userName}</span>
-                    {/* <span style={{ float: 'right' }}>欢迎您${userName}</span> */}
                 </div>
                 <div className="action-list">
                     <Menu theme={'dark'} onClick={this.handleClick} style={{

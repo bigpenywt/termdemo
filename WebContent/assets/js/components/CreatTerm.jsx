@@ -22,7 +22,13 @@ export default class CreatTerm extends React.Component {
                 term: '',
                 term_char: '',
                 definition: '',
-                origin: '',
+                origin: {
+                    magazineName: '',
+                    year: '',
+                    roll: '',
+                    issue: '',
+                    page: ''
+                },
                 pronunciation: '',
                 example: '',
                 source: '',
@@ -35,12 +41,25 @@ export default class CreatTerm extends React.Component {
     }
     typeForm(e) {
         let tempRecord = this.state.record;
-        tempRecord[e.target.name] = e.target.value
-        this.setState({ record: tempRecord })
+        e.target.getAttribute('data-parent') === 'origin'
+            ? tempRecord.origin[e.target.name] = e.target.value
+            : tempRecord[e.target.name] = e.target.value
+        this.setState({record: tempRecord});
+    }
+    selectFormItem(key, e) {
+        let tempRecord = this.state.record;
+        tempRecord[key] = e;
+        this.setState({record: tempRecord});
     }
     creatTerm(e) {
         e.preventDefault();
-        request.post('/termdemo/Term/SaveTerm').type('form').send(this.state.record).end((err, res) => {
+        let tempRecord = this.state.record;
+        let origin = '';
+        for (let key of Object.keys(tempRecord.origin)) {
+            origin = origin + key + ':' + tempRecord.origin[key] + ';';
+        }
+        tempRecord.origin = origin;
+        request.post('/termdemo/Term/SaveTerm').type('form').send(tempRecord).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
@@ -49,7 +68,13 @@ export default class CreatTerm extends React.Component {
                         term: '',
                         term_char: '',
                         definition: '',
-                        origin: '',
+                        origin: {
+                            magazineName: '',
+                            year: '',
+                            roll: '',
+                            issue: '',
+                            page: ''
+                        },
                         pronunciation: '',
                         example: '',
                         source: '',
@@ -80,135 +105,135 @@ export default class CreatTerm extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                          <Col span={6}>
-                            <FormItem label="词性" labelCol={{
-                                span: 6
-                            }} wrapperCol={{
-                                span: 14
-                            }}>
-                                <Select name="term_char" value={this.state.record.term_char} onChange={this.typeForm}>
-                                  <Option value="n">名词.n</Option>
-                                  <Option value="adj">形容词.adj</Option>
-                                </Select>
-                            </FormItem>
-                          </Col>
-                          <Col span={6}>
-                            <FormItem label="发音" labelCol={{
-                                span: 5
-                            }} wrapperCol={{
-                                span: 14
-                            }}>
-                                <Input name="pronunciation" value={this.state.record.pronunciation} onChange={this.typeForm}/>
-                            </FormItem>
-                          </Col>
-                          <Col span={6}>
-                            <FormItem label="中文翻译" labelCol={{
-                                span: 6
-                            }} wrapperCol={{
-                                span: 14
-                            }}>
-                                <Input name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
-                            </FormItem>
-                          </Col>
+                            <Col span={6}>
+                                <FormItem label="词性" labelCol={{
+                                    span: 6
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Select name="term_char" value={this.state.record.term_char} onChange={this.selectFormItem.bind(this, 'term_char')}>
+                                        <Option value="n">名词.n</Option>
+                                        <Option value="adj">形容词.adj</Option>
+                                    </Select>
+                                </FormItem>
+                            </Col>
+                            <Col span={6}>
+                                <FormItem label="发音" labelCol={{
+                                    span: 5
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Input name="pronunciation" value={this.state.record.pronunciation} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
+                            <Col span={6}>
+                                <FormItem label="中文翻译" labelCol={{
+                                    span: 6
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Input name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
                         </Row>
                         <Row>首次来源</Row>
                         <Row>
-                          <Col span={6}>
-                              <FormItem label="杂志名称" labelCol={{
-                                  span: 6
-                              }} wrapperCol={{
-                                  span: 14
-                              }}>
-                                  <Input name="magazineName" value={this.state.record.origin} onChange={this.typeForm}/>
-                              </FormItem>
-                          </Col>
-                          <Col span={4}>
-                              <FormItem label="年份" labelCol={{
-                                  span: 6
-                              }} wrapperCol={{
-                                  span: 14
-                              }}>
-                                  <Input name="year" value={this.state.record.origin} onChange={this.typeForm}/>
-                              </FormItem>
-                          </Col>
-                          <Col span={4}>
-                              <FormItem label="卷号" labelCol={{
-                                  span: 6
-                              }} wrapperCol={{
-                                  span: 14
-                              }}>
-                                  <Input name="roll" value={this.state.record.origin} onChange={this.typeForm}/>
-                              </FormItem>
-                          </Col>
-                          <Col span={4}>
-                              <FormItem label="期号" labelCol={{
-                                  span: 6
-                              }} wrapperCol={{
-                                  span: 14
-                              }}>
-                                  <Input name="issue" value={this.state.record.origin} onChange={this.typeForm}/>
-                              </FormItem>
-                          </Col>
-                          <Col span={4}>
-                              <FormItem label="页码" labelCol={{
-                                  span: 6
-                              }} wrapperCol={{
-                                  span: 14
-                              }}>
-                                  <Input name="page" value={this.state.record.origin} onChange={this.typeForm}/>
-                              </FormItem>
-                          </Col>
+                            <Col span={6}>
+                                <FormItem label="杂志名称" labelCol={{
+                                    span: 6
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Input data-parent="origin" name="magazineName" value={this.state.record.origin.magazineName} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
+                            <Col span={4}>
+                                <FormItem label="年份" labelCol={{
+                                    span: 6
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Input data-parent="origin" name="year" value={this.state.record.origin.year} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
+                            <Col span={4}>
+                                <FormItem label="卷号" labelCol={{
+                                    span: 6
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Input data-parent="origin" name="roll" value={this.state.record.origin.roll} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
+                            <Col span={4}>
+                                <FormItem label="期号" labelCol={{
+                                    span: 6
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Input data-parent="origin" name="issue" value={this.state.record.origin.issue} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
+                            <Col span={4}>
+                                <FormItem label="页码" labelCol={{
+                                    span: 6
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <Input data-parent="origin" name="page" value={this.state.record.origin.page} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
                         </Row>
                         <Row>
-                          <Col span={12}>
-                            <FormItem label="英文定义" labelCol={{
-                                span: 3
-                            }} wrapperCol={{
-                                span: 19
-                            }}>
-                                <Input type="textarea" name="definition" value={this.state.record.definition} onChange={this.typeForm}/>
-                            </FormItem>
-                          </Col>
-                          <Col span={12}>
-                            <FormItem label="定义来源" labelCol={{
-                                span: 3
-                            }} wrapperCol={{
-                                span: 19
-                            }}>
-                                <Input type="textarea" name="source" value={this.state.record.source} onChange={this.typeForm}/>
-                            </FormItem>
-                          </Col>
+                            <Col span={12}>
+                                <FormItem label="英文定义" labelCol={{
+                                    span: 3
+                                }} wrapperCol={{
+                                    span: 19
+                                }}>
+                                    <Input type="textarea" name="definition" value={this.state.record.definition} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
+                            <Col span={12}>
+                                <FormItem label="定义来源" labelCol={{
+                                    span: 3
+                                }} wrapperCol={{
+                                    span: 19
+                                }}>
+                                    <Input type="textarea" name="source" value={this.state.record.source} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
                         </Row>
                         <Row>
-                          <Col span={18}>
-                            <FormItem label="示例" labelCol={{
-                                span: 2
-                            }} wrapperCol={{
-                                span: 19
-                            }}>
-                                <Input type="textarea" name="example" value={this.state.record.example} onChange={this.typeForm}/>
-                            </FormItem>
-                          </Col>
+                            <Col span={18}>
+                                <FormItem label="示例" labelCol={{
+                                    span: 2
+                                }} wrapperCol={{
+                                    span: 19
+                                }}>
+                                    <Input type="textarea" name="example" value={this.state.record.example} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
                         </Row>
                         <Row>
-                          <Col span={18}>
-                            <FormItem label="翻译理据" labelCol={{
-                                span: 2
-                            }} wrapperCol={{
-                                span: 19
-                            }}>
-                                <Input type="textarea" name="basis" value={this.state.record.basis} onChange={this.typeForm}/>
-                            </FormItem>
-                          </Col>
+                            <Col span={18}>
+                                <FormItem label="翻译理据" labelCol={{
+                                    span: 2
+                                }} wrapperCol={{
+                                    span: 19
+                                }}>
+                                    <Input type="textarea" name="basis" value={this.state.record.basis} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
                         </Row>
                         <Row>
-                          <FormItem wrapperCol={{
-                              span: 16,
-                          }} style={{
-                              marginTop: 24
-                          }}>
-                              <Button type="primary" htmlType="submit">新建单词</Button>
-                          </FormItem>
+                            <FormItem wrapperCol={{
+                                span: 16
+                            }} style={{
+                                marginTop: 24
+                            }}>
+                                <Button type="primary" htmlType="submit">新建单词</Button>
+                            </FormItem>
                         </Row>
                     </Form>
                 </Card>
