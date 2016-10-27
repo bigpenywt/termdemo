@@ -97,4 +97,34 @@ public class TermDaoImpl implements ITermDao {
 			session.close();
 		}
 	}
+
+	@Override
+	public List<Term> GettbRortbPTerm(String status, int page, int rows) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
+
+		List<Term> terms = new ArrayList<>();
+		try {
+			terms = session.selectList("termModule.GettbRortbPTerm", status, rowBounds);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return terms;
+	}
+
+	@Override
+	public int GettbRortbPTermCount(String status) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("termModule.GettbRortbPTermCount", status);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 }

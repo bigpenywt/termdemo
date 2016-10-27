@@ -1,8 +1,6 @@
 package com.bupt.termdemo.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bupt.termdemo.dao.ILogDao;
-import com.bupt.termdemo.model.Log;
 import com.bupt.termdemo.model.Term;
 import com.bupt.termdemo.service.ILogService;
 import com.bupt.termdemo.service.ITermService;
@@ -115,6 +111,30 @@ public class TermController {
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			resultmap.put("msg", "系统异常，修改失败！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/GettbRortbPTerm")
+	@ResponseBody
+	public Map<String, Object> GettbRortbPTerm(@RequestParam Map<String, String> params){
+		String status = params.get("status");
+		int page = Integer.valueOf(params.get("page"));
+		int rows = Integer.valueOf(params.get("rows"));
+		
+		Map<String, Object> resultmap = new HashMap<>();
+		List<Term> terms = new ArrayList<>();
+		int total = 0;
+		try {
+			terms = termService.GettbRortbPTerm(status, page, rows);
+			total = termService.GettbRortbPTermCount(status);
+			resultmap.put("status", "1");
+			resultmap.put("records", terms);
+			resultmap.put("total", total);
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg", e.getMessage());
 		} finally {
 			return resultmap;
 		}

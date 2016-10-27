@@ -54,4 +54,14 @@ public class TermServiceImpl implements ITermService {
 	public void ModifyTerm(Term term) throws Exception {
 		termDao.ModifyTerm(term);
 	}
+
+	@Override
+	public List<Term> GettbRortbPTerm(String status, int page, int rows) throws Exception {
+		return termDao.GettbRortbPTerm(status, page, rows);
+	}
+
+	@Override
+	public int GettbRortbPTermCount(String status) throws Exception {
+		return termDao.GettbRortbPTermCount(status);
+	}
 }

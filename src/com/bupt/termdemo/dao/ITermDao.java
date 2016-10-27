@@ -17,4 +17,8 @@ public interface ITermDao {
 	public void DeleteTerm(String term) throws Exception;
 	
 	public void ModifyTerm(Term term) throws Exception;
+	
+	public List<Term> GettbRortbPTerm(String status, int page, int rows) throws Exception;
+	
+	public int GettbRortbPTermCount(String status) throws Exception;
 }
