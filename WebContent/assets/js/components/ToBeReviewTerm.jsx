@@ -26,7 +26,8 @@ export default class ToBeReviewTerm extends React.Component {
             pagination: {},
             record: {},
             loading: false,
-            modifyTerm: false
+            modifyTerm: false,
+            isFirstFetch: true
         }
         this.hideDetails = this.hideDetails.bind(this);
         this.fetchNewData = this.fetchNewData.bind(this);
@@ -40,7 +41,7 @@ export default class ToBeReviewTerm extends React.Component {
                     total: data.total,
                     showSizeChanger: true
                 };
-                this.setState({terms: data.records, pagination: pagination});
+                this.setState({terms: data.records, pagination: pagination, isFirstFetch: false});
             }
         });
     }
@@ -73,7 +74,7 @@ export default class ToBeReviewTerm extends React.Component {
         });
     }
     render() {
-        if (this.state.terms.length > 0) {
+        if (!this.state.isFirstFetch) {
             const columns = [
                 {
                     title: '单词',
