@@ -13,4 +13,6 @@ public interface ITermDao {
 	public void SaveTerm(Term term) throws Exception;
 	
 	public int FindTerm(Term term) throws Exception;
+	
+	public void DeleteTerm(String term) throws Exception;
 }

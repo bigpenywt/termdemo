@@ -63,7 +63,6 @@ public class TermController {
 	@RequestMapping("/SaveTerm")
 	@ResponseBody
 	public Map<String, Object> SaveTerm(HttpServletRequest request, Term term){
-		Log log = new Log();
 		Map<String, Object> resultmap = new HashMap<>();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		
@@ -83,6 +82,23 @@ public class TermController {
 				resultmap.put("status", "0");
 				resultmap.put("msg", "单词已经存在");
 			}
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg", "系统异常，请重新创建！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/DeleteTerm")
+	@ResponseBody
+	public Map<String, Object> DeleteTerm(HttpServletRequest request, @RequestParam String term){
+		Map<String, Object> resultmap = new HashMap<>();
+		
+		try {
+			termService.DeleteTerm(term);
+			logService.WriteLog(request.getSession().getAttribute("username")+"", "删除", term);
+			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			resultmap.put("msg", "系统异常，请重新创建！"+ e.getMessage());

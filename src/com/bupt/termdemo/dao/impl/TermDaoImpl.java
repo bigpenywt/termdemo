@@ -73,5 +73,16 @@ public class TermDaoImpl implements ITermDao {
 		}
 		return result;
 	}
-	
+
+	@Override
+	public void DeleteTerm(String term) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.insert("termModule.DeleteTerm", term);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
 }

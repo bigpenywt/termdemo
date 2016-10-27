@@ -37,4 +37,9 @@ public class TermServiceImpl implements ITermService {
 		// TODO Auto-generated method stub
 		return termDao.FindTerm(term);
 	}
+
+	@Override
+	public void DeleteTerm(String term) throws Exception {
+		termDao.DeleteTerm(term);
+	}
 }

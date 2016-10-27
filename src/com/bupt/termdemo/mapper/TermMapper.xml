@@ -43,4 +43,8 @@
 		select count(*) from term where term = #{term}
 	</select>
 	
+	<delete id="DeleteTerm" parameterType="String">  
+        delete from term where term = #{term}  
+    </delete>
+	
 </mapper>
