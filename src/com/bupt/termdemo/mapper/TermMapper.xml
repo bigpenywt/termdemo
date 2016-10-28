@@ -61,4 +61,12 @@
 	<select id="GetTermByStatusCount" resultType="Integer">
 		select count(*) from term where status=#{status}
 	</select>
+	
+	<select id="GetRejectedTerm" resultMap="TermResultMap">
+		select * from term where reject_user=#{reject_user} and status='2'
+	</select>
+	
+	<select id="GetRejectedTermCount" resultType="Integer">
+		select count(*) from term where reject_user=#{reject_user} and status='2'
+	</select>
 </mapper>

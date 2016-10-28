@@ -21,4 +21,8 @@ public interface ITermDao {
 	public List<Term> GetTermByStatus(String status, int page, int rows) throws Exception;
 	
 	public int GetTermByStatusCount(String status) throws Exception;
+	
+	public List<Term> GetRejectedTerm(String username, int page, int rows) throws Exception;
+	
+	public int GetRejectedTermCount(String username) throws Exception;
 }

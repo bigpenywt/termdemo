@@ -127,4 +127,34 @@ public class TermDaoImpl implements ITermDao {
 		}
 		return result;
 	}
+
+	@Override
+	public List<Term> GetRejectedTerm(String username, int page, int rows) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
+
+		List<Term> terms = new ArrayList<>();
+		try {
+			terms = session.selectList("termModule.GetRejectedTerm", username, rowBounds);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return terms;
+	}
+
+	@Override
+	public int GetRejectedTermCount(String username) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("termModule.GetRejectedTermCount", username);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 }

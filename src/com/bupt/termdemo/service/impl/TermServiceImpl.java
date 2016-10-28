@@ -64,4 +64,16 @@ public class TermServiceImpl implements ITermService {
 	public int GetTermByStatusCount(String status) throws Exception {
 		return termDao.GetTermByStatusCount(status);
 	}
+
+	@Override
+	public List<Term> GetRejectedTerm(String username, int page, int rows) throws Exception {
+		// TODO Auto-generated method stub
+		return termDao.GetRejectedTerm(username, page, rows);
+	}
+
+	@Override
+	public int GetRejectedTermCount(String username) throws Exception {
+		// TODO Auto-generated method stub
+		return termDao.GetRejectedTermCount(username);
+	}
 }
