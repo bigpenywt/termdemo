@@ -50,7 +50,9 @@
     <update id="ModifyTerm" parameterType="com.bupt.termdemo.model.Term">  
         update term 
         set origin = #{origin},definition = #{definition},source=#{source},example=#{example},term_char=#{term_char},
-        pronunciation=#{pronunciation},translation=#{translation},source=#{basis}
+        pronunciation=#{pronunciation},translation=#{translation},basis=#{basis},status=#{status}
+        reviewer=#{reviewer},review_time=#{review_time},publisher=#{publisher},publish_time=#{publish_time},
+        reject_user=#{reject_user},reject_reason=#{reject_reason}
         where term = #{term}  
     </update>  
 	

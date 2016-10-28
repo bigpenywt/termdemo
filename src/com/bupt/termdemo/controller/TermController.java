@@ -104,6 +104,7 @@ public class TermController {
 	public Map<String, Object> ModifyTerm(HttpServletRequest request, Term term){
 		Map<String, Object> resultmap = new HashMap<>();
 		String username = request.getSession().getAttribute("username") + "";
+		term.setStatus("0");
 		try {
 			termService.ModifyTerm(term);
 			logService.WriteLog(username, "重新编辑", term.getTerm());
