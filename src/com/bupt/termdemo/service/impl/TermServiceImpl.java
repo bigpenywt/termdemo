@@ -56,12 +56,12 @@ public class TermServiceImpl implements ITermService {
 	}
 
 	@Override
-	public List<Term> GettbRortbPTerm(String status, int page, int rows) throws Exception {
-		return termDao.GettbRortbPTerm(status, page, rows);
+	public List<Term> GetTermByStatus(String status, int page, int rows) throws Exception {
+		return termDao.GetTermByStatus(status, page, rows);
 	}
 
 	@Override
-	public int GettbRortbPTermCount(String status) throws Exception {
-		return termDao.GettbRortbPTermCount(status);
+	public int GetTermByStatusCount(String status) throws Exception {
+		return termDao.GetTermByStatusCount(status);
 	}
 }

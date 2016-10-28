@@ -116,9 +116,9 @@ public class TermController {
 		}
 	}
 	
-	@RequestMapping("/GettbRortbPTerm")
+	@RequestMapping("/GetTermByStatus")
 	@ResponseBody
-	public Map<String, Object> GettbRortbPTerm(@RequestParam Map<String, String> params){
+	public Map<String, Object> GetTermByStatus(@RequestParam Map<String, String> params){
 		String status = params.get("status");
 		int page = Integer.valueOf(params.get("page"));
 		int rows = Integer.valueOf(params.get("rows"));
@@ -127,8 +127,8 @@ public class TermController {
 		List<Term> terms = new ArrayList<>();
 		int total = 0;
 		try {
-			terms = termService.GettbRortbPTerm(status, page, rows);
-			total = termService.GettbRortbPTermCount(status);
+			terms = termService.GetTermByStatus(status, page, rows);
+			total = termService.GetTermByStatusCount(status);
 			resultmap.put("status", "1");
 			resultmap.put("records", terms);
 			resultmap.put("total", total);

@@ -99,13 +99,13 @@ public class TermDaoImpl implements ITermDao {
 	}
 
 	@Override
-	public List<Term> GettbRortbPTerm(String status, int page, int rows) throws Exception {
+	public List<Term> GetTermByStatus(String status, int page, int rows) throws Exception {
 		SqlSession session = sessionFactory.openSession();
 		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
 
 		List<Term> terms = new ArrayList<>();
 		try {
-			terms = session.selectList("termModule.GettbRortbPTerm", status, rowBounds);
+			terms = session.selectList("termModule.GetTermByStatus", status, rowBounds);
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -115,11 +115,11 @@ public class TermDaoImpl implements ITermDao {
 	}
 
 	@Override
-	public int GettbRortbPTermCount(String status) throws Exception {
+	public int GetTermByStatusCount(String status) throws Exception {
 		SqlSession session = sessionFactory.openSession();
 		int result = 0;
 		try {
-			result = session.selectOne("termModule.GettbRortbPTermCount", status);
+			result = session.selectOne("termModule.GetTermByStatusCount", status);
 		} catch (Exception e) {
 			throw e;
 		} finally {

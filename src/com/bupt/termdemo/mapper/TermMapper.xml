@@ -54,11 +54,11 @@
         where term = #{term}  
     </update>  
 	
-	<select id="GettbRortbPTerm" resultMap="TermResultMap">
+	<select id="GetTermByStatus" resultMap="TermResultMap">
 		select * from term where status=#{status}
 	</select>
 	
-	<select id="GettbRortbPTermCount" resultType="Integer">
+	<select id="GetTermByStatusCount" resultType="Integer">
 		select count(*) from term where status=#{status}
 	</select>
 </mapper>
