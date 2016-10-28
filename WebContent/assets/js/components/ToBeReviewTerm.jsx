@@ -60,7 +60,7 @@ export default class ToBeReviewTerm extends React.Component {
         });
     }
     hideDetails() {
-        this.setState({showTermDetails: false});
+        this.setState({showTermDetails: false, modifyTerm: false});
     }
     fetchNewData(pagination) {
         let pager = this.state.pagination;
@@ -108,6 +108,10 @@ export default class ToBeReviewTerm extends React.Component {
             const data = this.state.terms.map((item, i) => {
                 return {key: i, term: item.term, create_time: item.create_time, definition: item.definition}
             });
+            const modalBottonGroup = [< Button type = "ghost" size = "large" onClick = {
+                    this.hideDetails
+                } > 返回 < /Button>,this.state.modifyTerm?<Button type="primary" size="large" onClick={this.reEditTerm}> 提交修改 </Button >:
+                 <Button type="primary" size="large" onClick={this.reEditTerm}> 重新编辑 </Button >]
             return (
                 <div>
                     <Card title="待校验的单词（点击单词名可查看单词详细信息）" style={{
@@ -115,9 +119,7 @@ export default class ToBeReviewTerm extends React.Component {
                     }}>
                         <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
                     </Card>
-                    <Modal title="单词详情" visible={this.state.showTermDetails} onCancel={this.hideDetails} width={'75%'} footer={[< Button type = "ghost" size = "large" onClick = {
-                            this.hideDetails
-                        } > 返回 < /Button>, <Button type="primary" size="large" onClick={this.reEditTerm}> 重新编辑 </Button >]}>
+                    <Modal title="单词详情" visible={this.state.showTermDetails} onCancel={this.hideDetails} width={'75%'} footer={modalBottonGroup}>
                         <ToBeReviewTermForm record={this.state.record} modifyTerm={this.state.modifyTerm}/>
                     </Modal>
                 </div>
