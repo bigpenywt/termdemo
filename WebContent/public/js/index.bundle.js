@@ -48339,7 +48339,13 @@
 
 	var _popconfirm2 = _interopRequireDefault(_popconfirm);
 
-	var _css10 = __webpack_require__(464);
+	var _css10 = __webpack_require__(412);
+
+	var _message = __webpack_require__(415);
+
+	var _message2 = _interopRequireDefault(_message);
+
+	var _css11 = __webpack_require__(464);
 
 	var _form = __webpack_require__(468);
 
@@ -48401,6 +48407,7 @@
 	            loading: false,
 	            modifyTerm: false,
 	            isFirstFetch: true,
+	            commitLoading: false,
 	            commitUrl: _this.props.route.author === 'me' ? '/termdemo/Term/ModifyTerm' : ''
 	        };
 	        _this.hideDetails = _this.hideDetails.bind(_this);
@@ -48518,12 +48525,17 @@
 	                }
 	            }
 
+	            tempRecord.origin = origin.replace(',', '');
+	            this.setState({ commitLoading: true });
 	            _superagent2.default.post(this.state.commitUrl).type('form').send(tempRecord).end(function (err, res) {
 	                var data = JSON.parse(res.text);
 	                data.status === '1' ? function () {
-	                    message.success('修改成功～', 3);
-	                }() : message.error(data.msg, 3);
-	                _this3.fetchNewData();
+	                    _message2.default.success('修改成功～', 3);
+	                    _this3.fetchNewData();
+	                }() : function () {
+	                    _message2.default.error(data.msg, 3);
+	                    _this3.setState({ commitLoading: false });
+	                }();
 	            });
 	        }
 	    }, {

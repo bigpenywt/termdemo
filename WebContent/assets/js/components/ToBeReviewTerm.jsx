@@ -12,7 +12,9 @@ import {
     Input,
     Row,
     Col,
-    Select
+    Select,
+    Spin,
+    message
 } from 'antd';
 const FormItem = Form.Item;
 const emptyRecord = {
@@ -45,6 +47,7 @@ export default class ToBeReviewTerm extends React.Component {
             loading: false,
             modifyTerm: false,
             isFirstFetch: true,
+            commitLoading: false,
             commitUrl: this.props.route.author === 'me'
                 ? '/termdemo/Term/ModifyTerm'
                 : ''
@@ -120,14 +123,19 @@ export default class ToBeReviewTerm extends React.Component {
         for (let key of Object.keys(tempRecord.origin)) {
             origin = origin + ',' + tempRecord.origin[key];
         }
+        tempRecord.origin = origin.replace(',', '');
+        this.setState({commitLoading: true});
         request.post(this.state.commitUrl).type('form').send(tempRecord).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
                     message.success('修改成功～', 3);
+                    this.fetchNewData();
                 })()
-                : message.error(data.msg, 3);
-            this.fetchNewData();
+                : (() => {
+                    message.error(data.msg, 3);
+                    this.setState({commitLoading: false});
+                })()
         });
     }
     fetchNewData(pagination) {
