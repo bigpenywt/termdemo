@@ -71,4 +71,22 @@
 	<select id="GetRejectedTermCount" resultType="Integer">
 		select count(*) from term where reject_user=#{reject_user} and status='2'
 	</select>
+	
+	<update id="RejectTerm" parameterType="com.bupt.termdemo.model.Term">  
+        update term 
+        set reject_user=#{reject_user},reject_reason=#{reject_reason},status='2'
+        where term = #{term}  
+    </update>  
+    
+    <update id="ReviewTerm" parameterType="com.bupt.termdemo.model.Term">  
+        update term 
+        set reviewer=#{reviewer},review_time=#{review_time},status='1'
+        where term = #{term}  
+    </update>  
+    
+    <update id="PublishTerm" parameterType="com.bupt.termdemo.model.Term">  
+        update term 
+        set publisher=#{publisher},publish_time=#{publish_time},status='3'
+        where term = #{term}  
+    </update>  
 </mapper>

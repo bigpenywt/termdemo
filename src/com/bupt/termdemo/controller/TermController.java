@@ -164,4 +164,65 @@ public class TermController {
 			return resultmap;
 		}
 	}
+	
+	@RequestMapping("/RejectTerm")
+	@ResponseBody
+	public Map<String, Object> RejectTerm(HttpServletRequest request, @RequestParam Map<String, String> params){
+		Term term = new Term();
+		term.setTerm(params.get("term"));
+		term.setReject_reason(params.get("reason"));
+		String username = request.getSession().getAttribute("username") + "";
+		term.setReject_user(username);
+		
+		Map<String, Object> resultmap = new HashMap<>();
+		try {
+			termService.RejectTerm(term);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg", e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/ReviewTerm")
+	@ResponseBody
+	public Map<String, Object> ReviewTerm(HttpServletRequest request, @RequestParam String term){
+		Term reviewterm = new Term();
+		reviewterm.setTerm(term);
+		String username = request.getSession().getAttribute("username") + "";
+		reviewterm.setReviewer(username);
+		
+		Map<String, Object> resultmap = new HashMap<>();
+		try {
+			termService.ReviewTerm(reviewterm);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg", e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/PublishTerm")
+	@ResponseBody
+	public Map<String, Object> PublishTerm(HttpServletRequest request, @RequestParam String term){
+		Term publishterm = new Term();
+		publishterm.setTerm(term);
+		String username = request.getSession().getAttribute("username") + "";
+		publishterm.setPublisher(username);
+		
+		Map<String, Object> resultmap = new HashMap<>();
+		try {
+			termService.PublishTerm(publishterm);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg", e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
 }

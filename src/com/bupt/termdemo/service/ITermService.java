@@ -25,4 +25,10 @@ public interface ITermService {
 	public List<Term> GetRejectedTerm(String username, int page, int rows) throws Exception;
 	
 	public int GetRejectedTermCount(String username) throws Exception;
+	
+	public void RejectTerm(Term term) throws Exception;
+	
+	public void ReviewTerm(Term term) throws Exception;
+	
+	public void PublishTerm(Term term) throws Exception;
 }

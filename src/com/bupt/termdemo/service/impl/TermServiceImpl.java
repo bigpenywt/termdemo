@@ -76,4 +76,24 @@ public class TermServiceImpl implements ITermService {
 		// TODO Auto-generated method stub
 		return termDao.GetRejectedTermCount(username);
 	}
+
+	@Override
+	public void RejectTerm(Term term) throws Exception {
+		// TODO Auto-generated method stub
+		termDao.RejectTerm(term);
+	}
+
+	@Override
+	public void ReviewTerm(Term term) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式	
+		term.setReview_time(df.format(new Date()));// new Date()为获取当前系统时间
+		termDao.ReviewTerm(term);
+	}
+
+	@Override
+	public void PublishTerm(Term term) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式	
+		term.setPublish_time(df.format(new Date()));// new Date()为获取当前系统时间
+		termDao.PublishTerm(term);
+	}
 }

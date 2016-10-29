@@ -78,7 +78,7 @@ public class TermDaoImpl implements ITermDao {
 	public void DeleteTerm(String term) throws Exception {
 		SqlSession session = sessionFactory.openSession();
 		try {
-			session.insert("termModule.DeleteTerm", term);
+			session.delete("termModule.DeleteTerm", term);
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -90,7 +90,7 @@ public class TermDaoImpl implements ITermDao {
 	public void ModifyTerm(Term term) throws Exception {
 		SqlSession session = sessionFactory.openSession();
 		try {
-			session.insert("termModule.ModifyTerm", term);
+			session.update("termModule.ModifyTerm", term);
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -156,5 +156,41 @@ public class TermDaoImpl implements ITermDao {
 			session.close();
 		}
 		return result;
+	}
+
+	@Override
+	public void RejectTerm(Term term) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.update("termModule.RejectTerm", term);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public void ReviewTerm(Term term) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.update("termModule.ReviewTerm", term);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public void PublishTerm(Term term) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.update("termModule.PublishTerm", term);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
 	}
 }
