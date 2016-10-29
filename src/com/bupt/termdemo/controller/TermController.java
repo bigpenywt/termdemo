@@ -111,6 +111,7 @@ public class TermController {
 			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
+			System.out.println(e.getMessage());
 			resultmap.put("msg", "系统异常，修改失败！"+ e.getMessage());
 		} finally {
 			return resultmap;
