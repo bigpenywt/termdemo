@@ -48470,8 +48470,23 @@
 	        }
 	    }, {
 	        key: 'deleteTerm',
-	        value: function deleteTerm(index) {
-	            console.log(index);
+	        value: function deleteTerm(record) {
+	            var _this3 = this;
+
+	            _superagent2.default.post('/termdemo/Term/DeleteTerm').type('form').send({ term: record.term }).end(function (err, res) {
+	                var data = JSON.parse(res.text);
+	                data.status === '1' ? function () {
+	                    _message2.default.success('成功删除单词～', 3);
+	                    var pagination = {
+	                        current: 1,
+	                        pageSize: 10
+	                    };
+	                    _this3.fetchNewData(pagination);
+	                }() : function () {
+	                    _message2.default.error(data.msg, 3);
+	                    _this3.setState({ commitLoading: false });
+	                }();
+	            });
 	        }
 	    }, {
 	        key: 'showDetails',
@@ -48496,7 +48511,7 @@
 	    }, {
 	        key: 'commitModify',
 	        value: function commitModify() {
-	            var _this3 = this;
+	            var _this4 = this;
 
 	            var tempRecord = this.state.record;
 	            var origin = '';
@@ -48531,17 +48546,21 @@
 	                var data = JSON.parse(res.text);
 	                data.status === '1' ? function () {
 	                    _message2.default.success('修改成功～', 3);
-	                    _this3.fetchNewData();
+	                    var pagination = {
+	                        current: 1,
+	                        pageSize: 10
+	                    };
+	                    _this4.fetchNewData(pagination);
 	                }() : function () {
 	                    _message2.default.error(data.msg, 3);
-	                    _this3.setState({ commitLoading: false });
+	                    _this4.setState({ commitLoading: false });
 	                }();
 	            });
 	        }
 	    }, {
 	        key: 'fetchNewData',
 	        value: function fetchNewData(pagination) {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            var pager = this.state.pagination;
 	            pager.current = pagination.current;
@@ -48549,16 +48568,16 @@
 	            _superagent2.default.get('/termdemo/Term/GetCreateTerm/').query({ status: 0, page: pager.current, rows: pagination.pageSize }).end(function (err, res) {
 	                var data = JSON.parse(res.text);
 	                if (data.status === '1') {
-	                    var _pagination = _this4.state.pagination;
+	                    var _pagination = _this5.state.pagination;
 	                    _pagination.total = data.total;
-	                    _this4.setState({ terms: data.records, pagination: _pagination, loading: false, record: emptyRecord });
+	                    _this5.setState({ terms: data.records, pagination: _pagination, loading: false, record: emptyRecord });
 	                }
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
 
 	            if (!this.state.isFirstFetch) {
 	                var columns = [{
@@ -48568,7 +48587,7 @@
 	                    render: function render(text, record) {
 	                        return _react2.default.createElement(
 	                            'a',
-	                            { href: 'javascript:void(0);', onClick: _this5.showDetails.bind(_this5, record) },
+	                            { href: 'javascript:void(0);', onClick: _this6.showDetails.bind(_this6, record) },
 	                            text
 	                        );
 	                    }
@@ -48589,13 +48608,13 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                'a',
-	                                { href: 'javascript:void(0);', onClick: _this5.reEditItemTerm.bind(_this5, record) },
+	                                { href: 'javascript:void(0);', onClick: _this6.reEditItemTerm.bind(_this6, record) },
 	                                '\u91CD\u65B0\u7F16\u8F91'
 	                            ),
 	                            _react2.default.createElement('span', { className: 'ant-divider' }),
 	                            _react2.default.createElement(
 	                                _popconfirm2.default,
-	                                { title: '\u786E\u5B9A\u5220\u9664\u8FD9\u6761\u5355\u8BCD\uFF1F', onConfirm: _this5.deleteTerm.bind(_this5, record.key), okText: '\u786E\u5B9A', cancelText: '\u53D6\u6D88' },
+	                                { title: '\u786E\u5B9A\u5220\u9664\u8FD9\u6761\u5355\u8BCD\uFF1F', onConfirm: _this6.deleteTerm.bind(_this6, record), okText: '\u786E\u5B9A', cancelText: '\u53D6\u6D88' },
 	                                _react2.default.createElement(
 	                                    'a',
 	                                    { href: 'javascript:void(0);' },

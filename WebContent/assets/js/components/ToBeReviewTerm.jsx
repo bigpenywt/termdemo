@@ -98,8 +98,23 @@ export default class ToBeReviewTerm extends React.Component {
         tempRecord[key] = e;
         this.setState({record: tempRecord});
     }
-    deleteTerm(index) {
-        console.log(index);
+    deleteTerm(record) {
+        request.post('/termdemo/Term/DeleteTerm').type('form').send({term: record.term}).end((err, res) => {
+            let data = JSON.parse(res.text);
+            data.status === '1'
+                ? (() => {
+                    message.success('成功删除单词～', 3);
+                    let pagination = {
+                        current: 1,
+                        pageSize: 10
+                    }
+                    this.fetchNewData(pagination);
+                })()
+                : (() => {
+                    message.error(data.msg, 3);
+                    this.setState({commitLoading: false});
+                })()
+        });
     }
     showDetails(record) {
         let tempTerm = this.state.terms[record.key - 0];
@@ -130,7 +145,11 @@ export default class ToBeReviewTerm extends React.Component {
             data.status === '1'
                 ? (() => {
                     message.success('修改成功～', 3);
-                    this.fetchNewData();
+                    let pagination = {
+                        current: 1,
+                        pageSize: 10
+                    }
+                    this.fetchNewData(pagination);
                 })()
                 : (() => {
                     message.error(data.msg, 3);
@@ -174,7 +193,7 @@ export default class ToBeReviewTerm extends React.Component {
                         <span>
                             <a href="javascript:void(0);" onClick={this.reEditItemTerm.bind(this, record)}>重新编辑</a>
                             <span className="ant-divider"/>
-                            <Popconfirm title="确定删除这条单词？" onConfirm={this.deleteTerm.bind(this, record.key)} okText="确定" cancelText="取消">
+                            <Popconfirm title="确定删除这条单词？" onConfirm={this.deleteTerm.bind(this, record)} okText="确定" cancelText="取消">
                                 <a href="javascript:void(0);">删除</a>
                             </Popconfirm>
                         </span>
