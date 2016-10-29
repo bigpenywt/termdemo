@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import request from 'superagent';
+import Immutable from 'immutable';
 import {
     Table,
     Icon,
@@ -74,17 +75,16 @@ export default class ToBeReviewTerm extends React.Component {
         this.setState({modifyTerm: true});
     }
     reEditItemTerm(record) {
-        let tempTerm = this.state.terms[record.key - 0];
-        tempTerm.key = record.key;
-        let origin = tempTerm.origin.split(',');
-        tempTerm.origin = {
+        let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
+        let origin = this.state.terms[record.key - 0].origin.split(',');
+        tempTerm = tempTerm.set('origin', {
             magazineName: origin[0],
             year: origin[1] || '',
             roll: origin[2] || '',
             issue: origin[3] || '',
             page: origin[4] || ''
-        }
-        this.setState({showTermDetails: true, modifyTerm: true, record: tempTerm});
+        });
+        this.setState({showTermDetails: true, modifyTerm: true, record: tempTerm.toJS()});
     }
     typeForm(e) {
         let tempRecord = this.state.record;
@@ -117,17 +117,16 @@ export default class ToBeReviewTerm extends React.Component {
         });
     }
     showDetails(record) {
-        let tempTerm = this.state.terms[record.key - 0];
-        tempTerm.key = record.key;
-        let origin = tempTerm.origin.split(',');
-        tempTerm.origin = {
+        let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
+        let origin = this.state.terms[record.key - 0].origin.split(',');
+        tempTerm = tempTerm.set('origin', {
             magazineName: origin[0],
             year: origin[1] || '',
             roll: origin[2] || '',
             issue: origin[3] || '',
             page: origin[4] || ''
-        }
-        this.setState({showTermDetails: true, record: tempTerm});
+        });
+        this.setState({showTermDetails: true, record: tempTerm.toJS()});
     }
     hideDetails() {
         this.setState({showTermDetails: false, modifyTerm: false, record: emptyRecord});
@@ -149,6 +148,7 @@ export default class ToBeReviewTerm extends React.Component {
                         current: 1,
                         pageSize: 10
                     }
+                    this.hideDetails();
                     this.fetchNewData(pagination);
                 })()
                 : (() => {
