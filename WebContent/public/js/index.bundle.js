@@ -34447,7 +34447,7 @@
 
 
 	// module
-	exports.push([module.id, ".header{background-color:#333;height:60px;line-height:60px;padding:0 30px}.header .title{display:inline-block;color:#ffffff}.action-list{height:100%;background-color:#333;display:inline-block;position:relative;float:left}.children-block{display:inline-block;height:100%;position:relative;float:left;margin:20px;width:-moz-calc(100% - 260px);width:-webkit-calc(100% - 260px);width:calc(100% - 260px)}\n", ""]);
+	exports.push([module.id, ".header{background-color:#333;height:60px;line-height:60px;padding:0 30px}.header .title{display:inline-block;color:#ffffff}.action-list{height:-moz-calc(100% - 60px);height:-webkit-calc(100% - 60px);height:calc(100% - 60px);background-color:#333;position:relative;float:left}.children-block{height:-moz-calc(100% - 60px);height:-webkit-calc(100% - 60px);height:calc(100% - 60px);position:relative;float:left;overflow:scroll;padding:20px;background-color:#d9d9d9;width:-moz-calc(100% - 220px);width:-webkit-calc(100% - 220px);width:calc(100% - 220px)}\n", ""]);
 
 	// exports
 
@@ -34654,11 +34654,11 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _col2.default,
-	                                { span: 6 },
+	                                { span: 12 },
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u6761\u76EE', labelCol: {
-	                                            span: 6
+	                                            span: 4
 	                                        }, wrapperCol: {
 	                                            span: 14
 	                                        } },
@@ -34675,9 +34675,9 @@
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u8BCD\u6027', labelCol: {
-	                                            span: 6
+	                                            span: 8
 	                                        }, wrapperCol: {
-	                                            span: 14
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(
 	                                        _select2.default,
@@ -34697,26 +34697,26 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                _col2.default,
-	                                { span: 6 },
+	                                { span: 8 },
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u53D1\u97F3', labelCol: {
-	                                            span: 5
+	                                            span: 6
 	                                        }, wrapperCol: {
-	                                            span: 14
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { name: 'pronunciation', value: this.state.record.pronunciation, onChange: this.typeForm })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                _col2.default,
-	                                { span: 6 },
+	                                { span: 8 },
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u4E2D\u6587\u7FFB\u8BD1', labelCol: {
 	                                            span: 6
 	                                        }, wrapperCol: {
-	                                            span: 14
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { name: 'translation', value: this.state.record.translation, onChange: this.typeForm })
 	                                )
@@ -34725,7 +34725,28 @@
 	                        _react2.default.createElement(
 	                            _row2.default,
 	                            null,
-	                            '\u9996\u6B21\u6765\u6E90'
+	                            _react2.default.createElement(
+	                                'h5',
+	                                null,
+	                                '\u9996\u6B21\u6765\u6E90\uFF1A'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            _row2.default,
+	                            null,
+	                            _react2.default.createElement(
+	                                _col2.default,
+	                                { span: 12 },
+	                                _react2.default.createElement(
+	                                    FormItem,
+	                                    { label: '\u6742\u5FD7\u540D\u79F0', labelCol: {
+	                                            span: 4
+	                                        }, wrapperCol: {
+	                                            span: 14
+	                                        } },
+	                                    _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'magazineName', value: this.state.record.origin.magazineName, onChange: this.typeForm })
+	                                )
+	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            _row2.default,
@@ -34735,62 +34756,49 @@
 	                                { span: 6 },
 	                                _react2.default.createElement(
 	                                    FormItem,
-	                                    { label: '\u6742\u5FD7\u540D\u79F0', labelCol: {
-	                                            span: 6
-	                                        }, wrapperCol: {
-	                                            span: 14
-	                                        } },
-	                                    _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'magazineName', value: this.state.record.origin.magazineName, onChange: this.typeForm })
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                _col2.default,
-	                                { span: 4 },
-	                                _react2.default.createElement(
-	                                    FormItem,
 	                                    { label: '\u5E74\u4EFD', labelCol: {
-	                                            span: 6
+	                                            span: 8
 	                                        }, wrapperCol: {
-	                                            span: 14
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'year', value: this.state.record.origin.year, onChange: this.typeForm })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                _col2.default,
-	                                { span: 4 },
+	                                { span: 6 },
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u5377\u53F7', labelCol: {
-	                                            span: 6
+	                                            span: 8
 	                                        }, wrapperCol: {
-	                                            span: 14
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'roll', value: this.state.record.origin.roll, onChange: this.typeForm })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                _col2.default,
-	                                { span: 4 },
+	                                { span: 6 },
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u671F\u53F7', labelCol: {
-	                                            span: 6
+	                                            span: 8
 	                                        }, wrapperCol: {
-	                                            span: 14
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'issue', value: this.state.record.origin.issue, onChange: this.typeForm })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                _col2.default,
-	                                { span: 4 },
+	                                { span: 6 },
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u9875\u7801', labelCol: {
-	                                            span: 6
+	                                            span: 8
 	                                        }, wrapperCol: {
-	                                            span: 14
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'page', value: this.state.record.origin.page, onChange: this.typeForm })
 	                                )
@@ -34805,9 +34813,9 @@
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u82F1\u6587\u5B9A\u4E49', labelCol: {
-	                                            span: 3
+	                                            span: 4
 	                                        }, wrapperCol: {
-	                                            span: 19
+	                                            span: 18
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { type: 'textarea', name: 'definition', value: this.state.record.definition, onChange: this.typeForm })
 	                                )
@@ -34818,9 +34826,9 @@
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u5B9A\u4E49\u6765\u6E90', labelCol: {
-	                                            span: 3
+	                                            span: 4
 	                                        }, wrapperCol: {
-	                                            span: 19
+	                                            span: 18
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { type: 'textarea', name: 'source', value: this.state.record.source, onChange: this.typeForm })
 	                                )
@@ -34831,13 +34839,13 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _col2.default,
-	                                { span: 18 },
+	                                { span: 24 },
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u793A\u4F8B', labelCol: {
 	                                            span: 2
 	                                        }, wrapperCol: {
-	                                            span: 19
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { type: 'textarea', name: 'example', value: this.state.record.example, onChange: this.typeForm })
 	                                )
@@ -34848,13 +34856,13 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _col2.default,
-	                                { span: 18 },
+	                                { span: 24 },
 	                                _react2.default.createElement(
 	                                    FormItem,
 	                                    { label: '\u7FFB\u8BD1\u7406\u636E', labelCol: {
 	                                            span: 2
 	                                        }, wrapperCol: {
-	                                            span: 19
+	                                            span: 16
 	                                        } },
 	                                    _react2.default.createElement(_input2.default, { type: 'textarea', name: 'basis', value: this.state.record.basis, onChange: this.typeForm })
 	                                )
@@ -34864,16 +34872,20 @@
 	                            _row2.default,
 	                            null,
 	                            _react2.default.createElement(
-	                                FormItem,
-	                                { wrapperCol: {
-	                                        span: 16
-	                                    }, style: {
-	                                        marginTop: 24
-	                                    } },
+	                                _col2.default,
+	                                { span: 24 },
 	                                _react2.default.createElement(
-	                                    _button2.default,
-	                                    { type: 'primary', htmlType: 'submit' },
-	                                    '\u65B0\u5EFA\u5355\u8BCD'
+	                                    FormItem,
+	                                    { wrapperCol: {
+	                                            span: 24
+	                                        } },
+	                                    _react2.default.createElement(
+	                                        _button2.default,
+	                                        { style: {
+	                                                float: 'right'
+	                                            }, type: 'primary', htmlType: 'submit' },
+	                                        '\u65B0\u5EFA\u5355\u8BCD'
+	                                    )
 	                                )
 	                            )
 	                        )
@@ -48760,11 +48772,11 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 6 },
+	                                    { span: 12 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u6761\u76EE', labelCol: {
-	                                                span: 6
+	                                                span: 4
 	                                            }, wrapperCol: {
 	                                                span: 14
 	                                            } },
@@ -48781,9 +48793,9 @@
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u8BCD\u6027', labelCol: {
-	                                                span: 6
+	                                                span: 8
 	                                            }, wrapperCol: {
-	                                                span: 14
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(
 	                                            _select2.default,
@@ -48816,26 +48828,26 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 6 },
+	                                    { span: 8 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u53D1\u97F3', labelCol: {
-	                                                span: 5
+	                                                span: 6
 	                                            }, wrapperCol: {
-	                                                span: 14
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'pronunciation', onChange: this.typeForm, value: this.state.record.pronunciation }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'pronunciation', value: this.state.record.pronunciation })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 6 },
+	                                    { span: 8 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u4E2D\u6587\u7FFB\u8BD1', labelCol: {
 	                                                span: 6
 	                                            }, wrapperCol: {
-	                                                span: 14
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { name: 'translation', onChange: this.typeForm, value: this.state.record.translation }) : _react2.default.createElement(_input2.default, { disabled: true, name: 'translation', value: this.state.record.translation })
 	                                    )
@@ -48851,65 +48863,69 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 6 },
+	                                    { span: 12 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u6742\u5FD7\u540D\u79F0', labelCol: {
-	                                                span: 6
+	                                                span: 4
 	                                            }, wrapperCol: {
 	                                                span: 14
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'magazineName', onChange: this.typeForm, value: this.state.record.origin.magazineName }) : _react2.default.createElement(_input2.default, { disabled: true, 'data-parent': 'origin', name: 'magazineName', onChange: this.typeForm, value: this.state.record.origin.magazineName })
 	                                    )
-	                                ),
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                null,
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 4 },
+	                                    { span: 6 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u5E74\u4EFD', labelCol: {
-	                                                span: 6
+	                                                span: 8
 	                                            }, wrapperCol: {
-	                                                span: 14
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'year', onChange: this.typeForm, value: this.state.record.origin.year }) : _react2.default.createElement(_input2.default, { disabled: true, 'data-parent': 'origin', name: 'year', onChange: this.typeForm, value: this.state.record.origin.year })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 4 },
+	                                    { span: 6 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u5377\u53F7', labelCol: {
-	                                                span: 6
+	                                                span: 8
 	                                            }, wrapperCol: {
-	                                                span: 14
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'roll', onChange: this.typeForm, value: this.state.record.origin.roll }) : _react2.default.createElement(_input2.default, { disabled: true, 'data-parent': 'origin', name: 'roll', onChange: this.typeForm, value: this.state.record.origin.roll })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 4 },
+	                                    { span: 6 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u671F\u53F7', labelCol: {
-	                                                span: 6
+	                                                span: 8
 	                                            }, wrapperCol: {
-	                                                span: 14
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'issue', onChange: this.typeForm, value: this.state.record.origin.issue }) : _react2.default.createElement(_input2.default, { disabled: true, 'data-parent': 'origin', name: 'issue', onChange: this.typeForm, value: this.state.record.origin.issue })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 4 },
+	                                    { span: 6 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u9875\u7801', labelCol: {
-	                                                span: 6
+	                                                span: 8
 	                                            }, wrapperCol: {
-	                                                span: 14
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { 'data-parent': 'origin', name: 'page', onChange: this.typeForm, value: this.state.record.origin.page }) : _react2.default.createElement(_input2.default, { disabled: true, 'data-parent': 'origin', name: 'page', onChange: this.typeForm, value: this.state.record.origin.page })
 	                                    )
@@ -48924,9 +48940,9 @@
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u82F1\u6587\u5B9A\u4E49', labelCol: {
-	                                                span: 3
+	                                                span: 4
 	                                            }, wrapperCol: {
-	                                                span: 19
+	                                                span: 18
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'definition', onChange: this.typeForm, value: this.state.record.definition }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'definition', value: this.state.record.definition })
 	                                    )
@@ -48937,9 +48953,9 @@
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u5B9A\u4E49\u6765\u6E90', labelCol: {
-	                                                span: 3
+	                                                span: 4
 	                                            }, wrapperCol: {
-	                                                span: 19
+	                                                span: 18
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'source', onChange: this.typeForm, value: this.state.record.source }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'source', value: this.state.record.source })
 	                                    )
@@ -48950,13 +48966,13 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 18 },
+	                                    { span: 24 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u793A\u4F8B', labelCol: {
 	                                                span: 2
 	                                            }, wrapperCol: {
-	                                                span: 19
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'example', onChange: this.typeForm, value: this.state.record.example }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'example', value: this.state.record.example })
 	                                    )
@@ -48967,13 +48983,13 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    _col2.default,
-	                                    { span: 18 },
+	                                    { span: 24 },
 	                                    _react2.default.createElement(
 	                                        FormItem,
 	                                        { label: '\u7FFB\u8BD1\u7406\u636E', labelCol: {
 	                                                span: 2
 	                                            }, wrapperCol: {
-	                                                span: 19
+	                                                span: 16
 	                                            } },
 	                                        this.state.modifyTerm ? _react2.default.createElement(_input2.default, { type: 'textarea', name: 'basis', onChange: this.typeForm, value: this.state.record.basis }) : _react2.default.createElement(_input2.default, { disabled: true, type: 'textarea', name: 'basis', value: this.state.record.basis })
 	                                    )

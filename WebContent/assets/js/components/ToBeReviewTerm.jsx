@@ -305,9 +305,9 @@ export default class ToBeReviewTerm extends React.Component {
                         modalBottonGroup
                     } > <Form horizontal>
                         <Row>
-                            <Col span={6}>
+                            <Col span={12}>
                                 <FormItem label="条目" labelCol={{
-                                    span: 6
+                                    span: 4
                                 }} wrapperCol={{
                                     span: 14
                                 }}>
@@ -318,9 +318,9 @@ export default class ToBeReviewTerm extends React.Component {
                         <Row>
                             <Col span={6}>
                                 <FormItem label="词性" labelCol={{
-                                    span: 6
+                                    span: 8
                                 }} wrapperCol={{
-                                    span: 14
+                                    span: 16
                                 }}>
                                     {this.state.modifyTerm
                                         ? <Select name="term_char" value={this.state.record.term_char} onChange={this.selectFormItem.bind(this, 'term_char')}>
@@ -333,21 +333,21 @@ export default class ToBeReviewTerm extends React.Component {
                                         </Select>}
                                 </FormItem>
                             </Col>
-                            <Col span={6}>
+                            <Col span={8}>
                                 <FormItem label="发音" labelCol={{
-                                    span: 5
+                                    span: 6
                                 }} wrapperCol={{
-                                    span: 14
+                                    span: 16
                                 }}>{this.state.modifyTerm
                                         ? <Input name="pronunciation" onChange={this.typeForm} value={this.state.record.pronunciation}/>
                                         : <Input disabled name="pronunciation" value={this.state.record.pronunciation}/>}
                                 </FormItem>
                             </Col>
-                            <Col span={6}>
+                            <Col span={8}>
                                 <FormItem label="中文翻译" labelCol={{
                                     span: 6
                                 }} wrapperCol={{
-                                    span: 14
+                                    span: 16
                                 }}>{this.state.modifyTerm
                                         ? <Input name="translation" onChange={this.typeForm} value={this.state.record.translation}/>
                                         : <Input disabled name="translation" value={this.state.record.translation}/>}
@@ -356,9 +356,9 @@ export default class ToBeReviewTerm extends React.Component {
                         </Row>
                         <Row>首次来源：</Row>
                         <Row>
-                            <Col span={6}>
+                            <Col span={12}>
                                 <FormItem label="杂志名称" labelCol={{
-                                    span: 6
+                                    span: 4
                                 }} wrapperCol={{
                                     span: 14
                                 }}>{this.state.modifyTerm
@@ -366,44 +366,46 @@ export default class ToBeReviewTerm extends React.Component {
                                         : <Input disabled data-parent="origin" name="magazineName" onChange={this.typeForm} value={this.state.record.origin.magazineName}/>}
                                 </FormItem>
                             </Col>
-                            <Col span={4}>
+                        </Row>
+                        <Row>
+                            <Col span={6}>
                                 <FormItem label="年份" labelCol={{
-                                    span: 6
+                                    span: 8
                                 }} wrapperCol={{
-                                    span: 14
+                                    span: 16
                                 }}>
                                     {this.state.modifyTerm
                                         ? <Input data-parent="origin" name="year" onChange={this.typeForm} value={this.state.record.origin.year}/>
                                         : <Input disabled data-parent="origin" name="year" onChange={this.typeForm} value={this.state.record.origin.year}/>}
                                 </FormItem>
                             </Col>
-                            <Col span={4}>
+                            <Col span={6}>
                                 <FormItem label="卷号" labelCol={{
-                                    span: 6
+                                    span: 8
                                 }} wrapperCol={{
-                                    span: 14
+                                    span: 16
                                 }}>
                                     {this.state.modifyTerm
                                         ? <Input data-parent="origin" name="roll" onChange={this.typeForm} value={this.state.record.origin.roll}/>
                                         : <Input disabled data-parent="origin" name="roll" onChange={this.typeForm} value={this.state.record.origin.roll}/>}
                                 </FormItem>
                             </Col>
-                            <Col span={4}>
+                            <Col span={6}>
                                 <FormItem label="期号" labelCol={{
-                                    span: 6
+                                    span: 8
                                 }} wrapperCol={{
-                                    span: 14
+                                    span: 16
                                 }}>
                                     {this.state.modifyTerm
                                         ? <Input data-parent="origin" name="issue" onChange={this.typeForm} value={this.state.record.origin.issue}/>
                                         : <Input disabled data-parent="origin" name="issue" onChange={this.typeForm} value={this.state.record.origin.issue}/>}
                                 </FormItem>
                             </Col>
-                            <Col span={4}>
+                            <Col span={6}>
                                 <FormItem label="页码" labelCol={{
-                                    span: 6
+                                    span: 8
                                 }} wrapperCol={{
-                                    span: 14
+                                    span: 16
                                 }}>
                                     {this.state.modifyTerm
                                         ? <Input data-parent="origin" name="page" onChange={this.typeForm} value={this.state.record.origin.page}/>
@@ -414,9 +416,9 @@ export default class ToBeReviewTerm extends React.Component {
                         <Row>
                             <Col span={12}>
                                 <FormItem label="英文定义" labelCol={{
-                                    span: 3
+                                    span: 4
                                 }} wrapperCol={{
-                                    span: 19
+                                    span: 18
                                 }}>
                                     {this.state.modifyTerm
                                         ? <Input type="textarea" name="definition" onChange={this.typeForm} value={this.state.record.definition}/>
@@ -425,9 +427,9 @@ export default class ToBeReviewTerm extends React.Component {
                             </Col>
                             <Col span={12}>
                                 <FormItem label="定义来源" labelCol={{
-                                    span: 3
+                                    span: 4
                                 }} wrapperCol={{
-                                    span: 19
+                                    span: 18
                                 }}>{this.state.modifyTerm
                                         ? <Input type="textarea" name="source" onChange={this.typeForm} value={this.state.record.source}/>
                                         : <Input disabled type="textarea" name="source" value={this.state.record.source}/>}
@@ -435,11 +437,11 @@ export default class ToBeReviewTerm extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col span={18}>
+                            <Col span={24}>
                                 <FormItem label="示例" labelCol={{
                                     span: 2
                                 }} wrapperCol={{
-                                    span: 19
+                                    span: 16
                                 }}>{this.state.modifyTerm
                                         ? <Input type="textarea" name="example" onChange={this.typeForm} value={this.state.record.example}/>
                                         : <Input disabled type="textarea" name="example" value={this.state.record.example}/>}
@@ -447,11 +449,11 @@ export default class ToBeReviewTerm extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col span={18}>
+                            <Col span={24}>
                                 <FormItem label="翻译理据" labelCol={{
                                     span: 2
                                 }} wrapperCol={{
-                                    span: 19
+                                    span: 16
                                 }}>{this.state.modifyTerm
                                         ? <Input type="textarea" name="basis" onChange={this.typeForm} value={this.state.record.basis}/>
                                         : <Input disabled type="textarea" name="basis" value={this.state.record.basis}/>}
