@@ -136,8 +136,18 @@ export default class CreatTerm extends React.Component {
                                 </FormItem>
                             </Col>
                         </Row>
-                        <Row>
-                            <h5>首次来源：</h5>
+                        <Row style={{
+                            borderTop: '1px solid #EFEFEF',
+                            marginBottom: '20px'
+                        }}>
+                            <div style={{
+                                position: 'absolute',
+                                top: '-11px',
+                                padding: '1px 8px',
+                                color: '#777',
+                                marginLeft: '25px',
+                                background: '#fff'
+                            }}>首次来源</div>
                         </Row>
                         <Row>
                             <Col span={12}>
@@ -150,7 +160,10 @@ export default class CreatTerm extends React.Component {
                                 </FormItem>
                             </Col>
                         </Row>
-                        <Row>
+                        <Row style={{
+                            borderBottom: '1px solid #EFEFEF',
+                            marginBottom: '20px'
+                        }}>
                             <Col span={6}>
                                 <FormItem label="年份" labelCol={{
                                     span: 8
