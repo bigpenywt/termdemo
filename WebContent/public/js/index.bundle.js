@@ -48412,13 +48412,21 @@
 	            modifyTerm: false,
 	            isFirstFetch: true,
 	            commitLoading: false,
-	            commitUrl: _this.props.route.author === 'me' ? '/termdemo/Term/ModifyTerm' : ''
+	            showRejectModal: false,
+	            operateByMe: _this.props.route.author === 'me',
+	            getUrl: _this.props.route.author === 'me' ? '/termdemo/Term/GetCreateTerm/' : '/termdemo/Term/GetTermByStatus',
+	            commitUrl: _this.props.route.author === 'me' ? '/termdemo/Term/ModifyTerm' : '',
+	            rejectReason: ''
 	        };
 	        _this.hideDetails = _this.hideDetails.bind(_this);
 	        _this.fetchNewData = _this.fetchNewData.bind(_this);
 	        _this.reEditTerm = _this.reEditTerm.bind(_this);
 	        _this.typeForm = _this.typeForm.bind(_this);
 	        _this.commitModify = _this.commitModify.bind(_this);
+	        _this.passCalibrate = _this.passCalibrate.bind(_this);
+	        _this.rejectCalibrate = _this.rejectCalibrate.bind(_this);
+	        _this.showRejectModal = _this.showRejectModal.bind(_this);
+	        _this.hideRejectModal = _this.hideRejectModal.bind(_this);
 	        return _this;
 	    }
 
@@ -48427,7 +48435,7 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            _superagent2.default.get('/termdemo/Term/GetCreateTerm/').query({ status: 0, page: 0, rows: 10 }).end(function (err, res) {
+	            _superagent2.default.get(this.state.getUrl).query({ status: 0, page: 0, rows: 10 }).end(function (err, res) {
 	                var data = JSON.parse(res.text);
 	                if (data.status === '1') {
 	                    var pagination = {
@@ -48511,6 +48519,17 @@
 	            this.setState({ showTermDetails: false, modifyTerm: false, record: emptyRecord });
 	        }
 	    }, {
+	        key: 'showRejectModal',
+	        value: function showRejectModal() {
+	            this.setState({ showRejectModal: true });
+	        }
+	    }, {
+	        key: 'hideRejectModal',
+	        value: function hideRejectModal() {
+	            var tempRecord = this.state.record;
+	            tempRecord.rejectReason = '', this.setState({ showRejectModal: false, record: tempRecord });
+	        }
+	    }, {
 	        key: 'commitModify',
 	        value: function commitModify() {
 	            var _this4 = this;
@@ -48548,11 +48567,11 @@
 	                var data = JSON.parse(res.text);
 	                data.status === '1' ? function () {
 	                    _message2.default.success('修改成功～', 3);
+	                    _this4.hideDetails();
 	                    var pagination = {
 	                        current: 1,
 	                        pageSize: 10
 	                    };
-	                    _this4.hideDetails();
 	                    _this4.fetchNewData(pagination);
 	                }() : function () {
 	                    _message2.default.error(data.msg, 3);
@@ -48561,26 +48580,77 @@
 	            });
 	        }
 	    }, {
+	        key: 'passCalibrate',
+	        value: function passCalibrate() {
+	            var _this5 = this;
+
+	            var term = this.state.record.term;
+	            this.setState({ commitLoading: true });
+	            _superagent2.default.post('/termdemo/Term/ReviewTerm').type('form').send({ term: term }).end(function (err, res) {
+	                var data = JSON.parse(res.text);
+	                data.status === '1' ? function () {
+	                    _message2.default.success('提交成功，该词已通过校验～', 3);
+	                    _this5.hideDetails();
+	                    var pagination = {
+	                        current: 1,
+	                        pageSize: 10
+	                    };
+	                    _this5.fetchNewData(pagination);
+	                }() : function () {
+	                    _message2.default.error(data.msg, 3);
+	                    _this5.setState({ commitLoading: false });
+	                }();
+	            });
+	        }
+	    }, {
+	        key: 'rejectCalibrate',
+	        value: function rejectCalibrate() {
+	            var _this6 = this;
+
+	            var term = this.state.record.term;
+	            var data = {
+	                term: term,
+	                reason: this.state.record.rejectReason
+	            };
+	            this.setState({ commitLoading: true });
+	            _superagent2.default.post('/termdemo//Term/RejectTerm').type('form').send(data).end(function (err, res) {
+	                var data = JSON.parse(res.text);
+	                data.status === '1' ? function () {
+	                    _message2.default.success('提交成功，可在已驳回的单词中查看～', 3);
+	                    _this6.hideDetails();
+	                    var pagination = {
+	                        current: 1,
+	                        pageSize: 10
+	                    };
+	                    _this6.fetchNewData(pagination);
+	                }() : function () {
+	                    _message2.default.error(data.msg, 3);
+	                    _this6.setState({ commitLoading: false });
+	                }();
+	            });
+	            this.setState({ showRejectModal: false });
+	        }
+	    }, {
 	        key: 'fetchNewData',
 	        value: function fetchNewData(pagination) {
-	            var _this5 = this;
+	            var _this7 = this;
 
 	            var pager = this.state.pagination;
 	            pager.current = pagination.current;
 	            this.setState({ pagination: pager, loading: true });
-	            _superagent2.default.get('/termdemo/Term/GetCreateTerm/').query({ status: 0, page: pager.current, rows: pagination.pageSize }).end(function (err, res) {
+	            _superagent2.default.get(this.state.getUrl).query({ status: 0, page: pager.current, rows: pagination.pageSize }).end(function (err, res) {
 	                var data = JSON.parse(res.text);
 	                if (data.status === '1') {
-	                    var _pagination = _this5.state.pagination;
+	                    var _pagination = _this7.state.pagination;
 	                    _pagination.total = data.total;
-	                    _this5.setState({ terms: data.records, pagination: _pagination, loading: false, record: emptyRecord });
+	                    _this7.setState({ terms: data.records, pagination: _pagination, loading: false, record: emptyRecord });
 	                }
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this6 = this;
+	            var _this8 = this;
 
 	            if (!this.state.isFirstFetch) {
 	                var columns = [{
@@ -48590,7 +48660,7 @@
 	                    render: function render(text, record) {
 	                        return _react2.default.createElement(
 	                            'a',
-	                            { href: 'javascript:void(0);', onClick: _this6.showDetails.bind(_this6, record) },
+	                            { href: 'javascript:void(0);', onClick: _this8.showDetails.bind(_this8, record) },
 	                            text
 	                        );
 	                    }
@@ -48606,23 +48676,31 @@
 	                    title: '操作',
 	                    key: 'action',
 	                    render: function render(record) {
-	                        return _react2.default.createElement(
+	                        return _this8.state.operateByMe ? _react2.default.createElement(
 	                            'span',
 	                            null,
 	                            _react2.default.createElement(
 	                                'a',
-	                                { href: 'javascript:void(0);', onClick: _this6.reEditItemTerm.bind(_this6, record) },
+	                                { href: 'javascript:void(0);', onClick: _this8.reEditItemTerm.bind(_this8, record) },
 	                                '\u91CD\u65B0\u7F16\u8F91'
 	                            ),
 	                            _react2.default.createElement('span', { className: 'ant-divider' }),
 	                            _react2.default.createElement(
 	                                _popconfirm2.default,
-	                                { title: '\u786E\u5B9A\u5220\u9664\u8FD9\u6761\u5355\u8BCD\uFF1F', onConfirm: _this6.deleteTerm.bind(_this6, record), okText: '\u786E\u5B9A', cancelText: '\u53D6\u6D88' },
+	                                { title: '\u786E\u5B9A\u5220\u9664\u8FD9\u6761\u5355\u8BCD\uFF1F', onConfirm: _this8.deleteTerm.bind(_this8, record), okText: '\u786E\u5B9A', cancelText: '\u53D6\u6D88' },
 	                                _react2.default.createElement(
 	                                    'a',
 	                                    { href: 'javascript:void(0);' },
 	                                    '\u5220\u9664'
 	                                )
+	                            )
+	                        ) : _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: 'javascript:void(0);', onClick: _this8.showDetails.bind(_this8, record) },
+	                                '\u6821\u9A8C'
 	                            )
 	                        );
 	                    }
@@ -48630,7 +48708,7 @@
 	                var data = this.state.terms.map(function (item, i) {
 	                    return { key: i, term: item.term, create_time: item.create_time, definition: item.definition };
 	                });
-	                var modalBottonGroup = [_react2.default.createElement(
+	                var modalBottonGroup = this.state.operateByMe ? [_react2.default.createElement(
 	                    _button2.default,
 	                    { type: 'ghost', size: 'large', onClick: this.hideDetails },
 	                    ' \u8FD4\u56DE '
@@ -48642,6 +48720,18 @@
 	                    _button2.default,
 	                    { type: 'primary', size: 'large', onClick: this.reEditTerm },
 	                    '\u91CD\u65B0\u7F16\u8F91'
+	                )] : [_react2.default.createElement(
+	                    _button2.default,
+	                    { type: 'primary', size: 'large', onClick: this.passCalibrate },
+	                    ' \u6821\u9A8C\u901A\u8FC7 '
+	                ), _react2.default.createElement(
+	                    _button2.default,
+	                    { type: 'primary', size: 'large', onClick: this.showRejectModal },
+	                    ' \u9A73\u56DE '
+	                ), _react2.default.createElement(
+	                    _button2.default,
+	                    { type: 'ghost', size: 'large', onClick: this.hideDetails },
+	                    ' \u53D6\u6D88 '
 	                )];
 	                return _react2.default.createElement(
 	                    'div',
@@ -48651,11 +48741,17 @@
 	                        { title: '\u5F85\u6821\u9A8C\u7684\u5355\u8BCD\uFF08\u70B9\u51FB\u5355\u8BCD\u540D\u53EF\u67E5\u770B\u5355\u8BCD\u8BE6\u7EC6\u4FE1\u606F\uFF09', style: {
 	                                width: '100%'
 	                            } },
-	                        _react2.default.createElement(_table2.default, { columns: columns, dataSource: data, pagination: this.state.pagination, loading: this.state.loading, onChange: this.fetchNewData })
+	                        _react2.default.createElement(_table2.default, { columns: columns, dataSource: data, pagination: this.state.pagination, loading: this.state.loading, onChange: this.fetchNewData }),
+	                        ' '
 	                    ),
+	                    ' ',
 	                    _react2.default.createElement(
 	                        _modal2.default,
-	                        { title: '\u5355\u8BCD\u8BE6\u60C5', visible: this.state.showTermDetails, onCancel: this.hideDetails, width: '75%', footer: modalBottonGroup },
+	                        { title: '\u5355\u8BCD\u8BE6\u60C5', visible: this.state.showTermDetails,
+	                            onCancel: this.hideDetails,
+	                            width: '75%',
+	                            footer: modalBottonGroup },
+	                        ' ',
 	                        _react2.default.createElement(
 	                            _form2.default,
 	                            { horizontal: true },
@@ -48883,8 +48979,24 @@
 	                                    )
 	                                )
 	                            )
-	                        )
-	                    )
+	                        ),
+	                        ' '
+	                    ),
+	                    _react2.default.createElement(
+	                        _modal2.default,
+	                        { title: '\u9A73\u56DE\u539F\u56E0', visible: this.state.showRejectModal, onCancel: this.hideRejectModal, width: '45%', footer: [_react2.default.createElement(
+	                                _button2.default,
+	                                { type: 'primary', size: 'large', onClick: this.rejectCalibrate },
+	                                ' \u786E\u8BA4\u9A73\u56DE '
+	                            ), _react2.default.createElement(
+	                                _button2.default,
+	                                { type: 'primary', size: 'large', onClick: this.hideRejectModal },
+	                                ' \u53D6\u6D88 '
+	                            )] },
+	                        _react2.default.createElement(_input2.default, { name: 'rejectReason', type: 'textarea', placeholder: '\u8BF7\u8F93\u5165\u9A73\u56DE\u539F\u56E0\u4EE5\u65B9\u4FBF\u8BCD\u6761\u521B\u5EFA\u8005\u4FEE\u6539\uFF5E', onChange: this.typeForm, value: this.state.record.rejectReason }),
+	                        ' '
+	                    ),
+	                    ' '
 	                );
 	            } else return false;
 	        }
