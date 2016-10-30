@@ -50,14 +50,13 @@ export default class ToBeReviewTerm extends React.Component {
             isFirstFetch: true,
             commitLoading: false,
             showRejectModal: false,
-            operateByMe: this.props.route.author === 'me',
-            getUrl: this.props.route.author === 'me'
+            operateByMe: this.props.author === 'me',
+            getUrl: this.props.author === 'me'
                 ? '/termdemo/Term/GetCreateTerm/'
                 : '/termdemo/Term/GetTermByStatus',
-            commitUrl: this.props.route.author === 'me'
+            commitUrl: this.props.author === 'me'
                 ? '/termdemo/Term/ModifyTerm'
-                : '',
-            rejectReason: ''
+                : ''
         }
         this.hideDetails = this.hideDetails.bind(this);
         this.fetchNewData = this.fetchNewData.bind(this);
@@ -470,4 +469,8 @@ export default class ToBeReviewTerm extends React.Component {
             return false
 
     }
+}
+
+ToBeReviewTerm.propTypes={
+  author:React.PropTypes.string.isRequired
 }

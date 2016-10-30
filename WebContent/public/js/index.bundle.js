@@ -21458,10 +21458,6 @@
 
 	var _CreatTerm2 = _interopRequireDefault(_CreatTerm);
 
-	var _ToBeReviewTerm = __webpack_require__(513);
-
-	var _ToBeReviewTerm2 = _interopRequireDefault(_ToBeReviewTerm);
-
 	var _BeRejectTerm = __webpack_require__(961);
 
 	var _BeRejectTerm2 = _interopRequireDefault(_BeRejectTerm);
@@ -21477,6 +21473,14 @@
 	var _HasPublishedTerm = __webpack_require__(964);
 
 	var _HasPublishedTerm2 = _interopRequireDefault(_HasPublishedTerm);
+
+	var _ToBeReviewByAll = __webpack_require__(971);
+
+	var _ToBeReviewByAll2 = _interopRequireDefault(_ToBeReviewByAll);
+
+	var _ToBeReviewByMe = __webpack_require__(972);
+
+	var _ToBeReviewByMe2 = _interopRequireDefault(_ToBeReviewByMe);
 
 	var _UserInfo = __webpack_require__(965);
 
@@ -21522,9 +21526,9 @@
 	                    { path: '/', userName: this.props.userName, component: _ActionLayout2.default },
 	                    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Welcome2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/creat', component: _CreatTerm2.default }),
-	                    _react2.default.createElement(_reactRouter.Route, { path: '/toBeReviewByMe', author: 'me', component: _ToBeReviewTerm2.default }),
+	                    _react2.default.createElement(_reactRouter.Route, { path: '/toBeReviewByMe', component: _ToBeReviewByMe2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/beReject', component: _BeRejectTerm2.default }),
-	                    _react2.default.createElement(_reactRouter.Route, { path: '/toBeReviewByAll', author: 'all', component: _ToBeReviewTerm2.default }),
+	                    _react2.default.createElement(_reactRouter.Route, { path: '/toBeReviewByAll', component: _ToBeReviewByAll2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/hasRejectedWhenCalibrate', stage: 'calibrate', component: _HasRejectedTerm2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/toBePublish', component: _ToBePublishTerm2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/hasRejectedWhenPublish', stage: 'publish', component: _HasRejectedTerm2.default }),
@@ -48425,10 +48429,9 @@
 	            isFirstFetch: true,
 	            commitLoading: false,
 	            showRejectModal: false,
-	            operateByMe: _this.props.route.author === 'me',
-	            getUrl: _this.props.route.author === 'me' ? '/termdemo/Term/GetCreateTerm/' : '/termdemo/Term/GetTermByStatus',
-	            commitUrl: _this.props.route.author === 'me' ? '/termdemo/Term/ModifyTerm' : '',
-	            rejectReason: ''
+	            operateByMe: _this.props.author === 'me',
+	            getUrl: _this.props.author === 'me' ? '/termdemo/Term/GetCreateTerm/' : '/termdemo/Term/GetTermByStatus',
+	            commitUrl: _this.props.author === 'me' ? '/termdemo/Term/ModifyTerm' : ''
 	        };
 	        _this.hideDetails = _this.hideDetails.bind(_this);
 	        _this.fetchNewData = _this.fetchNewData.bind(_this);
@@ -49022,6 +49025,11 @@
 	}(_react2.default.Component);
 
 	exports.default = ToBeReviewTerm;
+
+
+	ToBeReviewTerm.propTypes = {
+	    author: _react2.default.PropTypes.string.isRequired
+	};
 
 /***/ },
 /* 514 */
@@ -77708,6 +77716,104 @@
 	  return Immutable;
 
 	}));
+
+/***/ },
+/* 971 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ToBeReviewTerm = __webpack_require__(513);
+
+	var _ToBeReviewTerm2 = _interopRequireDefault(_ToBeReviewTerm);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ToBeReviewByAll = function (_React$Component) {
+	    _inherits(ToBeReviewByAll, _React$Component);
+
+	    function ToBeReviewByAll(props) {
+	        _classCallCheck(this, ToBeReviewByAll);
+
+	        return _possibleConstructorReturn(this, (ToBeReviewByAll.__proto__ || Object.getPrototypeOf(ToBeReviewByAll)).call(this, props));
+	    }
+
+	    _createClass(ToBeReviewByAll, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_ToBeReviewTerm2.default, { author: 'all' });
+	        }
+	    }]);
+
+	    return ToBeReviewByAll;
+	}(_react2.default.Component);
+
+	exports.default = ToBeReviewByAll;
+
+/***/ },
+/* 972 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ToBeReviewTerm = __webpack_require__(513);
+
+	var _ToBeReviewTerm2 = _interopRequireDefault(_ToBeReviewTerm);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ToBeReviewByMe = function (_React$Component) {
+	    _inherits(ToBeReviewByMe, _React$Component);
+
+	    function ToBeReviewByMe(props) {
+	        _classCallCheck(this, ToBeReviewByMe);
+
+	        return _possibleConstructorReturn(this, (ToBeReviewByMe.__proto__ || Object.getPrototypeOf(ToBeReviewByMe)).call(this, props));
+	    }
+
+	    _createClass(ToBeReviewByMe, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_ToBeReviewTerm2.default, { author: 'me' });
+	        }
+	    }]);
+
+	    return ToBeReviewByMe;
+	}(_react2.default.Component);
+
+	exports.default = ToBeReviewByMe;
 
 /***/ }
 /******/ ]);

@@ -6,11 +6,12 @@ import {pathConfig} from '../pathConfig.js';
 
 import ActionLayout from './ActionLayout.jsx';
 import CreatTerm from './CreatTerm.jsx';
-import ToBeReviewTerm from './ToBeReviewTerm.jsx';
 import BeRejectTerm from './BeRejectTerm.jsx';
 import HasRejectedTerm from './HasRejectedTerm.jsx';
 import ToBePublishTerm from './ToBePublishTerm.jsx';
 import HasPublishedTerm from './HasPublishedTerm.jsx';
+import ToBeReviewByAll from './ToBeReviewByAll.jsx';
+import ToBeReviewByMe from './ToBeReviewByMe.jsx';
 import UserInfo from './UserInfo.jsx';
 import Log from './Log.jsx';
 import Welcome from './Welcome.jsx';
@@ -27,9 +28,9 @@ export default class Main extends React.Component {
                 <Route path="/" userName={this.props.userName} component={ActionLayout}>
                     <IndexRoute component={Welcome}/>
                     <Route path="/creat" component={CreatTerm}/>
-                    <Route path="/toBeReviewByMe" author="me" component={ToBeReviewTerm}/>
+                    <Route path="/toBeReviewByMe" component={ToBeReviewByMe}/>
                     <Route path="/beReject" component={BeRejectTerm}/>
-                    <Route path="/toBeReviewByAll" author="all" component={ToBeReviewTerm}/>
+                    <Route path="/toBeReviewByAll" component={ToBeReviewByAll}/>
                     <Route path="/hasRejectedWhenCalibrate" stage="calibrate" component={HasRejectedTerm}/>
                     <Route path="/toBePublish" component={ToBePublishTerm}/>
                     <Route path="/hasRejectedWhenPublish" stage="publish" component={HasRejectedTerm}/>
