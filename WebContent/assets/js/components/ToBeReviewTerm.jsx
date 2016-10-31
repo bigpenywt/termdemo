@@ -4,7 +4,6 @@ import request from 'superagent';
 import Immutable from 'immutable';
 import {
     Table,
-    Icon,
     Card,
     Popconfirm,
     Modal,
@@ -243,13 +242,13 @@ export default class ToBeReviewTerm extends React.Component {
                     key: 'term',
                     render: (text, record) => <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>{text}</a>
                 }, {
+                    title: '中文翻译',
+                    dataIndex: 'translation',
+                    key: 'translation'
+                }, {
                     title: '创建时间',
                     dataIndex: 'create_time',
                     key: 'create_time'
-                }, {
-                    title: '英文定义',
-                    dataIndex: 'definition',
-                    key: 'definition'
                 }, {
                     title: '操作',
                     key: 'action',
@@ -273,7 +272,7 @@ export default class ToBeReviewTerm extends React.Component {
                 }
             ];
             const data = this.state.terms.map((item, i) => {
-                return {key: i, term: item.term, create_time: item.create_time, definition: item.definition}
+                return {key: i, term: item.term, create_time: item.create_time, translation: item.translation}
             });
             const modalBottonGroup = this.state.operateByMe
                 ? [< Button type = "ghost" size = "large" onClick = {

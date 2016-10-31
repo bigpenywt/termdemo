@@ -4,7 +4,6 @@ import request from 'superagent';
 import Immutable from 'immutable';
 import {
     Table,
-    Icon,
     Card,
     Popconfirm,
     Modal,
@@ -176,9 +175,9 @@ export default class ToBeReviewTerm extends React.Component {
                     }}>
                         <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
                     </Card>
-                    <Modal title="单词详情" visible={this.state.showTermDetails} onCancel={this.hideDetails} width={'75%'} footer={modalBottonGroup}>
+                    <Modal title="单词详情" visible={this.state.showTermDetails} onCancel={this.hideDetails} width={'80%'} footer={modalBottonGroup}>
                         <Form horizontal style={{
-                            width: '80%',
+                            width: '85%',
                             'borderRight': 'solid 1px #d9d9d9',
                             paddingRight: '1%'
                         }}>
@@ -334,13 +333,13 @@ export default class ToBeReviewTerm extends React.Component {
                             </Row>
                         </Form>
                         <div style={{
-                            width: '18%',
+                            width: '15%',
                             display: 'inline-block',
                             position: 'absolute',
                             right: '0',
                             top: '66px'
                         }}>
-                            <h5>驳回原因：</h5>
+                            <h4>驳回原因：</h4>
                             <p>{this.state.record.reject_reason}</p>
                         </div>
                     </Modal>

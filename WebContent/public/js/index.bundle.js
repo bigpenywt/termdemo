@@ -48621,11 +48621,11 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _modal2.default,
-	                        { title: '\u5355\u8BCD\u8BE6\u60C5', visible: this.state.showTermDetails, onCancel: this.hideDetails, width: '75%', footer: modalBottonGroup },
+	                        { title: '\u5355\u8BCD\u8BE6\u60C5', visible: this.state.showTermDetails, onCancel: this.hideDetails, width: '80%', footer: modalBottonGroup },
 	                        _react2.default.createElement(
 	                            _form2.default,
 	                            { horizontal: true, style: {
-	                                    width: '80%',
+	                                    width: '85%',
 	                                    'borderRight': 'solid 1px #d9d9d9',
 	                                    paddingRight: '1%'
 	                                } },
@@ -48865,14 +48865,14 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { style: {
-	                                    width: '18%',
+	                                    width: '15%',
 	                                    display: 'inline-block',
 	                                    position: 'absolute',
 	                                    right: '0',
 	                                    top: '66px'
 	                                } },
 	                            _react2.default.createElement(
-	                                'h5',
+	                                'h4',
 	                                null,
 	                                '\u9A73\u56DE\u539F\u56E0\uFF1A'
 	                            ),
@@ -77780,13 +77780,13 @@
 	                        );
 	                    }
 	                }, {
+	                    title: '中文翻译',
+	                    dataIndex: 'translation',
+	                    key: 'translation'
+	                }, {
 	                    title: '创建时间',
 	                    dataIndex: 'create_time',
 	                    key: 'create_time'
-	                }, {
-	                    title: '英文定义',
-	                    dataIndex: 'definition',
-	                    key: 'definition'
 	                }, {
 	                    title: '操作',
 	                    key: 'action',
@@ -77821,7 +77821,7 @@
 	                    }
 	                }];
 	                var data = this.state.terms.map(function (item, i) {
-	                    return { key: i, term: item.term, create_time: item.create_time, definition: item.definition };
+	                    return { key: i, term: item.term, create_time: item.create_time, translation: item.translation };
 	                });
 	                var modalBottonGroup = this.state.operateByMe ? [_react2.default.createElement(
 	                    _button2.default,
