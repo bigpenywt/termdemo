@@ -105,6 +105,8 @@ public class TermController {
 		Map<String, Object> resultmap = new HashMap<>();
 		String username = request.getSession().getAttribute("username") + "";
 		term.setStatus("0");
+		term.setReject_user("");
+		term.setReject_reason("");
 		try {
 			termService.ModifyTerm(term);
 			logService.WriteLog(username, "重新编辑", term.getTerm());
@@ -178,6 +180,7 @@ public class TermController {
 		Map<String, Object> resultmap = new HashMap<>();
 		try {
 			termService.RejectTerm(term);
+			logService.WriteLog(username, "驳回", term.getTerm());
 			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
@@ -198,6 +201,7 @@ public class TermController {
 		Map<String, Object> resultmap = new HashMap<>();
 		try {
 			termService.ReviewTerm(reviewterm);
+			logService.WriteLog(username, "审核通过", term);
 			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
@@ -218,6 +222,7 @@ public class TermController {
 		Map<String, Object> resultmap = new HashMap<>();
 		try {
 			termService.PublishTerm(publishterm);
+			logService.WriteLog(username, "发布", term);
 			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
