@@ -201,7 +201,7 @@ export default class ToBeReviewTerm extends React.Component {
             reason: this.state.record.rejectReason
         }
         this.setState({commitLoading: true});
-        request.post('/termdemo//Term/RejectTerm').type('form').send(data).end((err, res) => {
+        request.post('/termdemo/Term/RejectTerm').type('form').send(data).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {

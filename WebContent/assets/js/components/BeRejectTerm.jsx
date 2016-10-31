@@ -100,7 +100,7 @@ export default class ToBeReviewTerm extends React.Component {
         }
         tempRecord.origin = origin.replace(',', '');
         this.setState({commitLoading: true});
-        request.post('/termdemo/Term/ModifyTerm ').type('form').send(tempRecord).end((err, res) => {
+        request.post('/termdemo/Term/ModifyTerm').type('form').send(tempRecord).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
