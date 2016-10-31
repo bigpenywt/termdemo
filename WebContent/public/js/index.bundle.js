@@ -46569,7 +46569,7 @@
 
 	            tempRecord.origin = origin.replace(',', '');
 	            this.setState({ commitLoading: true });
-	            _superagent2.default.post('/termdemo/Term/ModifyTerm ').type('form').send(tempRecord).end(function (err, res) {
+	            _superagent2.default.post('/termdemo/Term/ModifyTerm').type('form').send(tempRecord).end(function (err, res) {
 	                var data = JSON.parse(res.text);
 	                data.status === '1' ? function () {
 	                    _message2.default.success('修改成功～', 3);
@@ -68079,11 +68079,75 @@
 	    value: true
 	});
 
+	var _css = __webpack_require__(396);
+
+	var _row = __webpack_require__(399);
+
+	var _row2 = _interopRequireDefault(_row);
+
+	var _css2 = __webpack_require__(403);
+
+	var _col = __webpack_require__(404);
+
+	var _col2 = _interopRequireDefault(_col);
+
+	var _css3 = __webpack_require__(514);
+
+	var _modal = __webpack_require__(517);
+
+	var _modal2 = _interopRequireDefault(_modal);
+
+	var _css4 = __webpack_require__(405);
+
+	var _input = __webpack_require__(408);
+
+	var _input2 = _interopRequireDefault(_input);
+
+	var _css5 = __webpack_require__(376);
+
+	var _card = __webpack_require__(379);
+
+	var _card2 = _interopRequireDefault(_card);
+
+	var _css6 = __webpack_require__(531);
+
+	var _table = __webpack_require__(549);
+
+	var _table2 = _interopRequireDefault(_table);
+
+	var _css7 = __webpack_require__(390);
+
+	var _button = __webpack_require__(393);
+
+	var _button2 = _interopRequireDefault(_button);
+
+	var _css8 = __webpack_require__(412);
+
+	var _message = __webpack_require__(415);
+
+	var _message2 = _interopRequireDefault(_message);
+
+	var _css9 = __webpack_require__(464);
+
+	var _form = __webpack_require__(468);
+
+	var _form2 = _interopRequireDefault(_form);
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(664);
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _superagent = __webpack_require__(508);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _immutable = __webpack_require__(960);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68093,30 +68157,533 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var HasRejectedTerm = function (_React$Component) {
-	    _inherits(HasRejectedTerm, _React$Component);
+	var FormItem = _form2.default.Item;
+	var emptyRecord = {
+	    term: '',
+	    term_char: '',
+	    definition: '',
+	    origin: {
+	        magazineName: '',
+	        year: '',
+	        roll: '',
+	        issue: '',
+	        page: ''
+	    },
+	    pronunciation: '',
+	    example: '',
+	    source: '',
+	    translation: '',
+	    basis: ''
+	};
 
-	    function HasRejectedTerm(props) {
-	        _classCallCheck(this, HasRejectedTerm);
+	var ToBeReviewTerm = function (_React$Component) {
+	    _inherits(ToBeReviewTerm, _React$Component);
 
-	        return _possibleConstructorReturn(this, (HasRejectedTerm.__proto__ || Object.getPrototypeOf(HasRejectedTerm)).call(this, props));
+	    function ToBeReviewTerm(props) {
+	        _classCallCheck(this, ToBeReviewTerm);
+
+	        var _this = _possibleConstructorReturn(this, (ToBeReviewTerm.__proto__ || Object.getPrototypeOf(ToBeReviewTerm)).call(this, props));
+
+	        _this.state = {
+	            showTermDetails: false,
+	            terms: [],
+	            termsTotal: 0,
+	            pagination: {},
+	            record: emptyRecord,
+	            loading: false,
+	            isFirstFetch: true,
+	            showRejectModal: false,
+	            commitLoading: false
+	        };
+	        _this.hideDetails = _this.hideDetails.bind(_this);
+	        _this.fetchNewData = _this.fetchNewData.bind(_this);
+	        _this.typeForm = _this.typeForm.bind(_this);
+	        _this.rejectCalibrate = _this.rejectCalibrate.bind(_this);
+	        _this.showRejectModal = _this.showRejectModal.bind(_this);
+	        _this.hideRejectModal = _this.hideRejectModal.bind(_this);
+	        return _this;
 	    }
 
-	    _createClass(HasRejectedTerm, [{
+	    _createClass(ToBeReviewTerm, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            _superagent2.default.get('/termdemo/Term/GetRejectedTerm/').query({ page: 0, rows: 10 }).end(function (err, res) {
+	                var data = JSON.parse(res.text);
+	                if (data.status === '1') {
+	                    var pagination = {
+	                        total: data.total,
+	                        showSizeChanger: true
+	                    };
+	                    _this2.setState({ terms: data.records, pagination: pagination, isFirstFetch: false });
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'typeForm',
+	        value: function typeForm(e) {
+	            var tempRecord = this.state.record;
+	            e.target.getAttribute('data-parent') === 'origin' ? tempRecord.origin[e.target.name] = e.target.value : tempRecord[e.target.name] = e.target.value;
+	            this.setState({ record: tempRecord });
+	        }
+	    }, {
+	        key: 'showDetails',
+	        value: function showDetails(record) {
+	            var tempTerm = _immutable2.default.fromJS(this.state.terms[record.key - 0]);
+	            var origin = this.state.terms[record.key - 0].origin.split(',');
+	            tempTerm = tempTerm.set('origin', {
+	                magazineName: origin[0],
+	                year: origin[1] || '',
+	                roll: origin[2] || '',
+	                issue: origin[3] || '',
+	                page: origin[4] || ''
+	            });
+	            this.setState({ showTermDetails: true, record: tempTerm.toJS() });
+	        }
+	    }, {
+	        key: 'hideDetails',
+	        value: function hideDetails() {
+	            this.setState({ showTermDetails: false, record: emptyRecord });
+	        }
+	    }, {
+	        key: 'showRejectModal',
+	        value: function showRejectModal() {
+	            this.setState({ showRejectModal: true });
+	        }
+	    }, {
+	        key: 'hideRejectModal',
+	        value: function hideRejectModal() {
+	            var tempRecord = this.state.record;
+	            tempRecord.rejectReason = '', this.setState({ showRejectModal: false, record: tempRecord });
+	        }
+	    }, {
+	        key: 'rejectCalibrate',
+	        value: function rejectCalibrate() {
+	            var _this3 = this;
+
+	            var term = this.state.record.term;
+	            var data = {
+	                term: term,
+	                reason: this.state.record.rejectReason
+	            };
+	            this.setState({ commitLoading: true });
+	            _superagent2.default.post('/termdemo/Term/RejectTerm').type('form').send(data).end(function (err, res) {
+	                var data = JSON.parse(res.text);
+	                data.status === '1' ? function () {
+	                    _message2.default.success('修改成功～', 3);
+	                    _this3.hideDetails();
+	                    var pagination = {
+	                        current: 1,
+	                        pageSize: 10
+	                    };
+	                    _this3.fetchNewData(pagination);
+	                }() : function () {
+	                    _message2.default.error(data.msg, 3);
+	                    _this3.setState({ commitLoading: false });
+	                }();
+	            });
+	            this.setState({ showRejectModal: false });
+	        }
+	    }, {
+	        key: 'fetchNewData',
+	        value: function fetchNewData(pagination) {
+	            var _this4 = this;
+
+	            var pager = this.state.pagination;
+	            pager.current = pagination.current;
+	            this.setState({ pagination: pager, loading: true });
+	            _superagent2.default.get('/termdemo/Term/GetRejectedTerm').query({ page: pager.current, rows: pagination.pageSize }).end(function (err, res) {
+	                var data = JSON.parse(res.text);
+	                if (data.status === '1') {
+	                    var _pagination = _this4.state.pagination;
+	                    _pagination.total = data.total;
+	                    _this4.setState({ terms: data.records, pagination: _pagination, loading: false, record: emptyRecord });
+	                }
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                '\u5DF2\u9A73\u56DE'
-	            );
+	            var _this5 = this;
+
+	            if (!this.state.isFirstFetch) {
+	                var columns = [{
+	                    title: '单词',
+	                    dataIndex: 'term',
+	                    key: 'term'
+	                }, {
+	                    title: '创建时间',
+	                    dataIndex: 'create_time',
+	                    key: 'create_time'
+	                }, {
+	                    title: '驳回原因',
+	                    dataIndex: 'reject_reason',
+	                    key: 'reject_reason'
+	                }, {
+	                    title: '操作',
+	                    key: 'action',
+	                    render: function render(record) {
+	                        return _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: 'javascript:void(0);', onClick: _this5.showDetails.bind(_this5, record) },
+	                                '\u67E5\u770B\u8BE6\u60C5'
+	                            )
+	                        );
+	                    }
+
+	                }];
+	                var data = this.state.terms.map(function (item, i) {
+	                    return { key: i, term: item.term, create_time: item.create_time, reject_reason: item.reject_reason };
+	                });
+	                var modalBottonGroup = [_react2.default.createElement(
+	                    _button2.default,
+	                    { type: 'primary', size: 'large', onClick: this.showRejectModal },
+	                    ' \u91CD\u65B0\u7F16\u5199\u9A73\u56DE\u539F\u56E0 '
+	                ), _react2.default.createElement(
+	                    _button2.default,
+	                    { type: 'ghost', size: 'large', onClick: this.hideDetails },
+	                    ' \u8FD4\u56DE '
+	                )];
+	                var rejectButtonGroup = [_react2.default.createElement(
+	                    _button2.default,
+	                    { type: 'primary', size: 'large', onClick: this.rejectCalibrate },
+	                    ' \u786E\u8BA4\u4FEE\u6539 '
+	                ), _react2.default.createElement(
+	                    _button2.default,
+	                    { type: 'primary', size: 'large', onClick: this.hideRejectModal },
+	                    ' \u53D6\u6D88 '
+	                )];
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        _card2.default,
+	                        { title: '\u88AB\u9A73\u56DE\u7684\u5355\u8BCD', style: {
+	                                width: '100%'
+	                            } },
+	                        _react2.default.createElement(_table2.default, { columns: columns, dataSource: data, pagination: this.state.pagination, loading: this.state.loading, onChange: this.fetchNewData })
+	                    ),
+	                    _react2.default.createElement(
+	                        _modal2.default,
+	                        { title: '\u9A73\u56DE\u539F\u56E0', visible: this.state.showRejectModal, onCancel: this.hideRejectModal, width: '45%', footer: rejectButtonGroup },
+	                        _react2.default.createElement(_input2.default, { name: 'rejectReason', type: 'textarea', placeholder: '\u8BF7\u8F93\u5165\u9A73\u56DE\u539F\u56E0\u4EE5\u65B9\u4FBF\u8BCD\u6761\u521B\u5EFA\u8005\u4FEE\u6539\uFF5E ', onChange: this.typeForm, value: this.state.record.rejectReason })
+	                    ),
+	                    _react2.default.createElement(
+	                        _modal2.default,
+	                        { title: '\u5355\u8BCD\u8BE6\u60C5', visible: this.state.showTermDetails, onCancel: this.hideDetails, width: '80%', footer: modalBottonGroup },
+	                        _react2.default.createElement(
+	                            _form2.default,
+	                            { horizontal: true, style: {
+	                                    width: '85%',
+	                                    'borderRight': 'solid 1px #d9d9d9',
+	                                    paddingRight: '1%'
+	                                } },
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                null,
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 12 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u6761\u76EE', labelCol: {
+	                                                span: 4
+	                                            }, wrapperCol: {
+	                                                span: 14
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.term
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                null,
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 6 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u8BCD\u6027', labelCol: {
+	                                                span: 8
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.term_char
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 8 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u53D1\u97F3', labelCol: {
+	                                                span: 6
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.pronunciation
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 8 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u4E2D\u6587\u7FFB\u8BD1', labelCol: {
+	                                                span: 6
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.translation
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                { style: {
+	                                        borderTop: '1px solid #e9e9e9',
+	                                        marginBottom: '20px'
+	                                    } },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { style: {
+	                                            position: 'absolute',
+	                                            top: '-11px',
+	                                            padding: '1px 8px',
+	                                            color: '#777',
+	                                            marginLeft: '25px',
+	                                            background: '#fff'
+	                                        } },
+	                                    '\u9996\u6B21\u6765\u6E90'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                null,
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 12 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u6742\u5FD7\u540D\u79F0', labelCol: {
+	                                                span: 4
+	                                            }, wrapperCol: {
+	                                                span: 14
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.origin.magazineName
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                { style: {
+	                                        borderBottom: '1px solid #e9e9e9',
+	                                        marginBottom: '20px'
+	                                    } },
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 6 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u5E74\u4EFD', labelCol: {
+	                                                span: 8
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.origin.year
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 6 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u5377\u53F7', labelCol: {
+	                                                span: 8
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.origin.roll
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 6 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u671F\u53F7', labelCol: {
+	                                                span: 8
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.origin.issue
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 6 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u9875\u7801', labelCol: {
+	                                                span: 8
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.origin.page
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                null,
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 12 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u82F1\u6587\u5B9A\u4E49', labelCol: {
+	                                                span: 4
+	                                            }, wrapperCol: {
+	                                                span: 18
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.definition
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 12 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u5B9A\u4E49\u6765\u6E90', labelCol: {
+	                                                span: 4
+	                                            }, wrapperCol: {
+	                                                span: 18
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.source
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                null,
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 24 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u793A\u4F8B', labelCol: {
+	                                                span: 2
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.example
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                _row2.default,
+	                                null,
+	                                _react2.default.createElement(
+	                                    _col2.default,
+	                                    { span: 24 },
+	                                    _react2.default.createElement(
+	                                        FormItem,
+	                                        { label: '\u7FFB\u8BD1\u7406\u636E', labelCol: {
+	                                                span: 2
+	                                            }, wrapperCol: {
+	                                                span: 16
+	                                            } },
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            null,
+	                                            this.state.record.basis
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: {
+	                                    width: '15%',
+	                                    display: 'inline-block',
+	                                    position: 'absolute',
+	                                    right: '0',
+	                                    top: '66px'
+	                                } },
+	                            _react2.default.createElement(
+	                                'h4',
+	                                null,
+	                                '\u9A73\u56DE\u539F\u56E0\uFF1A'
+	                            ),
+	                            _react2.default.createElement(
+	                                'p',
+	                                null,
+	                                this.state.record.reject_reason
+	                            )
+	                        )
+	                    )
+	                );
+	            } else return false;
 	        }
 	    }]);
 
-	    return HasRejectedTerm;
+	    return ToBeReviewTerm;
 	}(_react2.default.Component);
 
-	exports.default = HasRejectedTerm;
+	exports.default = ToBeReviewTerm;
 
 /***/ },
 /* 885 */
@@ -69047,7 +69614,7 @@
 	                reason: this.state.record.rejectReason
 	            };
 	            this.setState({ commitLoading: true });
-	            _superagent2.default.post('/termdemo//Term/RejectTerm').type('form').send(data).end(function (err, res) {
+	            _superagent2.default.post('/termdemo/Term/RejectTerm').type('form').send(data).end(function (err, res) {
 	                var data = JSON.parse(res.text);
 	                data.status === '1' ? function () {
 	                    _message2.default.success('提交成功，可在已驳回的单词中查看～', 3);
