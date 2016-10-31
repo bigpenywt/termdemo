@@ -137,7 +137,7 @@ export default class CreatTerm extends React.Component {
                             </Col>
                         </Row>
                         <Row style={{
-                            borderTop: '1px solid #EFEFEF',
+                            borderTop: '1px solid #e9e9e9',
                             marginBottom: '20px'
                         }}>
                             <div style={{
@@ -161,7 +161,7 @@ export default class CreatTerm extends React.Component {
                             </Col>
                         </Row>
                         <Row style={{
-                            borderBottom: '1px solid #EFEFEF',
+                            borderBottom: '1px solid #e9e9e9',
                             marginBottom: '20px'
                         }}>
                             <Col span={6}>

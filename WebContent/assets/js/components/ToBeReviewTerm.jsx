@@ -288,7 +288,7 @@ export default class ToBeReviewTerm extends React.Component {
                     } > 取消 < /Button >]
             return (
                 <div>
-                    <Card title="待校验的单词（点击单词名可查看单词详细信息）" style={{
+                    <Card title={this.state.operateByMe?"待校验的单词（点击单词名可查看单词详细信息）":"待校验的单词（点击单词名也可进行校验操作）"} style={{
                         width: '100%'
                     }}>
                         <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/ > </Card> < Modal title = "单词详情" visible = {
@@ -354,7 +354,7 @@ export default class ToBeReviewTerm extends React.Component {
                             </Col>
                         </Row>
                         <Row style={{
-                            borderTop: '1px solid #EFEFEF',
+                            borderTop: '1px solid #e9e9e9',
                             marginBottom: '20px'
                         }}>
                             <div style={{
@@ -379,7 +379,7 @@ export default class ToBeReviewTerm extends React.Component {
                             </Col>
                         </Row>
                         <Row style={{
-                            borderBottom: '1px solid #EFEFEF',
+                            borderBottom: '1px solid #e9e9e9',
                             marginBottom: '20px'
                         }}>
                             <Col span={6}>
