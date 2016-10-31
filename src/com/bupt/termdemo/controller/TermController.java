@@ -104,9 +104,13 @@ public class TermController {
 	public Map<String, Object> ModifyTerm(HttpServletRequest request, Term term){
 		Map<String, Object> resultmap = new HashMap<>();
 		String username = request.getSession().getAttribute("username") + "";
-		term.setStatus("0");
+	
+		term.setStatus("0");//对于修改已驳回的单词，应该将以下几项设为空，并将状态改为待校验
+		term.setReviewer("");
+		term.setReview_time("");
 		term.setReject_user("");
 		term.setReject_reason("");
+		
 		try {
 			termService.ModifyTerm(term);
 			logService.WriteLog(username, "重新编辑", term.getTerm());
