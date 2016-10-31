@@ -235,4 +235,23 @@ public class TermController {
 			return resultmap;
 		}
 	}
+	
+	@RequestMapping("/ModifyDoneTerm")
+	@ResponseBody
+	public Map<String, Object> ModifyDoneTerm(HttpServletRequest request, Term term){
+		Map<String, Object> resultmap = new HashMap<>();
+		String username = request.getSession().getAttribute("username") + "";
+		
+		try {
+			termService.ModifyTerm(term);
+			logService.WriteLog(username, "修改入库单词", term.getTerm());
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			System.out.println(e.getMessage());
+			resultmap.put("msg", "系统异常，修改失败！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
 }
