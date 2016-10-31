@@ -274,7 +274,7 @@ export default class ToBeReviewTerm extends React.Component {
             const data = this.state.terms.map((item, i) => {
                 return {key: i, term: item.term, create_time: item.create_time, translation: item.translation}
             });
-            const modalBottonGroup = this.state.operateByMe
+            const modalButtonGroup = this.state.operateByMe
                 ? [< Button type = "ghost" size = "large" onClick = {
                         this.hideDetails
                     } > 返回 < /Button>,this.state.modifyTerm?<Button type="primary" size="large" onClick={this.commitModify}> 提交修改 </Button >: <Button type="primary" size="large" onClick={this.reEditTerm}>
@@ -300,7 +300,7 @@ export default class ToBeReviewTerm extends React.Component {
                         '75%'
                     }
                     footer = {
-                        modalBottonGroup
+                        modalButtonGroup
                     } > <Form horizontal>
                         <Row>
                             <Col span={12}>
