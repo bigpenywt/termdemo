@@ -9,6 +9,7 @@ module.exports = {
         filename: '[name].bundle.js',
         publicPath: '/termdemo/img/'
     },
+    devtool: 'cheap-module-eval-source-map',
     module: {
         loaders: [{
             test: /\.(js|jsx)$/,
