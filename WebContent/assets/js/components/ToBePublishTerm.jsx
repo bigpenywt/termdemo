@@ -97,7 +97,7 @@ export default class ToBePublishTerm extends React.Component {
       let term = this.state.record.term;
       request
         .post('/termdemo/Term/PublishTerm')
-        .send({ term })
+        .query({ term })
         .end((err, res) => {
           if (err) return;
           let data = JSON.parse(res.text);
@@ -116,7 +116,8 @@ export default class ToBePublishTerm extends React.Component {
     unpublish() {
       request
         .post('/termdemo/Term/RejectTerm')
-        .send({ term: this.state.record.term, reason: this.state.record.reason })
+        .type('form')
+        .send({ term: this.state.record.term, reason: this.state.record.rejectReason })
         .end((err, res) => {
           if (err) return;
           let data = JSON.parse(res.text);
