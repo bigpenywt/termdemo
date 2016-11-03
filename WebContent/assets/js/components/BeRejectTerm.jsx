@@ -191,13 +191,11 @@ export default class ToBeReviewTerm extends React.Component {
                                         <Input disabled name="term" value={this.state.record.term} onChange={this.typeForm}/>
                                     </FormItem>
                                 </Col>
-                            </Row>
-                            <Row>
-                                <Col span={6}>
+                                <Col span={12}>
                                     <FormItem label="词性" labelCol={{
-                                        span: 8
+                                        span: 4
                                     }} wrapperCol={{
-                                        span: 16
+                                        span: 6
                                     }}>
                                         <Select name="term_char" value={this.state.record.term_char} onChange={this.selectFormItem.bind(this, 'term_char')}>
                                             <Option value="n.">n.</Option>
@@ -209,20 +207,22 @@ export default class ToBeReviewTerm extends React.Component {
                                         </Select>
                                     </FormItem>
                                 </Col>
-                                <Col span={8}>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
                                     <FormItem label="发音" labelCol={{
-                                        span: 6
+                                        span: 4
                                     }} wrapperCol={{
-                                        span: 16
+                                        span: 18
                                     }}>
                                         <Input name="pronunciation" value={this.state.record.pronunciation} onChange={this.typeForm}/>
                                     </FormItem>
                                 </Col>
-                                <Col span={8}>
+                                <Col span={12}>
                                     <FormItem label="中文翻译" labelCol={{
-                                        span: 6
+                                        span: 4
                                     }} wrapperCol={{
-                                        span: 16
+                                        span: 18
                                     }}>
                                         <Input name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
                                     </FormItem>

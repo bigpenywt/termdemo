@@ -196,31 +196,31 @@ export default class ToBeReviewTerm extends React.Component {
                                         <p>{this.state.record.term}</p>
                                     </FormItem>
                                 </Col>
-                            </Row>
-                            <Row>
-                                <Col span={6}>
+                                <Col span={12}>
                                     <FormItem label="词性" labelCol={{
-                                        span: 8
+                                        span: 4
                                     }} wrapperCol={{
-                                        span: 16
+                                        span: 6
                                     }}>
                                         <p>{this.state.record.term_char}</p>
                                     </FormItem>
                                 </Col>
-                                <Col span={8}>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
                                     <FormItem label="发音" labelCol={{
-                                        span: 6
+                                        span: 4
                                     }} wrapperCol={{
-                                        span: 16
+                                        span: 18
                                     }}>
                                         <p>{this.state.record.pronunciation}</p>
                                     </FormItem>
                                 </Col>
-                                <Col span={8}>
+                                <Col span={12}>
                                     <FormItem label="中文翻译" labelCol={{
-                                        span: 6
+                                        span: 4
                                     }} wrapperCol={{
-                                        span: 16
+                                        span: 18
                                     }}>
                                         <p>{this.state.record.translation}</p>
                                     </FormItem>
