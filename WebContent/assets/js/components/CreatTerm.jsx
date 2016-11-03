@@ -59,14 +59,12 @@ export default class CreatTerm extends React.Component {
     }
     choosePronun(value) {
         this.setState({tempPronun: value});
-        console.log(value)
     }
     addPronun(e) {
         e.preventDefault();
         if (this.state.tempPronun) {
             let tempPronuns = this.state.tempPronuns;
             tempPronuns.push(this.state.tempPronun);
-            console.log(tempPronuns)
             let tempRecord = this.state.record;
             tempRecord.pronunciation = tempPronuns.join('');
             this.setState({tempPronuns: tempPronuns, record: tempRecord});
