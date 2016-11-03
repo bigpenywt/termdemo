@@ -200,12 +200,12 @@ export default class ToBeReviewTerm extends React.Component {
                                         span: 16
                                     }}>
                                         <Select name="term_char" value={this.state.record.term_char} onChange={this.selectFormItem.bind(this, 'term_char')}>
-                                          <Option value="n">n.</Option>
-                                          <Option value="adj">adj.</Option>
-                                          <Option value="v">v.</Option>
-                                          <Option value="vt">vt.</Option>
-                                          <Option value="vi">vi.</Option>
-                                          <Option value="adv">adv.</Option>
+                                            <Option value="n.">n.</Option>
+                                            <Option value="adj.">adj.</Option>
+                                            <Option value="v.">v.</Option>
+                                            <Option value="vt.">vt.</Option>
+                                            <Option value="vi.">vi.</Option>
+                                            <Option value="adv.">adv.</Option>
                                         </Select>
                                     </FormItem>
                                 </Col>
