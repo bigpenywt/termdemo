@@ -112,8 +112,12 @@ export default class CreatTerm extends React.Component {
                                     span: 16
                                 }}>
                                     <Select name="term_char" value={this.state.record.term_char} onChange={this.selectFormItem.bind(this, 'term_char')}>
-                                        <Option value="n">名词.n</Option>
-                                        <Option value="adj">形容词.adj</Option>
+                                        <Option value="n">n.</Option>
+                                        <Option value="adj">adj.</Option>
+                                        <Option value="v">v.</Option>
+                                        <Option value="vt">vt.</Option>
+                                        <Option value="vi">vi.</Option>
+                                        <Option value="adv">adv.</Option>
                                     </Select>
                                 </FormItem>
                             </Col>
