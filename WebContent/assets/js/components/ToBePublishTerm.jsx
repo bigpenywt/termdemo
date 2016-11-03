@@ -177,24 +177,24 @@ export default class ToBePublishTerm extends React.Component {
               <Form horizontal>
                 <Row>
                   <Col span={12}>
-                    <FormItem label="条目" labelCol={{ span: 4}} wrapperCol={{ span: 14 }}>
+                    <FormItem label="条目" labelCol={{ span: 4}} wrapperCol={{ span: 18 }}>
                       <Input name="term" value={this.state.record.term} disabled/>
+                    </FormItem>
+                  </Col>
+                  <Col span={12}>
+                    <FormItem label="词性" labelCol={{ span: 4}} wrapperCol={{ span: 6 }}>
+                      <Input name="term_char" value={this.state.record.term_char} disabled/>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={6}>
-                    <FormItem label="词性" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input name="term_char" value={this.state.record.term_char} disabled/>
-                    </FormItem>
-                  </Col>
-                  <Col span={8}>
-                    <FormItem label="发音" labelCol={{ span: 6}} wrapperCol={{ span: 16 }}>
+                  <Col span={12}>
+                    <FormItem label="发音" labelCol={{ span: 4}} wrapperCol={{ span: 18 }}>
                       <Input name="pronunciation" value={this.state.record.pronunciation} disabled/>
                     </FormItem>
                   </Col>
-                  <Col span={8}>
-                    <FormItem label="条目" labelCol={{ span: 6}} wrapperCol={{ span: 16 }}>
+                  <Col span={12}>
+                    <FormItem label="条目" labelCol={{ span: 4}} wrapperCol={{ span: 18 }}>
                       <Input name="term" value={this.state.record.translation} disabled/>
                     </FormItem>
                   </Col>
