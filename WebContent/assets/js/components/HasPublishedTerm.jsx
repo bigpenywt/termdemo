@@ -2,7 +2,8 @@ import React from 'react';
 import request from 'superagent';
 import Immutable from 'immutable';
 
-import { Card, Table, Button, Modal, Form, Input, Row, Col, Select, message } from 'antd';
+import { Card, Table, Button, Modal, Form, Input,
+  Row, Col, Select, message, Popconfirm } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const emptyRecord = {
@@ -111,6 +112,27 @@ export default class HasPublishedTerm extends React.Component {
           }
         })
     }
+    deleteTerm(record) {
+      request
+        .post('/termdemo/Term/DeleteTerm')
+        .type('form')
+        .send({ term: record.term })
+        .end((err, res) => {
+          if (err) return;
+          let data = JSON.parse(res.text);
+          if (data.status === '1') {
+            message.success('成功删除单词～', 3);
+            let pagination = {
+                current: 1,
+                pageSize: 10
+            }
+            this.fetchNewData(pagination);
+          } else {
+            message.error(data.msg, 3);
+            this.setState({commitLoading: false});
+          }
+      });
+    }
     fetchNewData(pagination) {
       let pager = this.state.pagination;
       pager.current = pagination.current;
@@ -129,7 +151,7 @@ export default class HasPublishedTerm extends React.Component {
         })
     }
     render() {
-      if (this.state.terms.length) {
+      // if (this.state.terms.length) {
         const columns = [{
           title: '单词',
           dataIndex: 'term',
@@ -146,7 +168,14 @@ export default class HasPublishedTerm extends React.Component {
         }, {
           title: '操作',
           key: 'action',
-          render: (record) => <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>修改</a>
+          render: (record) =>
+            <span>
+              <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>修改</a>
+              <span className="ant-divider" />
+              <Popconfirm title="确定删除这条单词？" onConfirm={this.deleteTerm.bind(this, record)} okText="确定" cancelText="取消">
+                  <a href="javascript:void(0);">删除</a>
+              </Popconfirm>
+            </span>
         }];
         const data = this.state.terms.map((item, i) => {
             return {key: i, term: item.term, create_time: item.create_time, translation: item.translation}
@@ -260,7 +289,7 @@ export default class HasPublishedTerm extends React.Component {
             </Modal>
           </div>
         );
-      }
-      return (<div>暂无记录</div>);
+      // }
+      // return (<div>暂无记录</div>);
     }
 }
