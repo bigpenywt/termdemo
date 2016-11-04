@@ -32,4 +32,10 @@ public class LoginController {
 		}
 	}
 	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request){
+		request.getSession().invalidate();
+		return "redirect:/login.jsp";
+	}
+	
 }

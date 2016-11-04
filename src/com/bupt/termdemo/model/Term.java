@@ -2,6 +2,7 @@ package com.bupt.termdemo.model;
 
 public class Term {
 	
+	private String termid;
 	private String term;
 	private String origin;
 	private String definition;
@@ -19,8 +20,14 @@ public class Term {
 	private String publisher;
 	private String publish_time;
 	private String reject_user;
+	private String reject_time;
 	private String reject_reason;
-	
+	public String getTermid() {
+		return termid;
+	}
+	public void setTermid(String termid) {
+		this.termid = termid;
+	}
 	public String getTerm() {
 		return term;
 	}
@@ -81,11 +88,23 @@ public class Term {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
 	public String getCreate_time() {
 		return create_time;
 	}
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
+	}
+	public String getReviewer() {
+		return reviewer;
+	}
+	public void setReviewer(String reviewer) {
+		this.reviewer = reviewer;
 	}
 	public String getReview_time() {
 		return review_time;
@@ -93,11 +112,11 @@ public class Term {
 	public void setReview_time(String review_time) {
 		this.review_time = review_time;
 	}
-	public String getReject_reason() {
-		return reject_reason;
+	public String getPublisher() {
+		return publisher;
 	}
-	public void setReject_reason(String reject_reason) {
-		this.reject_reason = reject_reason;
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
 	}
 	public String getPublish_time() {
 		return publish_time;
@@ -111,32 +130,26 @@ public class Term {
 	public void setReject_user(String reject_user) {
 		this.reject_user = reject_user;
 	}
-	public String getCreator() {
-		return creator;
+	public String getReject_time() {
+		return reject_time;
 	}
-	public void setCreator(String creator) {
-		this.creator = creator;
+	public void setReject_time(String reject_time) {
+		this.reject_time = reject_time;
 	}
-	public String getReviewer() {
-		return reviewer;
+	public String getReject_reason() {
+		return reject_reason;
 	}
-	public void setReviewer(String reviewer) {
-		this.reviewer = reviewer;
-	}
-	public String getPublisher() {
-		return publisher;
-	}
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
+	public void setReject_reason(String reject_reason) {
+		this.reject_reason = reject_reason;
 	}
 	@Override
 	public String toString() {
-		return "Term [term=" + term + ", origin=" + origin + ", definition=" + definition + ", source=" + source
-				+ ", example=" + example + ", term_char=" + term_char + ", pronunciation=" + pronunciation
-				+ ", translation=" + translation + ", basis=" + basis + ", status=" + status + ", creator=" + creator
-				+ ", create_time=" + create_time + ", reviewer=" + reviewer + ", review_time=" + review_time
-				+ ", publisher=" + publisher + ", publish_time=" + publish_time + ", reject_user=" + reject_user
-				+ ", reject_reason=" + reject_reason + "]";
+		return "Term [termid=" + termid + ", term=" + term + ", origin=" + origin + ", definition=" + definition
+				+ ", source=" + source + ", example=" + example + ", term_char=" + term_char + ", pronunciation="
+				+ pronunciation + ", translation=" + translation + ", basis=" + basis + ", status=" + status
+				+ ", creator=" + creator + ", create_time=" + create_time + ", reviewer=" + reviewer + ", review_time="
+				+ review_time + ", publisher=" + publisher + ", publish_time=" + publish_time + ", reject_user="
+				+ reject_user + ", reject_time=" + reject_time + ", reject_reason=" + reject_reason + "]";
 	}
 	
 }

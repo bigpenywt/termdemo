@@ -4,6 +4,7 @@
 <mapper namespace="termModule" >
 
 	<resultMap id="TermResultMap" type="com.bupt.termdemo.model.Term" >
+		<result column="termid" property="termid" jdbcType="VARCHAR" />
 	    <result column="term" property="term" jdbcType="VARCHAR" />
 	    <result column="origin" property="origin" jdbcType="VARCHAR" />
 	    <result column="definition" property="definition" jdbcType="VARCHAR" />
@@ -21,6 +22,7 @@
 	    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
 	    <result column="publish_time" property="publish_time" jdbcType="VARCHAR" />
 	    <result column="reject_user" property="reject_user" jdbcType="VARCHAR" />
+	    <result column="reject_time" property="reject_time" jdbcType="VARCHAR" />
 	    <result column="reject_reason" property="reject_reason" jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -52,7 +54,7 @@
         set origin = #{origin},definition = #{definition},source=#{source},example=#{example},term_char=#{term_char},
         pronunciation=#{pronunciation},translation=#{translation},basis=#{basis},status=#{status},
         reviewer=#{reviewer},review_time=#{review_time},publisher=#{publisher},publish_time=#{publish_time},
-        reject_user=#{reject_user},reject_reason=#{reject_reason}
+        reject_user=#{reject_user},reject_time=#{reject_time},reject_reason=#{reject_reason}
         where term = #{term}  
     </update>  
 	

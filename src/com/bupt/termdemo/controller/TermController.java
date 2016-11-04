@@ -109,6 +109,7 @@ public class TermController {
 		term.setReviewer("");
 		term.setReview_time("");
 		term.setReject_user("");
+		term.setReject_time("");
 		term.setReject_reason("");
 		
 		try {
@@ -250,6 +251,30 @@ public class TermController {
 			resultmap.put("status", "0");
 			System.out.println(e.getMessage());
 			resultmap.put("msg", "系统异常，修改失败！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/GetTotal")
+	@ResponseBody
+	public Map<String, Object> GetTotal(HttpServletRequest request, Term term){
+		Map<String, Object> resultmap = new HashMap<>();
+		
+		try {
+			int tbReview = termService.GetTermByStatusCount("0");
+			int tbPublish = termService.GetTermByStatusCount("1");
+			int tbModify = termService.GetTermByStatusCount("2");
+			int done = termService.GetTermByStatusCount("3");
+			resultmap.put("tbReview", tbReview);
+			resultmap.put("tbPublish", tbPublish);
+			resultmap.put("tbModify", tbModify);
+			resultmap.put("done", done);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			System.out.println(e.getMessage());
+			resultmap.put("msg", "系统异常，获取数据失败！"+ e.getMessage());
 		} finally {
 			return resultmap;
 		}
