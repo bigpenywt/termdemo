@@ -213,7 +213,7 @@ export default class ToBeReviewTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 18
                                     }}>
-                                        <p>{this.state.record.pronunciation}</p>
+                                        <p>{'['+this.state.record.pronunciation+']'}</p>
                                     </FormItem>
                                 </Col>
                                 <Col span={12}>

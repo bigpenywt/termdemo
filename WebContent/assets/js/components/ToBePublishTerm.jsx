@@ -7,6 +7,7 @@ import {pronunciation} from '../termConfig.js';
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
+const Option = Select.Option;
 const emptyRecord = {
     term: '',
     term_char: '',
@@ -74,7 +75,7 @@ export default class ToBePublishTerm extends React.Component {
       this.setState({ showTermDetails: true, record: tempTerm.toJS() });
     }
     hideDetails() {
-      this.setState({ showTermDetails: false, record: emptyRecord, tempPronuns:[]});
+      this.setState({ showTermDetails: false, record: emptyRecord, tempPronuns:[], tempPronun:''});
     }
     showRejectModal() {
       this.setState({ showRejectModal: true });

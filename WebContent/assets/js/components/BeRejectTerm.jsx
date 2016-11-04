@@ -20,6 +20,7 @@ import {pronunciation} from '../termConfig.js';
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
+const Option = Select.Option;
 const emptyRecord = {
     term: '',
     term_char: '',
