@@ -7,7 +7,7 @@ export default class Welcome extends React.Component {
     render() {
         return (
             <div>
-                欢迎回来，狗儿子
+                欢迎回来
             </div>
         )
     }
