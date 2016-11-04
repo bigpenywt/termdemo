@@ -35,9 +35,9 @@
 	</select>
 	
 	<insert id="SaveTerm" parameterType="com.bupt.termdemo.model.Term">
-		insert into term(term, origin, definition, source, example, term_char, pronunciation, translation, basis,
+		insert into term(termid, term, origin, definition, source, example, term_char, pronunciation, translation, basis,
 		status, creator, create_time) 
-		values(#{term}, #{origin}, #{definition}, #{source}, #{example}, #{term_char}, #{pronunciation}, #{translation},
+		values(#{termid}, #{term}, #{origin}, #{definition}, #{source}, #{example}, #{term_char}, #{pronunciation}, #{translation},
 		#{basis}, #{status}, #{creator}, #{create_time})
 	</insert>
 	
@@ -51,11 +51,11 @@
     
     <update id="ModifyTerm" parameterType="com.bupt.termdemo.model.Term">  
         update term 
-        set origin = #{origin},definition = #{definition},source=#{source},example=#{example},term_char=#{term_char},
+        set term = #{term},origin = #{origin},definition = #{definition},source=#{source},example=#{example},term_char=#{term_char},
         pronunciation=#{pronunciation},translation=#{translation},basis=#{basis},status=#{status},
         reviewer=#{reviewer},review_time=#{review_time},publisher=#{publisher},publish_time=#{publish_time},
         reject_user=#{reject_user},reject_time=#{reject_time},reject_reason=#{reject_reason}
-        where term = #{term}  
+        where termid = #{termid}  
     </update>  
 	
 	<select id="GetTermByStatus" resultMap="TermResultMap">

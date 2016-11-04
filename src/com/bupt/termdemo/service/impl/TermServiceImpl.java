@@ -3,6 +3,7 @@ package com.bupt.termdemo.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,10 @@ public class TermServiceImpl implements ITermService {
 
 	@Override
 	public void SaveTerm(Term term, String username) throws Exception {
+		String uuid = UUID.randomUUID().toString();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式	
 		
+		term.setTermid(uuid);
 		term.setCreator(username);
 		term.setCreate_time(df.format(new Date()));// new Date()为获取当前系统时间
 		term.setStatus("0");
