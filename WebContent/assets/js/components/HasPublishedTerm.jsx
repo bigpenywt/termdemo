@@ -2,10 +2,13 @@ import React from 'react';
 import request from 'superagent';
 import Immutable from 'immutable';
 
+import {pronunciation} from '../termConfig.js';
+
 import { Card, Table, Button, Modal, Form, Input,
   Row, Col, Select, message, Popconfirm } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
+const ButtonGroup = Button.Group;
 const emptyRecord = {
     term: '',
     term_char: '',
@@ -34,6 +37,8 @@ export default class HasPublishedTerm extends React.Component {
           loading: false,
           submitLoading: false,
           showTermDetails: false,
+          tempPronun: '',
+          tempPronuns: []
         }
         this.fetchNewData = this.fetchNewData.bind(this);
         this.typeForm = this.typeForm.bind(this);
@@ -68,6 +73,27 @@ export default class HasPublishedTerm extends React.Component {
       tempRecord[key] = e;
       this.setState({record: tempRecord});
     }
+    choosePronun(value) {
+        this.setState({tempPronun: value});
+    }
+    addPronun(e) {
+        e.preventDefault();
+        if (this.state.tempPronun) {
+            let tempPronuns = this.state.tempPronuns;
+            tempPronuns.push(this.state.tempPronun);
+            let tempRecord = this.state.record;
+            tempRecord.pronunciation = tempPronuns.join('');
+            this.setState({tempPronuns: tempPronuns, record: tempRecord});
+        }
+    }
+    removePronun(e) {
+        e.preventDefault();
+        let tempPronuns = this.state.tempPronuns;
+        tempPronuns.pop();
+        let tempRecord = this.state.record;
+        tempRecord.pronunciation = tempPronuns.join('');
+        this.setState({tempPronuns: tempPronuns, record: tempRecord});
+    }
     showDetails(record) {
       let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
       let origin = this.state.terms[record.key - 0].origin.split(',');
@@ -81,7 +107,7 @@ export default class HasPublishedTerm extends React.Component {
       this.setState({showTermDetails: true, record: tempTerm.toJS()});
     }
     hideDetails() {
-      this.setState({ showTermDetails: false, record: emptyRecord });
+      this.setState({ showTermDetails: false, record: emptyRecord, tempPronuns:[]});
     }
     submitModify() {
       let tempRecord = this.state.record;
@@ -215,7 +241,31 @@ export default class HasPublishedTerm extends React.Component {
                 <Row>
                   <Col span={12}>
                     <FormItem label="发音" labelCol={{ span: 4}} wrapperCol={{ span: 18 }}>
-                      <Input name="pronunciation" onChange={this.typeForm} value={this.state.record.pronunciation}/>
+                      <Col span={14}>
+                          <p>{this.state.record.pronunciation
+                                  ? '[' + this.state.record.pronunciation + ']'
+                                  : '请在右侧下拉框选择单个音标逐次添加'}
+                          </p>
+                      </Col>
+                      <Col span={4}>
+                          <Select onChange={this.choosePronun.bind(this)}>
+                              {pronunciation.map((item) => {
+                                  return (
+                                      <Option key={item} value={item}>{item}</Option>
+                                  )
+                              })}
+                          </Select>
+                      </Col>
+                      <Col span={6}>
+                          <ButtonGroup style={{
+                              marginLeft: '4px',
+                              marginTop: '2px'
+                          }}>
+                              <Button type="primary" size="large" icon="plus-square-o" onClick={this.addPronun.bind(this)}></Button>
+                              <Button type="primary" size="large" icon="minus-square-o" onClick={this.removePronun.bind(this)}></Button>
+                          </ButtonGroup>
+                      </Col>
+                      <Input type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
                     </FormItem>
                   </Col>
                   <Col span={12}>
