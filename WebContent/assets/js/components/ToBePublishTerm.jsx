@@ -1,8 +1,12 @@
 import React from 'react';
 import request from 'superagent';
 import Immutable from 'immutable';
-import { Table, Card, Modal, Button, Form, Input, Row, Col, message, Popconfirm } from 'antd';
+import { Table, Card, Modal, Button, Form, Select, Input, Row, Col, message, Popconfirm } from 'antd';
+
+import {pronunciation} from '../termConfig.js';
+
 const FormItem = Form.Item;
+const ButtonGroup = Button.Group;
 const emptyRecord = {
     term: '',
     term_char: '',
@@ -38,6 +42,8 @@ export default class ToBePublishTerm extends React.Component {
           loading: false,
           commitLoading: false,
           showRejectModal: false,
+          tempPronun: '',
+          tempPronuns: []
         }
     }
     componentDidMount() {
@@ -68,7 +74,7 @@ export default class ToBePublishTerm extends React.Component {
       this.setState({ showTermDetails: true, record: tempTerm.toJS() });
     }
     hideDetails() {
-      this.setState({ showTermDetails: false, record: emptyRecord });
+      this.setState({ showTermDetails: false, record: emptyRecord, tempPronuns:[]});
     }
     showRejectModal() {
       this.setState({ showRejectModal: true });
@@ -92,6 +98,27 @@ export default class ToBePublishTerm extends React.Component {
             this.setState({ terms: data.records, pagination: pagination, loading: false, record: emptyRecord });
           }
         })
+    }
+    choosePronun(value) {
+        this.setState({tempPronun: value});
+    }
+    addPronun(e) {
+        e.preventDefault();
+        if (this.state.tempPronun) {
+            let tempPronuns = this.state.tempPronuns;
+            tempPronuns.push(this.state.tempPronun);
+            let tempRecord = this.state.record;
+            tempRecord.pronunciation = tempPronuns.join('');
+            this.setState({tempPronuns: tempPronuns, record: tempRecord});
+        }
+    }
+    removePronun(e) {
+        e.preventDefault();
+        let tempPronuns = this.state.tempPronuns;
+        tempPronuns.pop();
+        let tempRecord = this.state.record;
+        tempRecord.pronunciation = tempPronuns.join('');
+        this.setState({tempPronuns: tempPronuns, record: tempRecord});
     }
     publish() {
       let term = this.state.record.term;
@@ -190,7 +217,31 @@ export default class ToBePublishTerm extends React.Component {
                 <Row>
                   <Col span={12}>
                     <FormItem label="发音" labelCol={{ span: 4}} wrapperCol={{ span: 18 }}>
-                      <Input name="pronunciation" value={this.state.record.pronunciation} disabled/>
+                      <Col span={14}>
+                          <p>{this.state.record.pronunciation
+                                  ? '[' + this.state.record.pronunciation + ']'
+                                  : '请在右侧下拉框选择单个音标逐次添加'}
+                          </p>
+                      </Col>
+                      <Col span={4}>
+                          <Select onChange={this.choosePronun.bind(this)}>
+                              {pronunciation.map((item) => {
+                                  return (
+                                      <Option key={item} value={item}>{item}</Option>
+                                  )
+                              })}
+                          </Select>
+                      </Col>
+                      <Col span={6}>
+                          <ButtonGroup style={{
+                              marginLeft: '4px',
+                              marginTop: '2px'
+                          }}>
+                              <Button type="primary" size="large" icon="plus-square-o" onClick={this.addPronun.bind(this)}></Button>
+                              <Button type="primary" size="large" icon="minus-square-o" onClick={this.removePronun.bind(this)}></Button>
+                          </ButtonGroup>
+                      </Col>
+                      <Input type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
                     </FormItem>
                   </Col>
                   <Col span={12}>
