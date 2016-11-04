@@ -139,7 +139,7 @@ export default class ToBePublishTerm extends React.Component {
         this.setState({ showRejectModal: false });
     }
     render() {
-      if (this.state.terms.length) {
+      // if (this.state.terms.length) {
         const columns = [{
           title: '单词',
           dataIndex: 'term',
@@ -268,7 +268,7 @@ export default class ToBePublishTerm extends React.Component {
                 <Input type="textarea" name="rejectReason" placeholder="请输入驳回原因" onChange={this.handleChange} value={this.state.record.rejectReason} />
             </Modal>
           </div>);
-      }
-      return (<div>暂无记录</div>);
+      // }
+      // return (<div>暂无记录</div>);
     }
 }
