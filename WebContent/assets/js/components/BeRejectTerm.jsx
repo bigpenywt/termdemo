@@ -116,7 +116,7 @@ export default class ToBeReviewTerm extends React.Component {
         this.setState({showTermDetails: true, record: tempTerm.toJS()});
     }
     hideDetails() {
-        this.setState({showTermDetails: false, record: emptyRecord, tempPronuns: []});
+        this.setState({showTermDetails: false, record: emptyRecord, tempPronuns: [],tempPronun: ''});
     }
     commitModify() {
         let tempRecord = this.state.record;

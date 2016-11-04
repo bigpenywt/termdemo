@@ -107,7 +107,7 @@ export default class HasPublishedTerm extends React.Component {
       this.setState({showTermDetails: true, record: tempTerm.toJS()});
     }
     hideDetails() {
-      this.setState({ showTermDetails: false, record: emptyRecord, tempPronuns:[]});
+      this.setState({ showTermDetails: false, record: emptyRecord, tempPronuns:[],tempPronun: ''});
     }
     submitModify() {
       let tempRecord = this.state.record;
