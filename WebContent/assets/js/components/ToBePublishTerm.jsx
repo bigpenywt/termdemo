@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 import Immutable from 'immutable';
-import { Table, Card, Modal, Button, Form, Input, Row, Col, Spin, message, Popconfirm } from 'antd';
+import { Table, Card, Modal, Button, Form, Input, Row, Col, message, Popconfirm } from 'antd';
 const FormItem = Form.Item;
 const emptyRecord = {
     term: '',

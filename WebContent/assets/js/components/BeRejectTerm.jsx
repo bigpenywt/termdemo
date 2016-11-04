@@ -13,10 +13,13 @@ import {
     Row,
     Col,
     Select,
-    Spin,
     message
 } from 'antd';
+
+import {pronunciation} from '../termConfig.js';
+
 const FormItem = Form.Item;
+const ButtonGroup = Button.Group;
 const emptyRecord = {
     term: '',
     term_char: '',
@@ -46,7 +49,9 @@ export default class ToBeReviewTerm extends React.Component {
             record: emptyRecord,
             loading: false,
             isFirstFetch: true,
-            commitLoading: false
+            commitLoading: false,
+            tempPronun: '',
+            tempPronuns: []
         }
         this.hideDetails = this.hideDetails.bind(this);
         this.fetchNewData = this.fetchNewData.bind(this);
@@ -77,6 +82,27 @@ export default class ToBeReviewTerm extends React.Component {
         tempRecord[key] = e;
         this.setState({record: tempRecord});
     }
+    choosePronun(value) {
+        this.setState({tempPronun: value});
+    }
+    addPronun(e) {
+        e.preventDefault();
+        if (this.state.tempPronun) {
+            let tempPronuns = this.state.tempPronuns;
+            tempPronuns.push(this.state.tempPronun);
+            let tempRecord = this.state.record;
+            tempRecord.pronunciation = tempPronuns.join('');
+            this.setState({tempPronuns: tempPronuns, record: tempRecord});
+        }
+    }
+    removePronun(e) {
+        e.preventDefault();
+        let tempPronuns = this.state.tempPronuns;
+        tempPronuns.pop();
+        let tempRecord = this.state.record;
+        tempRecord.pronunciation = tempPronuns.join('');
+        this.setState({tempPronuns: tempPronuns, record: tempRecord});
+    }
     showDetails(record) {
         let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
         let origin = this.state.terms[record.key - 0].origin.split(',');
@@ -90,7 +116,7 @@ export default class ToBeReviewTerm extends React.Component {
         this.setState({showTermDetails: true, record: tempTerm.toJS()});
     }
     hideDetails() {
-        this.setState({showTermDetails: false, record: emptyRecord});
+        this.setState({showTermDetails: false, record: emptyRecord, tempPronuns: []});
     }
     commitModify() {
         let tempRecord = this.state.record;
@@ -215,7 +241,31 @@ export default class ToBeReviewTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 18
                                     }}>
-                                        <Input name="pronunciation" value={this.state.record.pronunciation} onChange={this.typeForm}/>
+                                        <Col span={14}>
+                                            <p>{this.state.record.pronunciation
+                                                    ? '[' + this.state.record.pronunciation + ']'
+                                                    : '请在右侧下拉框选择单个音标逐次添加'}
+                                            </p>
+                                        </Col>
+                                        <Col span={4}>
+                                            <Select onChange={this.choosePronun.bind(this)}>
+                                                {pronunciation.map((item) => {
+                                                    return (
+                                                        <Option key={item} value={item}>{item}</Option>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </Col>
+                                        <Col span={6}>
+                                            <ButtonGroup style={{
+                                                marginLeft: '4px',
+                                                marginTop: '2px'
+                                            }}>
+                                                <Button type="primary" size="large" icon="plus-square-o" onClick={this.addPronun.bind(this)}></Button>
+                                                <Button type="primary" size="large" icon="minus-square-o" onClick={this.removePronun.bind(this)}></Button>
+                                            </ButtonGroup>
+                                        </Col>
+                                        <Input type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
                                     </FormItem>
                                 </Col>
                                 <Col span={12}>

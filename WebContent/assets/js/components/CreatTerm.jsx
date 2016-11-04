@@ -108,7 +108,7 @@ export default class CreatTerm extends React.Component {
                         translation: '',
                         basis: ''
                     }
-                    this.setState({record: emptyRecord});
+                    this.setState({record: emptyRecord, tempPronuns: []});
                 })()
                 : message.error(data.msg, 3);
         });
