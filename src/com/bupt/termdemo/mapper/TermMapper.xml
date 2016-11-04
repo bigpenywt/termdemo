@@ -76,7 +76,7 @@
 	
 	<update id="RejectTerm" parameterType="com.bupt.termdemo.model.Term">  
         update term 
-        set reject_user=#{reject_user},reject_reason=#{reject_reason},status='2'
+        set reject_user=#{reject_user},reject_time=#{reject_time},reject_reason=#{reject_reason},status='2'
         where term = #{term}  
     </update>  
     

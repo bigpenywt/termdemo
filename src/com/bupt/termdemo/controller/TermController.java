@@ -1,6 +1,8 @@
 package com.bupt.termdemo.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,9 +178,11 @@ public class TermController {
 	@RequestMapping("/RejectTerm")
 	@ResponseBody
 	public Map<String, Object> RejectTerm(HttpServletRequest request, @RequestParam Map<String, String> params){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Term term = new Term();
 		term.setTerm(params.get("term"));
 		term.setReject_reason(params.get("reason"));
+		term.setReject_time(df.format(new Date()));
 		String username = request.getSession().getAttribute("username") + "";
 		term.setReject_user(username);
 		
