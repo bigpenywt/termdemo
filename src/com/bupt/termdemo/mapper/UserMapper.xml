@@ -23,7 +23,7 @@
 	
 	<update id="ModifyUserInfo" parameterType="com.bupt.termdemo.model.User">  
         update user 
-        set password = #{password},name = #{name},pinyin = #{pinyin},tel=#{tel},email=#{email}
+        set password = #{password},name = #{name},pinyin = #{pinyin},tel=#{tel},email=#{email},userrole = #{userrole}
         where username = #{username}  
     </update> 
     
