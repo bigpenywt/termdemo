@@ -28,6 +28,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.7",
+    "react-d3-components": "^0.6.5",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack-dev-middleware": "^1.5.1"

@@ -57,7 +57,7 @@ export default class ToBeReviewTerm extends React.Component {
             operateByMe: this.props.author === 'me',
             getUrl: this.props.author === 'me'
                 ? '/termdemo/Term/GetCreateTerm/'
-                : '/termdemo/Term/GetTermByStatus',
+                : '/termdemo/Term/GettbReviewTerm',
             commitUrl: this.props.author === 'me'
                 ? '/termdemo/Term/ModifyTerm'
                 : '',
@@ -337,7 +337,7 @@ export default class ToBeReviewTerm extends React.Component {
                                 }} wrapperCol={{
                                     span: 18
                                 }}>{this.state.modifyTerm
-                                        ? <Input disabled name="term" value={this.state.record.term}/>
+                                        ? <Input name="term" value={this.state.record.term} onChange={this.typeForm}/>
                                         : <p>{this.state.record.term}</p>}
                                 </FormItem>
                             </Col>

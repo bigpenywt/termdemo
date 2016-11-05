@@ -215,7 +215,7 @@ export default class ToBeReviewTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 14
                                     }}>
-                                        <Input disabled name="term" value={this.state.record.term} onChange={this.typeForm}/>
+                                        <Input name="term" value={this.state.record.term} onChange={this.typeForm} onChange={this.typeForm}/>
                                     </FormItem>
                                 </Col>
                                 <Col span={12}>
