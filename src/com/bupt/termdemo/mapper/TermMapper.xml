@@ -91,4 +91,12 @@
         set publisher=#{publisher},publish_time=#{publish_time},status='3'
         where term = #{term}  
     </update>  
+    
+    <select id="GettbReviewTerm" resultMap="TermResultMap">
+		select * from term where status='0' and creator!=#{username}
+	</select>
+	
+	<select id="GettbReviewTermCount" resultType="Integer">
+		select count(*) from term where status='0' and creator!=#{username}
+	</select>
 </mapper>

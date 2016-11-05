@@ -99,4 +99,16 @@ public class TermServiceImpl implements ITermService {
 		term.setPublish_time(df.format(new Date()));// new Date()为获取当前系统时间
 		termDao.PublishTerm(term);
 	}
+
+	@Override
+	public List<Term> GettbReviewTerm(String username, int page, int rows) throws Exception {
+		// TODO Auto-generated method stub
+		return termDao.GettbReviewTerm(username, page, rows);
+	}
+
+	@Override
+	public int GettbReviewTermCount(String username) throws Exception {
+		// TODO Auto-generated method stub
+		return termDao.GettbReviewTermCount(username);
+	}
 }

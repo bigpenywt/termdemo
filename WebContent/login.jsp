@@ -19,7 +19,6 @@
   		<button class="submit-btn" type="submit">登录</button>
     </div>
 	</form>
-	${msg }
 
 </body>
 </html>

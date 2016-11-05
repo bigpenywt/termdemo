@@ -270,15 +270,42 @@ public class TermController {
 			int tbPublish = termService.GetTermByStatusCount("1");
 			int tbModify = termService.GetTermByStatusCount("2");
 			int done = termService.GetTermByStatusCount("3");
+			int deleted = termService.GetTermByStatusCount("4");
 			resultmap.put("tbReview", tbReview);
 			resultmap.put("tbPublish", tbPublish);
 			resultmap.put("tbModify", tbModify);
 			resultmap.put("done", done);
+			resultmap.put("deleted", deleted);
+			
 			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			System.out.println(e.getMessage());
 			resultmap.put("msg", "系统异常，获取数据失败！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/GettbReviewTerm")
+	@ResponseBody
+	public Map<String, Object> GettbReviewTerm(HttpServletRequest request, @RequestParam Map<String, String> params){
+		int page = Integer.valueOf(params.get("page"));
+		int rows = Integer.valueOf(params.get("rows"));
+		String username = request.getSession().getAttribute("username") + "";
+		
+		Map<String, Object> resultmap = new HashMap<>();
+		List<Term> terms = new ArrayList<>();
+		int total = 0;
+		try {
+			terms = termService.GettbReviewTerm(username, page, rows);
+			total = termService.GettbReviewTermCount(username);
+			resultmap.put("status", "1");
+			resultmap.put("records", terms);
+			resultmap.put("total", total);
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg", e.getMessage());
 		} finally {
 			return resultmap;
 		}

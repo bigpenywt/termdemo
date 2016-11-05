@@ -193,4 +193,34 @@ public class TermDaoImpl implements ITermDao {
 			session.close();
 		}
 	}
+
+	@Override
+	public List<Term> GettbReviewTerm(String username, int page, int rows) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
+
+		List<Term> terms = new ArrayList<>();
+		try {
+			terms = session.selectList("termModule.GettbReviewTerm", username,rowBounds);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return terms;
+	}
+
+	@Override
+	public int GettbReviewTermCount(String username) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("termModule.GettbReviewTermCount", username);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 }
