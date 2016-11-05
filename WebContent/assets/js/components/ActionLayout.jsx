@@ -72,6 +72,7 @@ export default class ActionLayout extends React.Component {
                         </SubMenu>
                         <SubMenu key="manage" title={< span > <Icon type="setting"/> < span > 系统管理 < /span></span >}>
                             <Menu.Item key="user">用户管理</Menu.Item>
+                            <Menu.Item key="magazine">来源杂志管理</Menu.Item>
                             {/* <Menu.Item key="log">查看日志</Menu.Item> */}
                         </SubMenu>
                     </Menu>

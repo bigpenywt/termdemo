@@ -49,7 +49,7 @@ export default class Welcome extends React.Component {
                         x: '已发布的单词',
                         y: this.state.termInfo.done
                     }, {
-                        x: '「已发布」中删除的单词',
+                        x: '移除已发布的单词',
                         y: this.state.termInfo.deleted
                     }
                 ]
@@ -61,7 +61,7 @@ export default class Welcome extends React.Component {
                     <div style={{
                         width: '550px'
                     }}>
-                        <PieChart data={pieChatdata} width={550} height={400} sort={null}/>
+                        <PieChart data={pieChatdata} width={600} height={400} sort={null}/>
                     </div>
                     <div className="infoForm">
                         <Form horizontal>
@@ -103,7 +103,7 @@ export default class Welcome extends React.Component {
                                     </FormItem>
                                 </Col>
                                 <Col span={24}>
-                                    <FormItem label="从「发布」中删除" labelCol={{
+                                    <FormItem label="移除「已发布」" labelCol={{
                                         span: 16
                                     }} wrapperCol={{
                                         span: 8

@@ -222,7 +222,7 @@ export default class HasPublishedTerm extends React.Component {
                 <Row>
                   <Col span={12}>
                     <FormItem label="条目" labelCol={{ span: 4}} wrapperCol={{ span: 18 }}>
-                      <Input name="term" value={this.state.record.term} disabled/>
+                      <Input name="term" value={this.state.record.term}/>
                     </FormItem>
                   </Col>
                   <Col span={12}>

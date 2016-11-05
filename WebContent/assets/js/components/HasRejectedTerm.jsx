@@ -155,7 +155,7 @@ export default class ToBeReviewTerm extends React.Component {
                     key: 'action',
                     render: (record) => (
                         <span>
-                            <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>查看详情</a>
+                            <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>查看详细</a>
                         </span>
                     )
 
