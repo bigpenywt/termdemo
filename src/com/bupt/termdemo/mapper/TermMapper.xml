@@ -102,4 +102,10 @@
 	<select id="GettbReviewTermCount" resultType="Integer">
 		select count(*) from term where status='0' and creator!=#{username}
 	</select>
+	
+	<update id="DeleteDoneTerm" parameterType="com.bupt.termdemo.model.Term">  
+        update term 
+        set status=#{status},delete_user=#{delete_user},delete_time=#{delete_time}
+        where term = #{term}  
+    </update> 
 </mapper>

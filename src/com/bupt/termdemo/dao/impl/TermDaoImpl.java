@@ -223,4 +223,16 @@ public class TermDaoImpl implements ITermDao {
 		}
 		return result;
 	}
+
+	@Override
+	public void DeleteDoneTerm(Term term) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.update("termModule.DeleteDoneTerm", term);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
 }

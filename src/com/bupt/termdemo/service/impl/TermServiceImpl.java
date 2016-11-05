@@ -111,4 +111,10 @@ public class TermServiceImpl implements ITermService {
 		// TODO Auto-generated method stub
 		return termDao.GettbReviewTermCount(username);
 	}
+
+	@Override
+	public void DeleteDoneTerm(Term term) throws Exception{
+		// TODO Auto-generated method stub
+		termDao.DeleteDoneTerm(term);
+	}
 }

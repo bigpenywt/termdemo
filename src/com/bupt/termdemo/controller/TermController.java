@@ -262,17 +262,19 @@ public class TermController {
 	
 	@RequestMapping("/DeleteDoneTerm")
 	@ResponseBody
-	public Map<String, Object> DeleteDoneTerm(HttpServletRequest request, Term term){
+	public Map<String, Object> DeleteDoneTerm(HttpServletRequest request, @RequestParam String term){
+		Term newterm = new Term();
 		Map<String, Object> resultmap = new HashMap<>();
 		String username = request.getSession().getAttribute("username") + "";
-		term.setDelete_user(username);
+		newterm.setTerm(term);
+		newterm.setDelete_user(username);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		term.setDelete_time(df.format(new Date()));
-		term.setStatus("4");
+		newterm.setDelete_time(df.format(new Date()));
+		newterm.setStatus("4");
 		
 		try {
-			termService.ModifyTerm(term);
-			logService.WriteLog(username, "删除已入库单词", term.getTerm());
+			termService.DeleteDoneTerm(newterm);
+			logService.WriteLog(username, "删除已入库单词", term);
 			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
