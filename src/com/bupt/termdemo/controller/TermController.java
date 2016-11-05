@@ -95,7 +95,7 @@ public class TermController {
 			resultmap.put("status", "1");
 		} catch (Exception e) {
 			resultmap.put("status", "0");
-			resultmap.put("msg", "系统异常，请重新创建！"+ e.getMessage());
+			resultmap.put("msg", "系统异常，删除失败！"+ e.getMessage());
 		} finally {
 			return resultmap;
 		}
@@ -255,6 +255,29 @@ public class TermController {
 			resultmap.put("status", "0");
 			System.out.println(e.getMessage());
 			resultmap.put("msg", "系统异常，修改失败！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/DeleteDoneTerm")
+	@ResponseBody
+	public Map<String, Object> DeleteDoneTerm(HttpServletRequest request, Term term){
+		Map<String, Object> resultmap = new HashMap<>();
+		String username = request.getSession().getAttribute("username") + "";
+		term.setDelete_user(username);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		term.setDelete_time(df.format(new Date()));
+		term.setStatus("4");
+		
+		try {
+			termService.ModifyTerm(term);
+			logService.WriteLog(username, "删除已入库单词", term.getTerm());
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			System.out.println(e.getMessage());
+			resultmap.put("msg", "系统异常，删除失败！"+ e.getMessage());
 		} finally {
 			return resultmap;
 		}

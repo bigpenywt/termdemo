@@ -24,6 +24,8 @@
 	    <result column="reject_user" property="reject_user" jdbcType="VARCHAR" />
 	    <result column="reject_time" property="reject_time" jdbcType="VARCHAR" />
 	    <result column="reject_reason" property="reject_reason" jdbcType="VARCHAR" />
+	    <result column="delete_user" property="delete_user" jdbcType="VARCHAR" />
+	    <result column="delete_time" property="delete_time" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<select id="GetCreateTerm" resultMap="TermResultMap">
@@ -54,7 +56,8 @@
         set term = #{term},origin = #{origin},definition = #{definition},source=#{source},example=#{example},term_char=#{term_char},
         pronunciation=#{pronunciation},translation=#{translation},basis=#{basis},status=#{status},
         reviewer=#{reviewer},review_time=#{review_time},publisher=#{publisher},publish_time=#{publish_time},
-        reject_user=#{reject_user},reject_time=#{reject_time},reject_reason=#{reject_reason}
+        reject_user=#{reject_user},reject_time=#{reject_time},reject_reason=#{reject_reason},
+        delete_user=#{delete_user},delete_time=#{delete_time}
         where termid = #{termid}  
     </update>  
 	

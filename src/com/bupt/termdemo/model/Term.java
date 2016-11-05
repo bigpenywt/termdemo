@@ -22,8 +22,23 @@ public class Term {
 	private String reject_user;
 	private String reject_time;
 	private String reject_reason;
+	private String delete_user;
+	private String delete_time;
+	
 	public String getTermid() {
 		return termid;
+	}
+	public String getDelete_user() {
+		return delete_user;
+	}
+	public void setDelete_user(String delete_user) {
+		this.delete_user = delete_user;
+	}
+	public String getDelete_time() {
+		return delete_time;
+	}
+	public void setDelete_time(String delete_time) {
+		this.delete_time = delete_time;
 	}
 	public void setTermid(String termid) {
 		this.termid = termid;
@@ -149,7 +164,9 @@ public class Term {
 				+ pronunciation + ", translation=" + translation + ", basis=" + basis + ", status=" + status
 				+ ", creator=" + creator + ", create_time=" + create_time + ", reviewer=" + reviewer + ", review_time="
 				+ review_time + ", publisher=" + publisher + ", publish_time=" + publish_time + ", reject_user="
-				+ reject_user + ", reject_time=" + reject_time + ", reject_reason=" + reject_reason + "]";
+				+ reject_user + ", reject_time=" + reject_time + ", reject_reason=" + reject_reason + ", delete_user="
+				+ delete_user + ", delete_time=" + delete_time + "]";
 	}
+	
 	
 }
