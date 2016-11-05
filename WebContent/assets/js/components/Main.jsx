@@ -12,6 +12,7 @@ import ToBePublishTerm from './ToBePublishTerm.jsx';
 import HasPublishedTerm from './HasPublishedTerm.jsx';
 import ToBeReviewByAll from './ToBeReviewByAll.jsx';
 import ToBeReviewByMe from './ToBeReviewByMe.jsx';
+import DeletedTerm from './DeletedTerm.jsx';
 import UserInfo from './UserInfo.jsx';
 import Log from './Log.jsx';
 import Welcome from './Welcome.jsx';
@@ -35,6 +36,7 @@ export default class Main extends React.Component {
                     <Route path="/toBePublish" component={ToBePublishTerm}/>
                     <Route path="/hasRejectedWhenPublish" stage="publish" component={HasRejectedTerm}/>
                     <Route path="/hasPublished" component={HasPublishedTerm}/>
+                    <Route path="/deleted" component={DeletedTerm}/>
                     <Route path="/user" component={UserInfo}/>
                     <Route path="/log" component={Log}/>
                 </Route>

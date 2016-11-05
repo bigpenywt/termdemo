@@ -141,7 +141,8 @@ export default class HasPublishedTerm extends React.Component {
     deleteTerm(record) {
       request
         .post('/termdemo/Term/DeleteDoneTerm')
-        .send({ term: this.state.terms[record.key]})
+        .type('form')
+        .send({term: record.term})
         .end((err, res) => {
           if (err) return;
           let data = JSON.parse(res.text);
@@ -198,7 +199,7 @@ export default class HasPublishedTerm extends React.Component {
               <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>修改</a>
               <span className="ant-divider" />
               <Popconfirm title="确定删除这条单词？" onConfirm={this.deleteTerm.bind(this, record)} okText="确定" cancelText="取消">
-                  <a href="javascript:void(0);">删除</a>
+                  <a href="javascript:void(0);">移除</a>
               </Popconfirm>
             </span>
         }];
