@@ -7,5 +7,12 @@
 	    <result column="name" property="name" jdbcType="VARCHAR" />
 	</resultMap>
 	
+	<select id="ListAll" resultMap="MagazineResultMap">
+		select * from magazine
+	</select>
+	
+	<insert id="AddMagazine" parameterType="com.bupt.termdemo.model.Magazine">
+		insert into magazine(name) values(#{name})
+	</insert>
 	
 </mapper>
