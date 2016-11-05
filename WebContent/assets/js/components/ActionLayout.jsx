@@ -1,6 +1,7 @@
 import React from 'react';
 import {Menu, Icon, Switch} from 'antd';
 const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 import '../../../public/css/page/app/action_layout.css'
 
@@ -22,15 +23,22 @@ export default class ActionLayout extends React.Component {
             <div>
                 <div className="header">
                     <h2 className="title">英汉医学新术语库后台管理系统</h2>
-                    <span style={{
+                    <Menu  style={{
                         float: 'right'
-                    }}>欢迎回来，{this.props.route.userName}</span>
+                    }} onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
+                        <SubMenu title={'欢迎回来，'+this.props.route.userName}>
+                            <MenuItemGroup>
+                                <Menu.Item key="setting:1">Option 1</Menu.Item>
+                                <Menu.Item key="setting:2">Option 2</Menu.Item>
+                            </MenuItemGroup>
+                        </SubMenu>
+                    </Menu>
                 </div>
                 <div className="action-list">
                     <Menu theme={'dark'} onClick={this.handleClick} style={{
                         width: 220
                     }} selectedKeys={[this.state.current]} mode="inline">
-                        <SubMenu key="newWorld" title={< span > <Icon type="plus-square-o"/> < span > 新词操作 < /span></span >}>
+                        <SubMenu key="newWorld" title={< span > <Icon type="exception"/> < span > 新词操作 < /span></span >}>
                             <Menu.Item key="creat">创建新词</Menu.Item>
                             <Menu.Item key="toBeReviewByMe">待校验的单词（我添加的）</Menu.Item>
                             <Menu.Item key="beReject">被驳回的单词</Menu.Item>

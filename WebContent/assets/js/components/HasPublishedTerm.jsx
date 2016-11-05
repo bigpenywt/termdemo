@@ -140,9 +140,9 @@ export default class HasPublishedTerm extends React.Component {
     }
     deleteTerm(record) {
       request
-        .post('/termdemo/Term/DeleteTerm')
+        .post('/termdemo/Term/DeleteDoneTerm')
         .type('form')
-        .send({ term: record.term })
+        .send({ term: this.state.terms[record.key]})
         .end((err, res) => {
           if (err) return;
           let data = JSON.parse(res.text);
