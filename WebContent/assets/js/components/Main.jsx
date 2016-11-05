@@ -5,6 +5,7 @@ const history = createMemoryHistory(location);
 import {pathConfig} from '../pathConfig.js';
 
 import ActionLayout from './ActionLayout.jsx';
+import ModifyUserInfo from './ModifyUserInfo.jsx';
 import CreatTerm from './CreatTerm.jsx';
 import BeRejectTerm from './BeRejectTerm.jsx';
 import HasRejectedTerm from './HasRejectedTerm.jsx';
@@ -29,6 +30,7 @@ export default class Main extends React.Component {
             <Router history={history}>
                 <Route path="/" userName={this.props.userName} component={ActionLayout}>
                     <IndexRoute component={Welcome}/>
+                    <Route path="/modifyUserInfo" component={ModifyUserInfo}/>
                     <Route path="/creat" component={CreatTerm}/>
                     <Route path="/toBeReviewByMe" component={ToBeReviewByMe}/>
                     <Route path="/beReject" component={BeRejectTerm}/>
