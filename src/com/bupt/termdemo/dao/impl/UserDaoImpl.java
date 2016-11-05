@@ -66,4 +66,18 @@ public class UserDaoImpl implements IUserDao {
 			session.close();
 		}
 	}
+
+	@Override
+	public int FindUser(String username) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("userModule.FindUser", username);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 }

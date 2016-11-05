@@ -31,4 +31,8 @@
 		insert into user(username, password, name, pinyin, tel, email, userrole) 
 		values(#{username}, #{password}, #{name}, #{pinyin}, #{tel}, #{email}, #{userrole})
 	</insert>
+	
+	<select id="FindUser" resultType="int">
+		select count(*) from user where username=#{username}
+	</select>
 </mapper>

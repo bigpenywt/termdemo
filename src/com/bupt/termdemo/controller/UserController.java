@@ -58,9 +58,17 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> AddUser(User user){
 		Map<String, Object> resultmap = new HashMap<>();
+		int ifexist = 0;
 		try {
-			userService.AddUser(user);
-			resultmap.put("status", "1");
+			ifexist = userService.FindUser(user.getUsername());
+			if(ifexist == 0){
+				userService.AddUser(user);
+				resultmap.put("status", "1");
+			}
+			else{
+				resultmap.put("status", "0");
+				resultmap.put("msg", "创建失败" + "用户名已存在");
+			}
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			resultmap.put("msg", "创建失败" + e.getMessage());

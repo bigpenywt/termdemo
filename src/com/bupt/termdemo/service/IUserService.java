@@ -10,4 +10,6 @@ public interface IUserService {
 	
 	public void AddUser(User user) throws Exception;
 	
+	public int FindUser(String username) throws Exception;
+	
 }

@@ -30,5 +30,11 @@ public class UserServiceImpl implements IUserService {
 		// TODO Auto-generated method stub
 		userDao.AddUser(user);
 	}
+
+	@Override
+	public int FindUser(String username) throws Exception {
+		// TODO Auto-generated method stub
+		return userDao.FindUser(username);
+	}
 	
 }
