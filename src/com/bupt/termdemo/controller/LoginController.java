@@ -19,17 +19,23 @@ public class LoginController {
 	
 	@RequestMapping("/login")
 	public String login(User user, Model model, HttpServletRequest request){
-		User loginuser = loginService.login(user);
-		
-		if (loginuser == null) {
-			model.addAttribute("msg", "用户名或密码错误");
+		User loginuser;
+		try {
+			loginuser = loginService.login(user);
+			if (loginuser == null) {
+				model.addAttribute("msg", "用户名或密码错误");
+				return "forward:/login.jsp";
+			} else {
+				request.getSession().setAttribute("user", loginuser);
+				request.getSession().setAttribute("userrole", loginuser.getUserrole());
+				request.getSession().setAttribute("username", loginuser.getUsername());
+			    return "redirect:/index.jsp";
+			}
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
 			return "forward:/login.jsp";
-		} else {
-			request.getSession().setAttribute("user", loginuser);
-			request.getSession().setAttribute("userrole", loginuser.getUserrole());
-			request.getSession().setAttribute("username", loginuser.getUsername());
-		    return "redirect:/index.jsp";
 		}
+		
 	}
 	
 	@RequestMapping("/logout")

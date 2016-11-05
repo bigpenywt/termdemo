@@ -4,6 +4,6 @@ import com.bupt.termdemo.model.User;
 
 public interface ILoginService {
 
-	public User login(User user);
+	public User login(User user) throws Exception;
 	
 }

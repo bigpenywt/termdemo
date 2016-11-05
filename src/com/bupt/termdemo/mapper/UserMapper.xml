@@ -16,4 +16,19 @@
 	<select id="login" resultMap="UserResultMap">
 		select * from user where username=#{username} and password=#{password}
 	</select>
+	
+	<select id="GetUserInfo" resultMap="UserResultMap">
+		select * from user where username=#{username}
+	</select>
+	
+	<update id="ModifyUserInfo" parameterType="com.bupt.termdemo.model.User">  
+        update user 
+        set password = #{password},name = #{name},pinyin = #{pinyin},tel=#{tel},email=#{email}
+        where username = #{username}  
+    </update> 
+    
+    <insert id="AddUser" parameterType="com.bupt.termdemo.model.User">
+		insert into user(username, password, name, pinyin, tel, email, userrole) 
+		values(#{username}, #{password}, #{name}, #{pinyin}, #{tel}, #{email}, #{userrole})
+	</insert>
 </mapper>

@@ -14,7 +14,7 @@ public class LoginServiceImpl implements ILoginService {
 	private IUserDao userDao;
 	
 	@Override
-	public User login(User user) {
+	public User login(User user) throws Exception {
 		// TODO Auto-generated method stub
 		return userDao.login(user);
 	}
