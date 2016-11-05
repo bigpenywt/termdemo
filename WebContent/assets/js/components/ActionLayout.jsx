@@ -1,5 +1,6 @@
 import React from 'react';
-import {Menu, Icon, Switch} from 'antd';
+import {Menu, Icon, Modal} from 'antd';
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -12,6 +13,18 @@ export default class ActionLayout extends React.Component {
             current: ''
         }
         this.handleClick = this.handleClick.bind(this);
+        this.signOut = this.signOut.bind(this);
+    }
+    signOut() {
+        Modal.confirm({
+            title: '您确认要退出管理系统？',
+            content: '退出系统后再次进入需重新登录',
+            okText: '确认',
+            cancelText: '取消',
+            onOk() {
+                window.location.href = '/termdemo/loginCtl/logout';
+            }
+        });
     }
     handleClick(e) {
         this.setState({current: e.key});
@@ -23,13 +36,15 @@ export default class ActionLayout extends React.Component {
             <div>
                 <div className="header">
                     <h2 className="title">英汉医学新术语库后台管理系统</h2>
-                    <Menu  style={{
+                    <Menu style={{
                         float: 'right'
                     }} onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-                        <SubMenu title={'欢迎回来，'+this.props.route.userName}>
+                        <SubMenu title={'欢迎回来，' + this.props.route.userName}>
                             <MenuItemGroup>
-                                <Menu.Item key="setting:1">Option 1</Menu.Item>
-                                <Menu.Item key="setting:2">Option 2</Menu.Item>
+                                <Menu.Item key="">
+                                    <a onClick={this.signOut}>退出系统</a>
+                                </Menu.Item>
+                                <Menu.Item key="modifyUserInfo">修改个人信息</Menu.Item>
                             </MenuItemGroup>
                         </SubMenu>
                     </Menu>
