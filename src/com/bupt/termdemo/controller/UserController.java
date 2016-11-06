@@ -1,6 +1,8 @@
 package com.bupt.termdemo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bupt.termdemo.model.User;
@@ -72,6 +75,55 @@ public class UserController {
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			resultmap.put("msg", "创建失败" + e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/ListAll")
+	@ResponseBody
+	public Map<String, Object> ListAll(){
+		Map<String, Object> resultmap = new HashMap<>();
+		List<User> users = new ArrayList<>();
+		try {
+			users = userService.ListAll();
+			resultmap.put("status", "1");
+			resultmap.put("records", users);
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg","获取用户失败" + e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/Delete")
+	@ResponseBody
+	public Map<String, Object> Delete(@RequestParam String username){
+		Map<String, Object> resultmap = new HashMap<>();
+		try {
+			userService.DeleteUser(username);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg","删除失败：" + e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/GetInfo")
+	@ResponseBody
+	public Map<String, Object> GetInfo(@RequestParam String username){
+		Map<String, Object> resultmap = new HashMap<>();
+		User user = new User();
+		try {
+			user = userService.GetUserInfo(username);
+			resultmap.put("status", "1");
+			resultmap.put("userinfo", user);
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg","获取用户信息失败" + e.getMessage());
 		} finally {
 			return resultmap;
 		}

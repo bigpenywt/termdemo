@@ -1,5 +1,8 @@
 package com.bupt.termdemo.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +82,31 @@ public class UserDaoImpl implements IUserDao {
 			session.close();
 		}
 		return result;
+	}
+
+	@Override
+	public List<User> ListAll() throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		List<User> users = new ArrayList<>();
+		try {
+			users = session.selectList("userModule.ListAll");
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return users;
+	}
+
+	@Override
+	public void DeleteUser(String username) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.delete("userModule.DeleteUser", username);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.bupt.termdemo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,18 @@ public class UserServiceImpl implements IUserService {
 	public int FindUser(String username) throws Exception {
 		// TODO Auto-generated method stub
 		return userDao.FindUser(username);
+	}
+
+	@Override
+	public List<User> ListAll() throws Exception {
+		// TODO Auto-generated method stub
+		return userDao.ListAll();
+	}
+
+	@Override
+	public void DeleteUser(String username) throws Exception {
+		// TODO Auto-generated method stub
+		userDao.DeleteUser(username);
 	}
 	
 }

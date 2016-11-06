@@ -35,4 +35,13 @@
 	<select id="FindUser" resultType="int">
 		select count(*) from user where username=#{username}
 	</select>
+	
+	<select id="ListAll" resultMap="UserResultMap">
+		select * from user
+	</select>
+	
+	<delete id="DeleteUser" parameterType="String">  
+        delete from user where username = #{username}  
+    </delete>
+	
 </mapper>

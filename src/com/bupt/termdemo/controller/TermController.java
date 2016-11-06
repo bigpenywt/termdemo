@@ -335,4 +335,28 @@ public class TermController {
 			return resultmap;
 		}
 	}
+	
+	@RequestMapping("/ResumeTerm")
+	@ResponseBody
+	public Map<String, Object> ResumeTerm(HttpServletRequest request, @RequestParam String term){
+		String username = request.getSession().getAttribute("username") + "";
+		Term newterm = new Term();
+		Map<String, Object> resultmap = new HashMap<>();
+		newterm.setTerm(term);
+		newterm.setDelete_user("");
+		newterm.setDelete_time("");
+		newterm.setStatus("3");
+		
+		try {
+			termService.DeleteDoneTerm(newterm);
+			logService.WriteLog(username, "恢复单词", term);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			System.out.println(e.getMessage());
+			resultmap.put("msg", "系统异常，恢复失败！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
 }
