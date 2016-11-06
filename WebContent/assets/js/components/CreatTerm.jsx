@@ -40,10 +40,22 @@ export default class CreatTerm extends React.Component {
                 basis: ''
             },
             tempPronun: '',
-            tempPronuns: []
+            tempPronuns: [],
+            magazineList: [],
+            isFirstFetch: true
         },
         this.typeForm = this.typeForm.bind(this);
         this.creatTerm = this.creatTerm.bind(this);
+    }
+    componentDidMount() {
+        request.get('/termdemo/Magazine/ListAll').end((err, res) => {
+            let data = JSON.parse(res.text);
+            if (data.status === '1') {
+                this.setState({magazineList: data.magazines, isFirstFetch: false});
+            } else
+                this.setState({magazineList: [], isFirstFetch: false});
+            }
+        )
     }
     typeForm(e) {
         let tempRecord = this.state.record;
@@ -116,210 +128,218 @@ export default class CreatTerm extends React.Component {
         });
     }
     render() {
-        return (
-            <div>
-                <Card title="填写新词属性" style={{
-                    width: '100%'
-                }}>
-                    <Form horizontal onSubmit={this.creatTerm}>
-                        <Row>
-                            <Col span={12}>
-                                <FormItem label="条目" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 18
-                                }}>
-                                    <Input name="term" value={this.state.record.term} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                            <Col span={12}>
-                                <FormItem label="词性" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 6
-                                }}>
-                                    <Select name="term_char" value={this.state.record.term_char} onChange={this.selectFormItem.bind(this, 'term_char')}>
-                                        <Option value="n.">n.</Option>
-                                        <Option value="adj.">adj.</Option>
-                                        <Option value="v.">v.</Option>
-                                        <Option value="vt.">vt.</Option>
-                                        <Option value="vi.">vi.</Option>
-                                        <Option value="adv.">adv.</Option>
-                                    </Select>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={12}>
-                                <FormItem label="发音" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 18
-                                }}>
-                                    <Col span={14}>
-                                        <p>{this.state.record.pronunciation
-                                                ? '[' + this.state.record.pronunciation + ']'
-                                                : '请在右侧下拉框选择单个音标逐次添加'}
-                                        </p>
-                                    </Col>
-                                    <Col span={4}>
-                                        <Select onChange={this.choosePronun.bind(this)}>
-                                            {pronunciation.map((item) => {
+        if (!this.state.isFirstFetch)
+            return (
+                <div>
+                    <Card title="填写新词属性" style={{
+                        width: '100%'
+                    }}>
+                        <Form horizontal onSubmit={this.creatTerm}>
+                            <Row>
+                                <Col span={12}>
+                                    <FormItem label="条目" labelCol={{
+                                        span: 4
+                                    }} wrapperCol={{
+                                        span: 18
+                                    }}>
+                                        <Input name="term" value={this.state.record.term} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                                <Col span={12}>
+                                    <FormItem label="词性" labelCol={{
+                                        span: 4
+                                    }} wrapperCol={{
+                                        span: 6
+                                    }}>
+                                        <Select name="term_char" value={this.state.record.term_char} onChange={this.selectFormItem.bind(this, 'term_char')}>
+                                            <Option value="n.">n.</Option>
+                                            <Option value="adj.">adj.</Option>
+                                            <Option value="v.">v.</Option>
+                                            <Option value="vt.">vt.</Option>
+                                            <Option value="vi.">vi.</Option>
+                                            <Option value="adv.">adv.</Option>
+                                        </Select>
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
+                                    <FormItem label="发音" labelCol={{
+                                        span: 4
+                                    }} wrapperCol={{
+                                        span: 18
+                                    }}>
+                                        <Col span={14}>
+                                            <p>{this.state.record.pronunciation
+                                                    ? '[' + this.state.record.pronunciation + ']'
+                                                    : '请在右侧下拉框选择单个音标逐次添加'}
+                                            </p>
+                                        </Col>
+                                        <Col span={4}>
+                                            <Select onChange={this.choosePronun.bind(this)}>
+                                                {pronunciation.map((item) => {
+                                                    return (
+                                                        <Option key={item} value={item}>{item}</Option>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </Col>
+                                        <Col span={6}>
+                                            <ButtonGroup style={{
+                                                marginLeft: '4px',
+                                                marginTop: '2px'
+                                            }}>
+                                                <Button type="primary" size="large" icon="plus-square-o" onClick={this.addPronun.bind(this)}></Button>
+                                                <Button type="primary" size="large" icon="minus-square-o" onClick={this.removePronun.bind(this)}></Button>
+                                            </ButtonGroup>
+                                        </Col>
+                                        <Input type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
+                                    </FormItem>
+                                </Col>
+                                <Col span={12}>
+                                    <FormItem label="中文翻译" labelCol={{
+                                        span: 4
+                                    }} wrapperCol={{
+                                        span: 18
+                                    }}>
+                                        <Input name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row style={{
+                                borderTop: '1px solid #e9e9e9',
+                                marginBottom: '20px'
+                            }}>
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '-11px',
+                                    padding: '1px 8px',
+                                    color: '#777',
+                                    marginLeft: '25px',
+                                    background: '#fff'
+                                }}>首次来源</div>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
+                                    <FormItem label="杂志名称" labelCol={{
+                                        span: 4
+                                    }} wrapperCol={{
+                                        span: 14
+                                    }}>
+                                        <Select name="magazineName" value={this.state.record.origin.magazineName} onChange={this.selectFormItem.bind(this, 'magazineName')}>
+                                            {this.state.magazineList.map((magazine) => {
                                                 return (
-                                                    <Option key={item} value={item}>{item}</Option>
+                                                    <Option key={magazine.name} value={magazine.name}>{magazine.name}</Option>
                                                 )
                                             })}
                                         </Select>
-                                    </Col>
-                                    <Col span={6}>
-                                        <ButtonGroup style={{
-                                            marginLeft: '4px',
-                                            marginTop: '2px'
-                                        }}>
-                                            <Button type="primary" size="large" icon="plus-square-o" onClick={this.addPronun.bind(this)}></Button>
-                                            <Button type="primary" size="large" icon="minus-square-o" onClick={this.removePronun.bind(this)}></Button>
-                                        </ButtonGroup>
-                                    </Col>
-                                    <Input type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
-                                </FormItem>
-                            </Col>
-                            <Col span={12}>
-                                <FormItem label="中文翻译" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 18
-                                }}>
-                                    <Input name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row style={{
-                            borderTop: '1px solid #e9e9e9',
-                            marginBottom: '20px'
-                        }}>
-                            <div style={{
-                                position: 'absolute',
-                                top: '-11px',
-                                padding: '1px 8px',
-                                color: '#777',
-                                marginLeft: '25px',
-                                background: '#fff'
-                            }}>首次来源</div>
-                        </Row>
-                        <Row>
-                            <Col span={12}>
-                                <FormItem label="杂志名称" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 14
-                                }}>
-                                    <Input data-parent="origin" name="magazineName" value={this.state.record.origin.magazineName} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row style={{
-                            borderBottom: '1px solid #e9e9e9',
-                            marginBottom: '20px'
-                        }}>
-                            <Col span={6}>
-                                <FormItem label="年份" labelCol={{
-                                    span: 8
-                                }} wrapperCol={{
-                                    span: 16
-                                }}>
-                                    <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
-                                        {yearSelect.map((year) => {
-                                            return (
-                                                <Option key={year} value={year}>{year}</Option>
-                                            )
-                                        })}
-                                    </Select>
-                                </FormItem>
-                            </Col>
-                            <Col span={6}>
-                                <FormItem label="卷号" labelCol={{
-                                    span: 8
-                                }} wrapperCol={{
-                                    span: 16
-                                }}>
-                                    <Input data-parent="origin" name="roll" value={this.state.record.origin.roll} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                            <Col span={6}>
-                                <FormItem label="期号" labelCol={{
-                                    span: 8
-                                }} wrapperCol={{
-                                    span: 16
-                                }}>
-                                    <Input data-parent="origin" name="issue" value={this.state.record.origin.issue} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                            <Col span={6}>
-                                <FormItem label="页码" labelCol={{
-                                    span: 8
-                                }} wrapperCol={{
-                                    span: 16
-                                }}>
-                                    <Input data-parent="origin" name="page" value={this.state.record.origin.page} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={12}>
-                                <FormItem label="英文定义" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 18
-                                }}>
-                                    <Input type="textarea" name="definition" value={this.state.record.definition} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                            <Col span={12}>
-                                <FormItem label="定义来源" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 18
-                                }}>
-                                    <Input type="textarea" name="source" value={this.state.record.source} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}>
-                                <FormItem label="示例" labelCol={{
-                                    span: 2
-                                }} wrapperCol={{
-                                    span: 16
-                                }}>
-                                    <Input type="textarea" name="example" value={this.state.record.example} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}>
-                                <FormItem label="翻译理据" labelCol={{
-                                    span: 2
-                                }} wrapperCol={{
-                                    span: 16
-                                }}>
-                                    <Input type="textarea" name="basis" value={this.state.record.basis} onChange={this.typeForm}/>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}>
-                                <FormItem wrapperCol={{
-                                    span: 24
-                                }}>
-                                    <Button style={{
-                                        float: 'right'
-                                    }} type="primary" htmlType="submit">新建单词</Button>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                    </Form>
-                </Card>
-            </div>
-        )
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row style={{
+                                borderBottom: '1px solid #e9e9e9',
+                                marginBottom: '20px'
+                            }}>
+                                <Col span={6}>
+                                    <FormItem label="年份" labelCol={{
+                                        span: 8
+                                    }} wrapperCol={{
+                                        span: 16
+                                    }}>
+                                        <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
+                                            {yearSelect.map((year) => {
+                                                return (
+                                                    <Option key={year} value={year}>{year}</Option>
+                                                )
+                                            })}
+                                        </Select>
+                                    </FormItem>
+                                </Col>
+                                <Col span={6}>
+                                    <FormItem label="卷号" labelCol={{
+                                        span: 8
+                                    }} wrapperCol={{
+                                        span: 16
+                                    }}>
+                                        <Input data-parent="origin" name="roll" value={this.state.record.origin.roll} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                                <Col span={6}>
+                                    <FormItem label="期号" labelCol={{
+                                        span: 8
+                                    }} wrapperCol={{
+                                        span: 16
+                                    }}>
+                                        <Input data-parent="origin" name="issue" value={this.state.record.origin.issue} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                                <Col span={6}>
+                                    <FormItem label="页码" labelCol={{
+                                        span: 8
+                                    }} wrapperCol={{
+                                        span: 16
+                                    }}>
+                                        <Input data-parent="origin" name="page" value={this.state.record.origin.page} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
+                                    <FormItem label="英文定义" labelCol={{
+                                        span: 4
+                                    }} wrapperCol={{
+                                        span: 18
+                                    }}>
+                                        <Input type="textarea" name="definition" value={this.state.record.definition} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                                <Col span={12}>
+                                    <FormItem label="定义来源" labelCol={{
+                                        span: 4
+                                    }} wrapperCol={{
+                                        span: 18
+                                    }}>
+                                        <Input type="textarea" name="source" value={this.state.record.source} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <FormItem label="示例" labelCol={{
+                                        span: 2
+                                    }} wrapperCol={{
+                                        span: 16
+                                    }}>
+                                        <Input type="textarea" name="example" value={this.state.record.example} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <FormItem label="翻译理据" labelCol={{
+                                        span: 2
+                                    }} wrapperCol={{
+                                        span: 16
+                                    }}>
+                                        <Input type="textarea" name="basis" value={this.state.record.basis} onChange={this.typeForm}/>
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <FormItem wrapperCol={{
+                                        span: 24
+                                    }}>
+                                        <Button style={{
+                                            float: 'right'
+                                        }} type="primary" htmlType="submit">新建单词</Button>
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Card>
+                </div>
+            )
+        return false;
     }
 }

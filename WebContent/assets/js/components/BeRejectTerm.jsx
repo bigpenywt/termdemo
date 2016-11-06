@@ -52,7 +52,8 @@ export default class ToBeReviewTerm extends React.Component {
             isFirstFetch: true,
             commitLoading: false,
             tempPronun: '',
-            tempPronuns: []
+            tempPronuns: [],
+            magazineList: []
         }
         this.hideDetails = this.hideDetails.bind(this);
         this.fetchNewData = this.fetchNewData.bind(this);
@@ -60,6 +61,14 @@ export default class ToBeReviewTerm extends React.Component {
         this.commitModify = this.commitModify.bind(this);
     }
     componentDidMount() {
+        request.get('/termdemo/Magazine/ListAll').end((err, res) => {
+            let data = JSON.parse(res.text);
+            if (data.status === '1') {
+                this.setState({magazineList: data.magazines});
+            } else
+                this.setState({magazineList: []});
+            }
+        )
         request.get('/termdemo/Term/GetCreateTerm/').query({status: 2, page: 0, rows: 10}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
@@ -119,7 +128,7 @@ export default class ToBeReviewTerm extends React.Component {
         this.setState({showTermDetails: true, record: tempTerm.toJS()});
     }
     hideDetails() {
-        this.setState({showTermDetails: false, record: emptyRecord, tempPronuns: [],tempPronun: ''});
+        this.setState({showTermDetails: false, record: emptyRecord, tempPronuns: [], tempPronun: ''});
     }
     commitModify() {
         let tempRecord = this.state.record;
@@ -301,7 +310,13 @@ export default class ToBeReviewTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 14
                                     }}>
-                                        <Input data-parent="origin" name="magazineName" value={this.state.record.origin.magazineName} onChange={this.typeForm}/>
+                                        <Select name="magazineName" value={this.state.record.origin.magazineName} onChange={this.selectFormItem.bind(this, 'magazineName')}>
+                                            {this.state.magazineList.map((magazine) => {
+                                                return (
+                                                    <Option key={magazine.name} value={magazine.name}>{magazine.name}</Option>
+                                                )
+                                            })}
+                                        </Select>
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -315,13 +330,13 @@ export default class ToBeReviewTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 16
                                     }}>
-                                    <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
-                                        {yearSelect.map((year) => {
-                                            return (
-                                                <Option key={year} value={year}>{year}</Option>
-                                            )
-                                        })}
-                                    </Select>
+                                        <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
+                                            {yearSelect.map((year) => {
+                                                return (
+                                                    <Option key={year} value={year}>{year}</Option>
+                                                )
+                                            })}
+                                        </Select>
                                     </FormItem>
                                 </Col>
                                 <Col span={6}>

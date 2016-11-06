@@ -38,7 +38,8 @@ export default class HasPublishedTerm extends React.Component {
           submitLoading: false,
           showTermDetails: false,
           tempPronun: '',
-          tempPronuns: []
+          tempPronuns: [],
+          magazineList: []
         }
         this.fetchNewData = this.fetchNewData.bind(this);
         this.typeForm = this.typeForm.bind(this);
@@ -46,6 +47,14 @@ export default class HasPublishedTerm extends React.Component {
         this.hideDetails = this.hideDetails.bind(this);
     }
     componentDidMount() {
+      request.get('/termdemo/Magazine/ListAll').end((err, res) => {
+          let data = JSON.parse(res.text);
+          if (data.status === '1') {
+              this.setState({magazineList: data.magazines});
+          } else
+              this.setState({magazineList: []});
+          }
+      )
       request
         .get('/termdemo/Term/GetTermByStatus')
         .query({ status: 3, page: 0, rows: 20 })
@@ -286,7 +295,13 @@ export default class HasPublishedTerm extends React.Component {
                 <Row>
                   <Col span={12}>
                     <FormItem label="杂志名称" labelCol={{ span: 4}} wrapperCol={{ span: 14 }}>
-                      <Input data-parent="origin" name="magazineName" value={this.state.record.origin.magazineName} onChange={this.typeForm}/>
+                      <Select name="magazineName" value={this.state.record.origin.magazineName} onChange={this.selectFormItem.bind(this, 'magazineName')}>
+                          {this.state.magazineList.map((magazine) => {
+                              return (
+                                  <Option key={magazine.name} value={magazine.name}>{magazine.name}</Option>
+                              )
+                          })}
+                      </Select>
                     </FormItem>
                   </Col>
                 </Row>
