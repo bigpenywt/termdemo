@@ -51,3 +51,10 @@ export const pronunciation = [
     '5',
     '7'
 ];
+
+export const yearSelect = (() => {
+    let years = [];
+    for (let i = 1990; i < 2030; i++)
+        years.push(i.toString());
+    return years;
+})()

@@ -12,7 +12,7 @@ import {
     Select
 } from 'antd';
 
-import {pronunciation} from '../termConfig.js';
+import {pronunciation, yearSelect} from '../termConfig.js';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -54,7 +54,9 @@ export default class CreatTerm extends React.Component {
     }
     selectFormItem(key, e) {
         let tempRecord = this.state.record;
-        tempRecord[key] = e;
+        tempRecord[key] === undefined
+            ? tempRecord.origin[key] = e
+            : tempRecord[key] = e
         this.setState({record: tempRecord});
     }
     choosePronun(value) {
@@ -108,7 +110,7 @@ export default class CreatTerm extends React.Component {
                         translation: '',
                         basis: ''
                     }
-                    this.setState({record: emptyRecord, tempPronuns: [],tempPronun: ''});
+                    this.setState({record: emptyRecord, tempPronuns: [], tempPronun: ''});
                 })()
                 : message.error(data.msg, 3);
         });
@@ -225,7 +227,13 @@ export default class CreatTerm extends React.Component {
                                 }} wrapperCol={{
                                     span: 16
                                 }}>
-                                    <Input data-parent="origin" name="year" value={this.state.record.origin.year} onChange={this.typeForm}/>
+                                    <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
+                                        {yearSelect.map((year) => {
+                                            return (
+                                                <Option key={year} value={year}>{year}</Option>
+                                            )
+                                        })}
+                                    </Select>
                                 </FormItem>
                             </Col>
                             <Col span={6}>

@@ -2,7 +2,7 @@ import React from 'react';
 import request from 'superagent';
 import Immutable from 'immutable';
 
-import {pronunciation} from '../termConfig.js';
+import {pronunciation, yearSelect} from '../termConfig.js';
 
 import { Card, Table, Button, Modal, Form, Input,
   Row, Col, Select, message, Popconfirm } from 'antd';
@@ -43,6 +43,7 @@ export default class HasPublishedTerm extends React.Component {
         this.fetchNewData = this.fetchNewData.bind(this);
         this.typeForm = this.typeForm.bind(this);
         this.submitModify = this.submitModify.bind(this);
+        this.hideDetails = this.hideDetails.bind(this);
     }
     componentDidMount() {
       request
@@ -69,9 +70,11 @@ export default class HasPublishedTerm extends React.Component {
       this.setState({record: tempRecord});
     }
     selectFormItem(key, e) {
-      let tempRecord = this.state.record;
-      tempRecord[key] = e;
-      this.setState({record: tempRecord});
+        let tempRecord = this.state.record;
+        tempRecord[key] === undefined
+            ? tempRecord.origin[key] = e
+            : tempRecord[key] = e
+        this.setState({record: tempRecord});
     }
     choosePronun(value) {
         this.setState({tempPronun: value});
@@ -290,7 +293,13 @@ export default class HasPublishedTerm extends React.Component {
                 <Row style={{ borderBottom: '1px solid #e9e9e9', marginBottom: '20px' }}>
                   <Col span={6}>
                     <FormItem label="年份" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input data-parent="origin" name="year" value={this.state.record.origin.year} onChange={this.typeForm}/>
+                      <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
+                        {yearSelect.map((year) => {
+                            return (
+                                <Option key={year} value={year}>{year}</Option>
+                            )
+                        })}
+                      </Select>
                     </FormItem>
                   </Col>
                   <Col span={6}>

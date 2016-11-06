@@ -16,7 +16,7 @@ import {
     message
 } from 'antd';
 
-import {pronunciation} from '../termConfig.js';
+import {pronunciation, yearSelect} from '../termConfig.js';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -110,7 +110,9 @@ export default class ToBeReviewTerm extends React.Component {
     }
     selectFormItem(key, e) {
         let tempRecord = this.state.record;
-        tempRecord[key] = e;
+        tempRecord[key] === undefined
+            ? tempRecord.origin[key] = e
+            : tempRecord[key] = e
         this.setState({record: tempRecord});
     }
     deleteTerm(record) {
@@ -453,7 +455,13 @@ export default class ToBeReviewTerm extends React.Component {
                                     span: 16
                                 }}>
                                     {this.state.modifyTerm
-                                        ? <Input data-parent="origin" name="year" onChange={this.typeForm} value={this.state.record.origin.year}/>
+                                        ? <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
+                                            {yearSelect.map((year) => {
+                                                return (
+                                                    <Option key={year} value={year}>{year}</Option>
+                                                )
+                                            })}
+                                        </Select>
                                         : <p>{this.state.record.origin.year}</p>}
                                 </FormItem>
                             </Col>

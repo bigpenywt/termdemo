@@ -246,7 +246,7 @@ export default class ToBePublishTerm extends React.Component {
                               <Button type="primary" size="large" icon="minus-square-o" onClick={this.removePronun.bind(this)}></Button>
                           </ButtonGroup>
                       </Col>
-                      <Input type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
+                      <Input disabled type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
                     </FormItem>
                   </Col>
                   <Col span={12}>
