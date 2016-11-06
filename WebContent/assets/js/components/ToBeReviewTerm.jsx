@@ -270,9 +270,9 @@ export default class ToBeReviewTerm extends React.Component {
                     key: 'term',
                     render: (text, record) => <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>{text}</a>
                 }, {
-                    title: '中文翻译',
-                    dataIndex: 'translation',
-                    key: 'translation'
+                    title: '创建人',
+                    dataIndex: 'creator',
+                    key: 'creator'
                 }, {
                     title: '创建时间',
                     dataIndex: 'create_time',
@@ -300,7 +300,7 @@ export default class ToBeReviewTerm extends React.Component {
                 }
             ];
             const data = this.state.terms.map((item, i) => {
-                return {key: i, term: item.term, create_time: item.create_time, translation: item.translation}
+                return {key: i, term: item.term, create_time: item.create_time, creator: item.creator}
             });
             const modalButtonGroup = this.state.operateByMe
                 ? [< Button type = "ghost" size = "large" onClick = {

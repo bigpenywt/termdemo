@@ -27,6 +27,8 @@ export default class ActionLayout extends React.Component {
         });
     }
     handleClick(e) {
+        if (e.key === 'signOut')
+            return
         this.setState({current: e.key});
         this.context.router.push(e.key);
     }
@@ -41,7 +43,7 @@ export default class ActionLayout extends React.Component {
                     }} onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
                         <SubMenu title={'欢迎回来，' + this.props.route.userName}>
                             <MenuItemGroup>
-                                <Menu.Item key="">
+                                <Menu.Item key="signOut">
                                     <a onClick={this.signOut}>退出系统</a>
                                 </Menu.Item>
                                 <Menu.Item key="modifyUserInfo">修改个人信息</Menu.Item>

@@ -174,20 +174,24 @@ export default class ToBePublishTerm extends React.Component {
           key: 'term',
           render: (text, record) => <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>{text}</a>
         }, {
-          title: '中文翻译',
-          dataIndex: 'translation',
-          key: 'translation'
+          title: '创建人',
+          dataIndex: 'creator',
+          key: 'creator'
         }, {
           title: '创建时间',
           dataIndex: 'create_time',
           key: 'create_time'
+        },{
+            title: '校验人',
+            dataIndex: 'reviewer',
+            key: 'reviewer'
         }, {
           title: '操作',
           key: 'action',
           render: (record) => <a href="javascript:void(0);" onClick={this.showDetails.bind(this, record)}>审核</a>
         }];
         const data = this.state.terms.map((item, i) => {
-            return {key: i, term: item.term, create_time: item.create_time, translation: item.translation}
+            return {key: i, term: item.term, create_time: item.create_time, creator: item.creator, reviewer:item.reviewer}
         });
         const modalButtonGroup = [
           <Button type="primary" size="large" onClick={this.publish}>发布</Button>,

@@ -116,10 +116,6 @@ export default class DeletedTerm extends React.Component {
                     dataIndex: 'term',
                     key: 'term'
                 }, {
-                    title: '中文翻译',
-                    dataIndex: 'translation',
-                    key: 'translation'
-                }, {
                     title: '创建人',
                     dataIndex: 'creator',
                     key: 'creator'
@@ -139,7 +135,7 @@ export default class DeletedTerm extends React.Component {
                 }
             ];
             const data = this.state.terms.map((item, i) => {
-                return {key: i, term: item.term, translation: item.translation, reviewer: item.reviewer, creator: item.creator}
+                return {key: i, term: item.term, reviewer: item.reviewer, creator: item.creator}
             });
             const modalBottonGroup = [< Button type = "ghost" size = "large" onClick = {
                     this.hideDetails

@@ -143,6 +143,10 @@ export default class ToBeReviewTerm extends React.Component {
                     dataIndex: 'term',
                     key: 'term'
                 }, {
+                    title: '创建人',
+                    dataIndex: 'creator',
+                    key: 'creator'
+                }, {
                     title: '创建时间',
                     dataIndex: 'create_time',
                     key: 'create_time'
@@ -162,7 +166,7 @@ export default class ToBeReviewTerm extends React.Component {
                 }
             ];
             const data = this.state.terms.map((item, i) => {
-                return {key: i, term: item.term, create_time: item.create_time, reject_reason: item.reject_reason}
+                return {key: i, term: item.term, creator: item.creator, reject_reason: item.reject_reason, create_time: item.create_time}
             });
             const modalBottonGroup = [< Button type = "primary" size = "large" onClick = {
                     this.showRejectModal
@@ -213,7 +217,7 @@ export default class ToBeReviewTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 18
                                     }}>
-                                        <p>{'['+this.state.record.pronunciation+']'}</p>
+                                        <p>{'[' + this.state.record.pronunciation + ']'}</p>
                                     </FormItem>
                                 </Col>
                                 <Col span={12}>
