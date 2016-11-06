@@ -2,7 +2,15 @@ import 'babel-polyfill';
 import React from 'react';
 import request from 'superagent';
 import Immutable from 'immutable';
-import {Table, Card, Button, message, Input} from 'antd';
+import {
+    Table,
+    Card,
+    Button,
+    message,
+    Input,
+    Modal,
+    Popconfirm
+} from 'antd';
 
 import {pronunciation} from '../termConfig.js';
 
@@ -50,13 +58,12 @@ export default class Magazine extends React.Component {
         tempNewMagazine = e.target.value;
         this.setState({newMagazine: tempNewMagazine});
     }
-    deleteMagazine() {}
-    addMagazine() {
-        request.post('/termdemo/Magazine/AddMagazine').type('form').send({name: this.state.newMagazine}).end((err, res) => {
+    deleteMagazine(magazine) {
+        request.post('/termdemo/Magazine/Delete').type('form').send({name: magazine.name}).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
-                    message.success('添加成功～', 3);
+                    message.success('删除成功～', 3);
                     let pagination = {
                         current: 1,
                         pageSize: 10
@@ -69,6 +76,28 @@ export default class Magazine extends React.Component {
                 })()
         });
     }
+    addMagazine() {
+        if (this.state.newMagazine)
+            request.post('/termdemo/Magazine/AddMagazine').type('form').send({name: this.state.newMagazine}).end((err, res) => {
+                let data = JSON.parse(res.text);
+                data.status === '1'
+                    ? (() => {
+                        message.success('添加成功～', 3);
+                        let pagination = {
+                            current: 1,
+                            pageSize: 10
+                        }
+                        this.fetchNewData(pagination);
+                        this.setState({commitLoading: false});
+                        this.setState({newMagazine: ''});
+                    })()
+                    : (() => {
+                        message.error(data.msg, 3);
+                    })()
+            });
+        else
+            Modal.warning({title: '杂志名不能为空！', content: '请输入杂志名称后再进行添加操作', okText: '确定'});
+        }
     render() {
         if (!this.state.isFirstFetch) {
             const columns = [
@@ -81,7 +110,9 @@ export default class Magazine extends React.Component {
                     key: 'action',
                     render: (magazine) => (
                         <span>
-                            <a href="javascript:void(0);" onClick={this.deleteMagazine.bind(this, magazine)}>删除</a>
+                            <Popconfirm title={'您即将删除：' + magazine.name} onConfirm={this.deleteMagazine.bind(this, magazine)} okText="确定删除" cancelText="取消">
+                                <a href="javascript:void(0);">删除</a>
+                            </Popconfirm>
                         </span>
                     )
 
@@ -93,12 +124,19 @@ export default class Magazine extends React.Component {
             return (
                 <div>
                     <Card title="添加新的杂志" style={{
-                        width: '100%'
+                        width: '100%',
+                        marginBottom: '25px'
                     }}>
-                        <Input onChange={this.typeForm} value={this.state.newMagazine}/>
-                        <Button type="primary" size="large" onClick={this.addMagazine}>
-                            添加杂志
-                        </Button>
+                        <Input style={{
+                            width: '65%'
+                        }} placeholder="输入杂志名称" onChange={this.typeForm} value={this.state.newMagazine}/>
+                        <Popconfirm title={'您即将添加：' + this.state.newMagazine} onConfirm={this.addMagazine} okText="确认添加" cancelText="取消">
+                            <Button style={{
+                                float: 'right'
+                            }} type="primary" size="large">
+                                添加杂志
+                            </Button>
+                        </Popconfirm>
                     </Card>
                     <Card title="现有杂志信息" style={{
                         width: '100%'

@@ -49,6 +49,7 @@ export default class DeletedTerm extends React.Component {
         }
         this.hideDetails = this.hideDetails.bind(this);
         this.fetchNewData = this.fetchNewData.bind(this);
+        this.resumeTerm = this.resumeTerm.bind(this);
     }
     componentDidMount() {
         request.get('/termdemo/Term/GetTermByStatus/').query({status: 4, page: 0, rows: 10}).end((err, res) => {
@@ -89,6 +90,24 @@ export default class DeletedTerm extends React.Component {
             }
         });
     }
+    resumeTerm() {
+        request.post('/termdemo/Term/ResumeTerm').type('form').send({term: this.state.record.term}).end((err, res) => {
+            let data = JSON.parse(res.text);
+            data.status === '1'
+                ? (() => {
+                    message.success('恢复成功～', 3);
+                    this.hideDetails();
+                    let pagination = {
+                        current: 1,
+                        pageSize: 10
+                    }
+                    this.fetchNewData(pagination);
+                })()
+                : (() => {
+                    message.error(data.msg, 3);
+                })()
+        });
+    }
     render() {
         if (!this.state.isFirstFetch) {
             const columns = [
@@ -124,7 +143,7 @@ export default class DeletedTerm extends React.Component {
             });
             const modalBottonGroup = [< Button type = "ghost" size = "large" onClick = {
                     this.hideDetails
-                } > 返回 < /Button>,<Button type="primary" size="large"> 恢复 </Button >]
+                } > 返回 < /Button>,<Button type="primary" onClick={this.resumeTerm} size="large"> 恢复 </Button >]
 
             return (
                 <div>
