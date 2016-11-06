@@ -42,5 +42,19 @@ public class MagazineDaoImpl implements IMagazineDao {
 			session.close();
 		}
 	}
+
+	@Override
+	public int FindMagazine(String name) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("magazineModule.FindMagazine",name);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 	
 }

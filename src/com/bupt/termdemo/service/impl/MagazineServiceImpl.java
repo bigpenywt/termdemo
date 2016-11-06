@@ -27,4 +27,10 @@ public class MagazineServiceImpl implements IMagazineService {
 		magazineDao.AddMagazine(magazine);
 	}
 
+	@Override
+	public int FindMagazine(String name) throws Exception {
+		// TODO Auto-generated method stub
+		return magazineDao.FindMagazine(name);
+	}
+
 }

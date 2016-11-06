@@ -15,4 +15,8 @@
 		insert into magazine(name) values(#{name})
 	</insert>
 	
+	<select id="FindMagazine" resultType="int">
+		select count(*) from magazine where name = #{name}
+	</select>
+	
 </mapper>

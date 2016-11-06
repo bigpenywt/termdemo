@@ -43,9 +43,17 @@ public class MagazineController {
 	@ResponseBody
 	public Map<String, Object> AddMagazine(Magazine magazine){
 		Map<String, Object> resultmap = new HashMap<>();
+		int ifexist = 0;
 		try {
-			magazineService.AddMagazine(magazine);
-			resultmap.put("status", "1");
+			ifexist = magazineService.FindMagazine(magazine.getName());
+			if(ifexist == 0){
+				magazineService.AddMagazine(magazine);
+				resultmap.put("status", "1");
+			}
+			else{
+				resultmap.put("status", "0");
+				resultmap.put("msg","添加失败，杂志已存在");
+			}
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			resultmap.put("msg","添加失败" + e.getMessage());

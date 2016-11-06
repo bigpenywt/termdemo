@@ -9,5 +9,7 @@ public interface IMagazineService {
 	public List<Magazine> ListAll() throws Exception;
 	
 	public void AddMagazine(Magazine magazine) throws Exception;
+
+	public int FindMagazine(String name) throws Exception;
 	
 }
