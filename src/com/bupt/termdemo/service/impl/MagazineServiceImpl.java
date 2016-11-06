@@ -33,4 +33,10 @@ public class MagazineServiceImpl implements IMagazineService {
 		return magazineDao.FindMagazine(name);
 	}
 
+	@Override
+	public void DeleteMagazine(String name) throws Exception {
+		// TODO Auto-generated method stub
+		magazineDao.DeleteMagazine(name);
+	}
+
 }

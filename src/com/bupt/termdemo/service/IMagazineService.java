@@ -11,5 +11,7 @@ public interface IMagazineService {
 	public void AddMagazine(Magazine magazine) throws Exception;
 
 	public int FindMagazine(String name) throws Exception;
+
+	public void DeleteMagazine(String name) throws Exception;
 	
 }

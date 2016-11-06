@@ -19,4 +19,8 @@
 		select count(*) from magazine where name = #{name}
 	</select>
 	
+	<delete id="DeleteMagazine" parameterType="String">  
+        delete from magazine where name = #{name}  
+    </delete>
+	
 </mapper>

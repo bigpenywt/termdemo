@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bupt.termdemo.model.Magazine;
@@ -57,6 +58,21 @@ public class MagazineController {
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			resultmap.put("msg","添加失败" + e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/Delete")
+	@ResponseBody
+	public Map<String, Object> DeleteMagazine(@RequestParam String name){
+		Map<String, Object> resultmap = new HashMap<>();
+		try {
+			magazineService.DeleteMagazine(name);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg","删除失败" + e.getMessage());
 		} finally {
 			return resultmap;
 		}

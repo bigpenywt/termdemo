@@ -56,5 +56,17 @@ public class MagazineDaoImpl implements IMagazineDao {
 		}
 		return result;
 	}
+
+	@Override
+	public void DeleteMagazine(String name) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		try {
+			session.delete("magazineModule.DeleteMagazine",name);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
 	
 }
