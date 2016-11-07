@@ -28,7 +28,7 @@ export default class Main extends React.Component {
     render() {
         return (
             <Router history={history}>
-                <Route path="/" userName={this.props.userName} component={ActionLayout}>
+                <Route path="/" userName={this.props.userName} userRole={this.props.userRole} component={ActionLayout}>
                     <IndexRoute component={Welcome}/>
                     <Route path="/modifyUserInfo" component={ModifyUserInfo}/>
                     <Route path="/creat" component={CreatTerm}/>
@@ -50,5 +50,6 @@ export default class Main extends React.Component {
 }
 
 Main.propTypes = {
+    userName: React.PropTypes.string.isRequired,
     userRole: React.PropTypes.string.isRequired
 };
