@@ -38,7 +38,7 @@ public class MagazineController {
 			resultmap.put("magazines", magazines);
 		} catch (Exception e) {
 			resultmap.put("status", "0");
-			resultmap.put("msg", e.getMessage());
+			resultmap.put("msg", "获取杂志信息失败：" + e.getMessage());
 		} finally {
 			return resultmap;
 		}
