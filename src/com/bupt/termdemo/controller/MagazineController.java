@@ -22,9 +22,9 @@ public class MagazineController {
 	@Autowired
 	private IMagazineService magazineService;
 	
-	@RequestMapping("/ListAll")
+	@RequestMapping("/GetAllMagazine")
 	@ResponseBody
-	public Map<String, Object> ListAll(@RequestParam Map<String, String> params){
+	public Map<String, Object> GetAllMagazine(@RequestParam Map<String, String> params){
 		int page = Integer.valueOf(params.get("page"));
 		int rows = Integer.valueOf(params.get("rows"));
 		Map<String, Object> resultmap = new HashMap<>();
@@ -35,6 +35,23 @@ public class MagazineController {
 			total = magazineService.CountAll();
 			resultmap.put("status", "1");
 			resultmap.put("total", total);
+			resultmap.put("magazines", magazines);
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			resultmap.put("msg", e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/ListAll")
+	@ResponseBody
+	public Map<String, Object> ListAll(){
+		Map<String, Object> resultmap = new HashMap<>();
+		List<Magazine> magazines = new ArrayList<>();
+		try {
+			magazines = magazineService.ListAll(1, 100000);
+			resultmap.put("status", "1");
 			resultmap.put("magazines", magazines);
 		} catch (Exception e) {
 			resultmap.put("status", "0");
