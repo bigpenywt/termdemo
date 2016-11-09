@@ -11,6 +11,10 @@
 		select * from magazine
 	</select>
 	
+	<select id="CountAll" resultType="int">
+		select count(*) from magazine
+	</select>
+	
 	<insert id="AddMagazine" parameterType="com.bupt.termdemo.model.Magazine">
 		insert into magazine(name) values(#{name})
 	</insert>

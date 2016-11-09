@@ -6,7 +6,7 @@ import com.bupt.termdemo.model.Magazine;
 
 public interface IMagazineService {
 	
-	public List<Magazine> ListAll() throws Exception;
+	public List<Magazine> ListAll(int page, int rows) throws Exception;
 	
 	public void AddMagazine(Magazine magazine) throws Exception;
 
@@ -14,4 +14,5 @@ public interface IMagazineService {
 
 	public void DeleteMagazine(String name) throws Exception;
 	
+	public int CountAll() throws Exception;
 }

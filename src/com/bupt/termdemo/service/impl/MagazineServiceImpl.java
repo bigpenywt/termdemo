@@ -16,9 +16,9 @@ public class MagazineServiceImpl implements IMagazineService {
 	private IMagazineDao magazineDao;
 	
 	@Override
-	public List<Magazine> ListAll() throws Exception {
+	public List<Magazine> ListAll(int page, int rows) throws Exception {
 		// TODO Auto-generated method stub
-		return magazineDao.ListAll();
+		return magazineDao.ListAll(page, rows);
 	}
 
 	@Override
@@ -37,6 +37,12 @@ public class MagazineServiceImpl implements IMagazineService {
 	public void DeleteMagazine(String name) throws Exception {
 		// TODO Auto-generated method stub
 		magazineDao.DeleteMagazine(name);
+	}
+
+	@Override
+	public int CountAll() throws Exception {
+		// TODO Auto-generated method stub
+		return magazineDao.CountAll();
 	}
 
 }

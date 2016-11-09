@@ -24,13 +24,17 @@ public class MagazineController {
 	
 	@RequestMapping("/ListAll")
 	@ResponseBody
-	public Map<String, Object> ListAll(){
-		
+	public Map<String, Object> ListAll(@RequestParam Map<String, String> params){
+		int page = Integer.valueOf(params.get("page"));
+		int rows = Integer.valueOf(params.get("rows"));
 		Map<String, Object> resultmap = new HashMap<>();
 		List<Magazine> magazines = new ArrayList<>();
+		int total = 0;
 		try {
-			magazines = magazineService.ListAll();
+			magazines = magazineService.ListAll(page, rows);
+			total = magazineService.CountAll();
 			resultmap.put("status", "1");
+			resultmap.put("total", total);
 			resultmap.put("magazines", magazines);
 		} catch (Exception e) {
 			resultmap.put("status", "0");
