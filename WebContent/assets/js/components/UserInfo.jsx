@@ -1,5 +1,5 @@
 import React from 'react';
-import requset from 'superagent';
+import request from 'superagent';
 import {Table, Card, Form, Popconfirm} from 'antd';
 
 const FormItem = Form.Item;
@@ -11,10 +11,11 @@ export default class UserInfo extends React.Component {
             pagination: {},
             loading: false
         }
+        this.fetchNewData = this.fetchNewData.bind(this);
     }
     componentDidMount() {
         this.setState({loading: true});
-        requset.get('/termdemo/User/ListAll').query({page: 0, rows: 10}).end((err, res) => {
+        request.get('/termdemo/User/ListAll').query({page: 0, rows: 10}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 const pagination = {

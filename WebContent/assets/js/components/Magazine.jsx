@@ -30,11 +30,12 @@ export default class Magazine extends React.Component {
         this.addMagazine = this.addMagazine.bind(this);
     }
     componentDidMount() {
-        request.get('/termdemo/Magazine/ListAll').query({page: 0, rows: 10}).end((err, res) => {
+        request.get('/termdemo/Magazine/GetAllMagazine').query({page: 0, rows: 10}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 const pagination = {
-                    total: data.total
+                    total: data.total,
+                    showSizeChanger: true
                 };
                 this.setState({magazines: data.magazines, pagination: pagination, isFirstFetch: false});
             }
@@ -44,7 +45,7 @@ export default class Magazine extends React.Component {
         let pager = this.state.pagination;
         pager.current = pagination.current;
         this.setState({pagination: pager, loading: true});
-        request.get('/termdemo/Magazine/ListAll').query({page: pager.current, rows: pagination.pageSize}).end((err, res) => {
+        request.get('/termdemo/Magazine/GetAllMagazine').query({page: pager.current, rows: pagination.pageSize}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 let pagination = this.state.pagination;
@@ -123,25 +124,25 @@ export default class Magazine extends React.Component {
             });
             return (
                 <div>
-                    <Card title="添加新的杂志" style={{
-                        width: '100%',
-                        marginBottom: '25px'
-                    }}>
-                        <Input style={{
-                            width: '65%'
-                        }} placeholder="输入杂志名称" onChange={this.typeForm} value={this.state.newMagazine}/>
-                        <Popconfirm title={'您即将添加：' + this.state.newMagazine} onConfirm={this.addMagazine} okText="确认添加" cancelText="取消">
-                            <Button style={{
-                                float: 'right'
-                            }} type="primary" size="large">
-                                添加杂志
-                            </Button>
-                        </Popconfirm>
-                    </Card>
-                    <Card title="现有杂志信息" style={{
-                        width: '100%'
-                    }}>
-                        <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
+                  <Card title="添加新的杂志" style={{
+                    width: '100%',
+                    marginBottom: '25px'
+                  }}>
+                    <Input style={{
+                      width: '65%'
+                    }} placeholder="输入杂志名称" onChange={this.typeForm} value={this.state.newMagazine}/>
+                    <Popconfirm title={'您即将添加：' + this.state.newMagazine} onConfirm={this.addMagazine} okText="确认添加" cancelText="取消">
+                      <Button style={{
+                        float: 'right'
+                      }} type="primary" size="large">
+                        添加杂志
+                      </Button>
+                    </Popconfirm>
+                  </Card>
+                  <Card title="现有杂志信息" style={{
+                    width: '100%'
+                  }}>
+                    <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
                     </Card>
                 </div>
             )
