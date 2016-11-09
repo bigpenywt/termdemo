@@ -3,6 +3,7 @@ package com.bupt.termdemo.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,17 +86,32 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public List<User> ListAll() throws Exception {
+	public List<User> ListAll(int page, int rows) throws Exception {
 		SqlSession session = sessionFactory.openSession();
+		RowBounds rowBounds = new RowBounds((page-1)*rows, rows);
 		List<User> users = new ArrayList<>();
 		try {
-			users = session.selectList("userModule.ListAll");
+			users = session.selectList("userModule.ListAll", 0, rowBounds);
 		} catch (Exception e) {
 			throw e;
 		} finally {
 			session.close();
 		}
 		return users;
+	}
+	
+	@Override
+	public int CountAll() throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("userModule.CountAll");
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return result;
 	}
 
 	@Override

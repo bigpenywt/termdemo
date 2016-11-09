@@ -40,6 +40,10 @@
 		select * from user
 	</select>
 	
+	<select id="CountAll" resultType="int">
+		select count(*) from user
+	</select>
+	
 	<delete id="DeleteUser" parameterType="String">  
         delete from user where username = #{username}  
     </delete>

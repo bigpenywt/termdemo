@@ -40,15 +40,21 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<User> ListAll() throws Exception {
+	public List<User> ListAll(int page, int rows) throws Exception {
 		// TODO Auto-generated method stub
-		return userDao.ListAll();
+		return userDao.ListAll(page, rows);
 	}
 
 	@Override
 	public void DeleteUser(String username) throws Exception {
 		// TODO Auto-generated method stub
 		userDao.DeleteUser(username);
+	}
+
+	@Override
+	public int CountAll() throws Exception {
+		// TODO Auto-generated method stub
+		return userDao.CountAll();
 	}
 	
 }

@@ -82,12 +82,17 @@ public class UserController {
 	
 	@RequestMapping("/ListAll")
 	@ResponseBody
-	public Map<String, Object> ListAll(){
+	public Map<String, Object> ListAll(@RequestParam Map<String, String> params){
+		int page = Integer.valueOf(params.get("page"));
+		int rows = Integer.valueOf(params.get("rows"));
+		int total = 0;
 		Map<String, Object> resultmap = new HashMap<>();
 		List<User> users = new ArrayList<>();
 		try {
-			users = userService.ListAll();
+			users = userService.ListAll(page, rows);
+			total = userService.CountAll();
 			resultmap.put("status", "1");
+			resultmap.put("total", total);
 			resultmap.put("records", users);
 		} catch (Exception e) {
 			resultmap.put("status", "0");
