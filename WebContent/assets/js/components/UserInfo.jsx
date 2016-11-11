@@ -1,17 +1,36 @@
 import React from 'react';
 import request from 'superagent';
-import {Table, Card, Form, Popconfirm} from 'antd';
+import {
+    Table,
+    Card,
+    Form,
+    Input,
+    Row,
+    Col,
+    Popconfirm,
+    Button,
+    Modal,
+    Checkbox
+} from 'antd';
 
 const FormItem = Form.Item;
+const CheckboxGroup = Checkbox.Group;
 export default class UserInfo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             userList: [],
             pagination: {},
-            loading: false
+            showUserInfo : {},
+            confirmPassword : '',
+            showUserDetails : false,
+            loading : false
         }
         this.fetchNewData = this.fetchNewData.bind(this);
+        this.editUser = this.editUser.bind(this);
+        this.hideUserDetails = this.hideUserDetails.bind(this);
+        this.selectRole = this.selectRole.bind(this);
+        this.typeForm = this.typeForm.bind(this);
     }
     componentDidMount() {
         this.setState({loading: true});
@@ -26,7 +45,29 @@ export default class UserInfo extends React.Component {
             }
         });
     }
-    reeditUser() {}
+    showUserDetails(user) {
+        let showUserInfo = this.state.userList[user.key];
+        showUserInfo.roleList = user.userrole.split(' | ');
+        this.setState({showUserDetails: true, showUserInfo: showUserInfo});
+    }
+    hideUserDetails() {
+        this.setState({showUserDetails: false, showUserInfo: {}, confirmPassword: ''});
+    }
+    selectRole(roleList){
+      let tempUserInfo = this.state.showUserInfo;
+      tempUserInfo.roleList = roleList;
+      this.setState({showUserInfo: tempUserInfo});
+    }
+    typeForm(e) {
+      let tempUserInfo = this.state.showUserInfo;
+      if (e.target.name === 'confirmPassword')
+          this.setState({confirmPassword: e.target.value});
+      else {
+          tempUserInfo[e.target.name] = e.target.value;
+          this.setState({showUserInfo: tempUserInfo});
+      }
+    }
+    editUser() {}
     deleteUser() {}
     fetchNewData(pagination) {
         let pager = this.state.pagination;
@@ -58,28 +99,131 @@ export default class UserInfo extends React.Component {
             }, {
                 title: '操作',
                 key: 'action',
-                render: (record) => (
+                render: (user) => (
                     <span>
-                        <a href="javascript:void(0);" onClick={this.reeditUser.bind(this, record)}>编辑用户信息</a>
-                        <span className="ant-divider"/>
-                        <Popconfirm title="确定删除这名用户？" onConfirm={this.deleteUser.bind(this, record)} okText="确定" cancelText="取消">
-                            <a href="javascript:void(0);">删除</a>
-                        </Popconfirm>
+                      <a href="javascript:void(0);" onClick={this.showUserDetails.bind(this, user)}>编辑用户信息</a>
+                      <span className="ant-divider"/>
+                      <Popconfirm title="确定删除这名用户？" onConfirm={this.deleteUser.bind(this, user)} okText="确定" cancelText="取消">
+                        <a href="javascript:void(0);">删除</a>
+                      </Popconfirm>
                     </span>
                 )
 
             }
         ];
         const data = this.state.userList.map((user, i) => {
-            return {key: i, name: user.name, username: user.username, userrole: user.userrole}
+            return {key: i, name: user.name, username: user.username, userrole:(() => {
+                let roleCode = user.userrole.split('');
+                let roleStr=[];
+                roleCode[0]
+                    ? roleStr.push('创建单词')
+                    : false;
+                roleCode[1]
+                    ? roleStr.push('校验单词')
+                    :false;
+                roleCode[2]
+                    ? roleStr.push('发布单词')
+                    : false;
+                return roleStr.join(' | ');
+            })()}
         });
         return (
             <div>
-                <Card title="被驳回的单词" style={{
-                    width: '100%'
-                }}>
-                    <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
-                </Card>
+              <Card title="被驳回的单词" extra={<Button type="primary" onClick={this.showUserDetails.bind(this)}>添加新用户</Button>} style={{
+                width: '100%'
+              }}>
+                <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
+              </Card>
+              <Modal visible={this.state.showUserDetails} title="用户信息" width={'70%'} onCancel={this.hideUserDetails} footer={[<Button key="submit" type="primary" size="large" onClick={this.editUser}>确认</Button>,
+                <Button key="back" type="ghost" size="large" loading={this.state.loading} onClick={this.hideUserDetails}>取消</Button >]
+                }>
+                <Form horizontal>
+                  <Row>
+                    <Col span={24}>
+                      <FormItem label="用户登陆账号" labelCol={{
+                        span: 4
+                      }} wrapperCol={{
+                        span: 10
+                      }} extra="用户用于登陆系统的账号">
+                        <Input name="username" placeholder="请输入用户登陆账号" value={this.state.showUserInfo.username} onChange={this.typeForm}/>
+                      </FormItem>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>
+                      <FormItem label="用户登录密码" labelCol={{
+                        span: 4
+                      }} wrapperCol={{
+                        span: 10
+                      }}  extra="用户用来登陆系统的密码，若不输入则默认为 123456">
+                        <Input name="password" placeholder="请输入用户登录密码" value={this.state.showUserInfo.password} onChange={this.typeForm}/>
+                      </FormItem>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>
+                      <FormItem label="登录密码确认" labelCol={{
+                        span: 4
+                      }} wrapperCol={{
+                        span: 10
+                      }} extra="再次输入密码，保证两次输入的密码一致">
+                        <Input name="confirmPassword" placeholder="请再次输入用户密码" value={this.state.confirmPassword} onChange={this.typeForm}/>
+                      </FormItem>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={12}>
+                      <FormItem label="姓名" labelCol={{
+                        span: 8
+                      }} wrapperCol={{
+                        span: 10
+                      }}>
+                        <Input name="name" placeholder="请输入用户真实姓名" value={this.state.showUserInfo.name} onChange={this.typeForm}/>
+                      </FormItem>
+                    </Col>
+                    <Col span={12}>
+                      <FormItem label="姓名拼音" labelCol={{
+                        span: 8
+                      }} wrapperCol={{
+                        span: 10
+                      }}>
+                        <Input name="pinyin" placeholder="请输入用户姓名拼音" value={this.state.showUserInfo.pinyin} onChange={this.typeForm}/>
+                      </FormItem>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={12}>
+                      <FormItem label="联系电话" labelCol={{
+                        span: 8
+                      }} wrapperCol={{
+                        span: 16
+                      }}>
+                        <Input name="tel" placeholder="请输入用户联系电话" value={this.state.showUserInfo.tel} onChange={this.typeForm}/>
+                      </FormItem>
+                    </Col>
+                    <Col span={12}>
+                      <FormItem label="电子邮箱" labelCol={{
+                        span: 8
+                      }} wrapperCol={{
+                        span: 16
+                      }}>
+                        <Input name="email" placeholder="请输入用户电子邮箱" value={this.state.showUserInfo.email} onChange={this.typeForm}/>
+                      </FormItem>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>
+                      <FormItem label="用户权限" labelCol={{
+                        span: 4
+                      }} wrapperCol={{
+                        span: 10
+                      }}>
+                      <CheckboxGroup options={['创建单词', '校验单词', '发布单词']} value={this.state.showUserInfo.roleList} onChange={this.selectRole} />
+                      </FormItem>
+                    </Col>
+                  </Row>
+                </Form>
+              </Modal>
             </div>
         )
     }
