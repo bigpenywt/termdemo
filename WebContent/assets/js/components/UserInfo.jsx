@@ -31,6 +31,7 @@ export default class UserInfo extends React.Component {
         this.hideUserDetails = this.hideUserDetails.bind(this);
         this.selectRole = this.selectRole.bind(this);
         this.typeForm = this.typeForm.bind(this);
+        this.showCreatBox = this.showCreatBox.bind(this);
     }
     componentDidMount() {
         this.setState({loading: true});
@@ -44,6 +45,9 @@ export default class UserInfo extends React.Component {
                 this.setState({userList: data.records, pagination: pagination, loading: false});
             }
         });
+    }
+    showCreatBox() {
+        this.setState({showUserDetails: true, showUserInfo: {}, confirmPassword: ''});
     }
     showUserDetails(user) {
         let showUserInfo = this.state.userList[user.key];
@@ -112,24 +116,26 @@ export default class UserInfo extends React.Component {
             }
         ];
         const data = this.state.userList.map((user, i) => {
-            return {key: i, name: user.name, username: user.username, userrole:(() => {
-                let roleCode = user.userrole.split('');
-                let roleStr=[];
-                roleCode[0]
-                    ? roleStr.push('创建单词')
-                    : false;
-                roleCode[1]
-                    ? roleStr.push('校验单词')
-                    :false;
-                roleCode[2]
-                    ? roleStr.push('发布单词')
-                    : false;
-                return roleStr.join(' | ');
-            })()}
+            return {
+                key: i, name: user.name, username: user.username, userrole: (() => {
+                    let roleCode = user.userrole.split('');
+                    let roleStr = [];
+                    roleCode[0] - 0
+                        ? roleStr.push('创建单词')
+                        : false;
+                    roleCode[1] - 0
+                        ? roleStr.push('校验单词')
+                        : false;
+                    roleCode[2] - 0
+                        ? roleStr.push('发布单词')
+                        : false;
+                    return roleStr.join(' | ');
+                })()
+            }
         });
         return (
             <div>
-              <Card title="被驳回的单词" extra={<Button type="primary" onClick={this.showUserDetails.bind(this)}>添加新用户</Button>} style={{
+              <Card title="被驳回的单词" extra={<Button type="primary" onClick={this.showCreatBox}>添加新用户</Button>} style={{
                 width: '100%'
               }}>
                 <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
