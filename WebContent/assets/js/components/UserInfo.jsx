@@ -76,7 +76,23 @@ export default class UserInfo extends React.Component {
       }
     }
     editUser() {}
-    deleteUser() {}
+    deleteUser(user) {
+      request.post('/termdemo//User/Delete').type('form').send({username: user.username}).end((err, res) => {
+          let data = JSON.parse(res.text);
+          data.status === '1'
+              ? (() => {
+                  message.success('删除成功～', 3);
+                  let pagination = {
+                      current: 1,
+                      pageSize: 10
+                  }
+                  this.fetchNewData(pagination);
+              })()
+              : (() => {
+                  message.error(data.msg, 3);
+              })()
+      });
+    }
     validateForm() {
         let newUser = this.state.showUserInfo;
         if (!newUser.username || newUser.username === '') {
