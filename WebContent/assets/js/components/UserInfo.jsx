@@ -10,7 +10,8 @@ import {
     Popconfirm,
     Button,
     Modal,
-    Checkbox
+    Checkbox,
+    message
 } from 'antd';
 
 const FormItem = Form.Item;
@@ -24,6 +25,7 @@ export default class UserInfo extends React.Component {
             showUserInfo : {},
             confirmPassword : '',
             showUserDetails : false,
+            isAddUser: false,
             loading : false
         }
         this.fetchNewData = this.fetchNewData.bind(this);
@@ -32,6 +34,7 @@ export default class UserInfo extends React.Component {
         this.selectRole = this.selectRole.bind(this);
         this.typeForm = this.typeForm.bind(this);
         this.showCreatBox = this.showCreatBox.bind(this);
+        this.addUser = this.addUser.bind(this);
     }
     componentDidMount() {
         this.setState({loading: true});
@@ -47,12 +50,12 @@ export default class UserInfo extends React.Component {
         });
     }
     showCreatBox() {
-        this.setState({showUserDetails: true, showUserInfo: {}, confirmPassword: ''});
+        this.setState({isAddUser: true, showUserDetails: true, showUserInfo: {}, confirmPassword: ''});
     }
     showUserDetails(user) {
         let showUserInfo = this.state.userList[user.key];
         showUserInfo.roleList = user.userrole.split(' | ');
-        this.setState({showUserDetails: true, showUserInfo: showUserInfo});
+        this.setState({isAddUser: false, showUserDetails: true, showUserInfo: showUserInfo});
     }
     hideUserDetails() {
         this.setState({showUserDetails: false, showUserInfo: {}, confirmPassword: ''});
@@ -73,6 +76,39 @@ export default class UserInfo extends React.Component {
     }
     editUser() {}
     deleteUser() {}
+    addUser() {
+      let newUser = this.state.showUserInfo;
+      newUser.userrole = (() => {
+          let userrole = '';
+          userrole += newUser.roleList.includes('创建单词')
+              ? '1'
+              : '0';
+          userrole += newUser.roleList.includes('校验单词')
+              ? '1'
+              : '0';
+          userrole += newUser.roleList.includes('发布单词')
+              ? '1'
+              : '0';
+          userrole += '0';
+          return userrole;
+      })();
+      request.post('/termdemo/User/AddUser').type('form').send(newUser).end((err, res) => {
+          let data = JSON.parse(res.text);
+          data.status === '1'
+              ? (() => {
+                  message.success('添加成功～', 3);
+                  let pagination = {
+                      current: 1,
+                      pageSize: 10
+                  }
+                  this.fetchNewData(pagination);
+                  this.hideUserDetails();
+              })()
+              : (() => {
+                  message.error(data.msg, 3);
+              })()
+      });
+    }
     fetchNewData(pagination) {
         let pager = this.state.pagination;
         pager.current = pagination.current;
@@ -133,6 +169,11 @@ export default class UserInfo extends React.Component {
                 })()
             }
         });
+        const bottonGroup = this.state.isAddUser
+            ? [<Button key="submit" type="primary" size="large" onClick={this.addUser}>确认添加</Button>,
+              <Button key="back" type="ghost" size="large" loading={this.state.loading} onClick={this.hideUserDetails}>取消</Button >]
+            : [<Button key="submit" type="primary" size="large" onClick={this.editUser}>确认修改</Button>,
+              <Button key="back" type="ghost" size="large" loading={this.state.loading} onClick={this.hideUserDetails}>取消</Button >];
         return (
             <div>
               <Card title="被驳回的单词" extra={<Button type="primary" onClick={this.showCreatBox}>添加新用户</Button>} style={{
@@ -140,9 +181,7 @@ export default class UserInfo extends React.Component {
               }}>
                 <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
               </Card>
-              <Modal visible={this.state.showUserDetails} title="用户信息" width={'70%'} onCancel={this.hideUserDetails} footer={[<Button key="submit" type="primary" size="large" onClick={this.editUser}>确认</Button>,
-                <Button key="back" type="ghost" size="large" loading={this.state.loading} onClick={this.hideUserDetails}>取消</Button >]
-                }>
+              <Modal visible={this.state.showUserDetails} title="用户信息" width={'70%'} onCancel={this.hideUserDetails} footer={bottonGroup}>
                 <Form horizontal>
                   <Row>
                     <Col span={24}>
