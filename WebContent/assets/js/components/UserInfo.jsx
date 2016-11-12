@@ -25,7 +25,7 @@ export default class UserInfo extends React.Component {
             showUserInfo : {},
             confirmPassword : '',
             showUserDetails : false,
-            isAddUser: false,
+            isAddUser : false,
             loading : false
         }
         this.fetchNewData = this.fetchNewData.bind(this);
@@ -35,6 +35,7 @@ export default class UserInfo extends React.Component {
         this.typeForm = this.typeForm.bind(this);
         this.showCreatBox = this.showCreatBox.bind(this);
         this.addUser = this.addUser.bind(this);
+        this.validateForm = this.validateForm.bind(this);
     }
     componentDidMount() {
         this.setState({loading: true});
@@ -76,38 +77,75 @@ export default class UserInfo extends React.Component {
     }
     editUser() {}
     deleteUser() {}
+    validateForm() {
+        let newUser = this.state.showUserInfo;
+        if (!newUser.username || newUser.username === '') {
+            Modal.error({title: '用户登录账号不能为空！', content: '请输入用户登录系统的账号后重试～'});
+            return false;
+        }
+        if (!newUser.password || newUser.password === '') {
+            Modal.error({title: '用户登录密码不能为空！', content: '请输入用户登录系统的密码后重试～'});
+            return false;
+        }
+        if (newUser.password !== this.state.confirmPassword) {
+            Modal.error({title: '两次输入的登录密码不同', content: '请重新输入用户登录系统的密码和确认密码后重试～'});
+            return false;
+        }
+        if (!newUser.name || newUser.name === '') {
+            Modal.error({title: '用户姓名不能为空！', content: '请输入用户姓名后重试～'});
+            return false;
+        }
+        if (!newUser.pinyin || newUser.pinyin === '') {
+            Modal.error({title: '用户姓名拼音不能为空！', content: '请输入用户姓名拼音后重试～'});
+            return false;
+        }
+        if (!newUser.tel || newUser.tel === '') {
+            Modal.error({title: '用户联系电话不能为空！', content: '请输入用户联系电话后重试～'});
+            return false;
+        }
+        if (!newUser.email || newUser.email === '') {
+            Modal.error({title: '用户电子邮箱不能为空！', content: '请输入用户电子邮箱后重试～'});
+            return false;
+        }
+        return true;
+    }
     addUser() {
+      if(this.validateForm()){
       let newUser = this.state.showUserInfo;
-      newUser.userrole = (() => {
-          let userrole = '';
-          userrole += newUser.roleList.includes('创建单词')
-              ? '1'
-              : '0';
-          userrole += newUser.roleList.includes('校验单词')
-              ? '1'
-              : '0';
-          userrole += newUser.roleList.includes('发布单词')
-              ? '1'
-              : '0';
-          userrole += '0';
-          return userrole;
-      })();
-      request.post('/termdemo/User/AddUser').type('form').send(newUser).end((err, res) => {
-          let data = JSON.parse(res.text);
-          data.status === '1'
-              ? (() => {
-                  message.success('添加成功～', 3);
-                  let pagination = {
-                      current: 1,
-                      pageSize: 10
-                  }
-                  this.fetchNewData(pagination);
-                  this.hideUserDetails();
-              })()
-              : (() => {
-                  message.error(data.msg, 3);
-              })()
-      });
+      newUser.userrole = newUser.roleList
+          ? (() => {
+              let userrole = '';
+              userrole += newUser.roleList.includes('创建单词')
+                  ? '1'
+                  : '0';
+              userrole += newUser.roleList.includes('校验单词')
+                  ? '1'
+                  : '0';
+              userrole += newUser.roleList.includes('发布单词')
+                  ? '1'
+                  : '0';
+              userrole += '0';
+              return userrole;
+          })()
+          : '0000';
+        request.post('/termdemo/User/AddUser').type('form').send(newUser).end((err, res) => {
+            let data = JSON.parse(res.text);
+            data.status === '1'
+                ? (() => {
+                    message.success('添加成功～', 3);
+                    let pagination = {
+                        current: 1,
+                        pageSize: 10
+                    }
+                    this.fetchNewData(pagination);
+                    this.hideUserDetails();
+                })()
+                : (() => {
+                    message.error(data.msg, 3);
+                })()
+        });
+      }
+      return;
     }
     fetchNewData(pagination) {
         let pager = this.state.pagination;
@@ -201,7 +239,7 @@ export default class UserInfo extends React.Component {
                       }} wrapperCol={{
                         span: 10
                       }}  extra="用户用来登陆系统的密码，若不输入则默认为 123456">
-                        <Input name="password" placeholder="请输入用户登录密码" value={this.state.showUserInfo.password} onChange={this.typeForm}/>
+                        <Input name="password" type="password" placeholder="请输入用户登录密码" value={this.state.showUserInfo.password} onChange={this.typeForm}/>
                       </FormItem>
                     </Col>
                   </Row>
@@ -212,7 +250,7 @@ export default class UserInfo extends React.Component {
                       }} wrapperCol={{
                         span: 10
                       }} extra="再次输入密码，保证两次输入的密码一致">
-                        <Input name="confirmPassword" placeholder="请再次输入用户密码" value={this.state.confirmPassword} onChange={this.typeForm}/>
+                        <Input name="confirmPassword" type="password" placeholder="请再次输入用户密码" value={this.state.confirmPassword} onChange={this.typeForm}/>
                       </FormItem>
                     </Col>
                   </Row>
