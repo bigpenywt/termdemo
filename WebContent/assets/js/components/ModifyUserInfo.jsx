@@ -65,6 +65,9 @@ export default class UserInfo extends React.Component {
               <FormItem {...formItemLayout} label="注册名">
                 <Input value={this.state.userinfo.username} disabled/>
               </FormItem>
+              <FormItem {...formItemLayout} label="密码">
+                <Input value={this.state.userinfo.password} onChange={this.handleChange.bind(this)} name="tel"/>
+              </FormItem>
               <FormItem {...formItemLayout} label="姓名">
                 <Input value={this.state.userinfo.name} onChange={this.handleChange.bind(this)} name="name"/>
               </FormItem>

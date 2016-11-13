@@ -37258,6 +37258,11 @@
 	            ),
 	            _react2.default.createElement(
 	              FormItem,
+	              _extends({}, formItemLayout, { label: '\u5BC6\u7801' }),
+	              _react2.default.createElement(_input2.default, { value: this.state.userinfo.password, onChange: this.handleChange.bind(this), name: 'tel' })
+	            ),
+	            _react2.default.createElement(
+	              FormItem,
 	              _extends({}, formItemLayout, { label: '\u59D3\u540D' }),
 	              _react2.default.createElement(_input2.default, { value: this.state.userinfo.name, onChange: this.handleChange.bind(this), name: 'name' })
 	            ),
