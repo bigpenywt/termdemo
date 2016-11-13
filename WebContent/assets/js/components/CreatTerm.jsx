@@ -12,7 +12,8 @@ import {
     Select
 } from 'antd';
 
-import {pronunciation, yearSelect} from '../termConfig.js';
+import '../../../public/css/page/app/soft_keyboard.css'
+import {yearSelect} from '../termConfig.js';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -41,6 +42,7 @@ export default class CreatTerm extends React.Component {
             },
             tempPronun: '',
             tempPronuns: [],
+            showKeyboard: false,
             magazineList: [],
             isFirstFetch: true
         },
@@ -71,18 +73,18 @@ export default class CreatTerm extends React.Component {
             : tempRecord[key] = e
         this.setState({record: tempRecord});
     }
-    choosePronun(value) {
-        this.setState({tempPronun: value});
+    toggleKeyboard() {
+      this.setState({ showKeyboard: !this.state.showKeyboard });
     }
     addPronun(e) {
+        console.log('哈哈');
+        console.log(e.target.innerHTML);
         e.preventDefault();
-        if (this.state.tempPronun) {
-            let tempPronuns = this.state.tempPronuns;
-            tempPronuns.push(this.state.tempPronun);
-            let tempRecord = this.state.record;
-            tempRecord.pronunciation = tempPronuns.join('');
-            this.setState({tempPronuns: tempPronuns, record: tempRecord});
-        }
+        let tempPronuns = this.state.tempPronuns;
+        tempPronuns.push(e.target.innerHTML);
+        let tempRecord = this.state.record;
+        tempRecord.pronunciation = tempPronuns.join('');
+        this.setState({tempPronuns: tempPronuns, record: tempRecord});
     }
     removePronun(e) {
         e.preventDefault();
@@ -169,30 +171,91 @@ export default class CreatTerm extends React.Component {
                                     }} wrapperCol={{
                                         span: 18
                                     }}>
-                                        <Col span={14}>
+                                        <Col span={18}>
                                             <p>{this.state.record.pronunciation
                                                     ? '[' + this.state.record.pronunciation + ']'
                                                     : '请在右侧下拉框选择单个音标逐次添加'}
                                             </p>
                                         </Col>
-                                        <Col span={4}>
-                                            <Select onChange={this.choosePronun.bind(this)}>
-                                                {pronunciation.map((item) => {
-                                                    return (
-                                                        <Option key={item} value={item}>{item}</Option>
-                                                    )
-                                                })}
-                                            </Select>
-                                        </Col>
                                         <Col span={6}>
                                             <ButtonGroup style={{
                                                 marginLeft: '4px',
-                                                marginTop: '2px'
+                                                marginTop: '2px', float: 'right'
                                             }}>
-                                                <Button type="primary" size="large" icon="plus-square-o" onClick={this.addPronun.bind(this)}></Button>
+                                                <Button type="primary" size="large" icon="calculator" onClick={this.toggleKeyboard.bind(this)}></Button>
                                                 <Button type="primary" size="large" icon="minus-square-o" onClick={this.removePronun.bind(this)}></Button>
                                             </ButtonGroup>
                                         </Col>
+                                        { this.state.showKeyboard ?
+                                        <div className="sofe-keyboard" style={{ marginTop: '36px' }} onBlur={this.toggleKeyboard.bind(this)}>
+                                          <div className="IPAZone IPA">
+                                          <ul>
+                                           <li style={{ height: '4em' }}>辅音</li>
+                                           <li onClick={this.addPronun.bind(this)}>p</li>
+                                           <li onClick={this.addPronun.bind(this)}>b</li>
+                                           <li onClick={this.addPronun.bind(this)}>t</li>
+                                           <li onClick={this.addPronun.bind(this)}>d</li>
+                                           <li onClick={this.addPronun.bind(this)}>k</li>
+                                           <li onClick={this.addPronun.bind(this)}>g</li>
+                                           <li onClick={this.addPronun.bind(this)}>f</li>
+                                           <li onClick={this.addPronun.bind(this)}>v</li>
+                                           <li onClick={this.addPronun.bind(this)}>&#952;</li>
+                                           <li onClick={this.addPronun.bind(this)}>&#240;</li>
+                                           <li onClick={this.addPronun.bind(this)}>s</li>
+                                           <li onClick={this.addPronun.bind(this)}>z</li>
+                                           <li onClick={this.addPronun.bind(this)}>&#643;</li>
+                                           <li onClick={this.addPronun.bind(this)}>&#658;</li>
+                                           <li onClick={this.addPronun.bind(this)}>h</li>
+                                           <li onClick={this.addPronun.bind(this)}>x</li>
+                                           <li onClick={this.addPronun.bind(this)}>t&#643;</li>
+                                           <li onClick={this.addPronun.bind(this)}>d&#658;</li>
+                                           <li onClick={this.addPronun.bind(this)}>m</li>
+                                           <li onClick={this.addPronun.bind(this)}>n</li>
+                                           <li onClick={this.addPronun.bind(this)}>&#331;</li>
+                                           <li onClick={this.addPronun.bind(this)}>l</li>
+                                           <li onClick={this.addPronun.bind(this)}>r</li>
+                                           <li onClick={this.addPronun.bind(this)}>j</li>
+                                           <li onClick={this.addPronun.bind(this)}>w</li>
+                                          </ul>
+                                          <div className="clear"></div>
+                                          <ul >
+                                            <li style={{ width: '4em' }}>短元音</li>
+                                          	<li onClick={this.addPronun.bind(this)}>&#618;</li>
+                                          	<li onClick={this.addPronun.bind(this)}>e</li>
+                                          	<li onClick={this.addPronun.bind(this)}>&aelig;</li>
+                                          	<li onClick={this.addPronun.bind(this)}>&#596;</li>
+                                          	<li onClick={this.addPronun.bind(this)}>&#652;</li>
+                                          	<li onClick={this.addPronun.bind(this)}>&#650;</li>
+                                          	<li onClick={this.addPronun.bind(this)}>&#601;</li>
+                                          	<li onClick={this.addPronun.bind(this)}>i</li>
+                                          	<li onClick={this.addPronun.bind(this)}>u</li>
+                                          	<li onClick={this.addPronun.bind(this)}>&#603;</li>
+                                          </ul>
+                                          <div className="clear"></div>
+                                          	<ul >
+                                              <li style={{ width: '4em' }}>长元音</li>
+                                          		<li onClick={this.addPronun.bind(this)}>i:</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#593;:</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#650;:</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#596;:</li>
+                                          		<li onClick={this.addPronun.bind(this)}>u:</li>
+                                          	</ul>
+                                          <div className="clear"></div>
+                                          <ul >
+                                             <li style={{ width: '4em' }}>双元音</li>
+                                          		<li onClick={this.addPronun.bind(this)}>e&#618;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#593;&#618;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#596;&#618;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#601;&#650;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>o&#650;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#593;&#650;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#618;&#601;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>e&#601;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#650;&#601;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#618;&#601;</li>
+                                          </ul>
+                                          </div>
+                                        </div> : null }
                                         <Input type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
                                     </FormItem>
                                 </Col>

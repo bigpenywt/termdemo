@@ -1,0 +1,39 @@
+.IPAZone{
+	width:506px;
+	margin:0 auto;
+	font-size:18px;
+	color:#1071C1;
+  border: 1px solid #00abe4;
+  border-radius: 8px;
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+}
+.IPA{
+    font-family: "Segoe UI", Verdana,Lucida Sans Regular,Lucida Sans Unicode,Arial,sans-serif;
+}
+.IPAZone h3{
+	font-size:13px;
+	border-bottom:1px solid #ccc;
+	margin-top:8px;
+	margin-bottom:0px;
+	color:#333;
+}
+.IPAZone ul li{
+	display:block;
+	width:2em;
+	height:2em;
+	line-height:1.5em;
+	float:left;
+	text-align:center;
+	border-right:1px solid #eee;
+	border-bottom:1px solid #eee;
+	cursor:pointer;
+}
+.IPAZone ul li:hover{
+	background-color:#f5f5f5;
+	color:#f60;
+}
+.clear {
+  clear: both;
+}
