@@ -77,7 +77,7 @@ export default class UserInfo extends React.Component {
     }
     editUser() {}
     deleteUser(user) {
-      request.post('/termdemo//User/Delete').type('form').send({username: user.username}).end((err, res) => {
+      request.post('/termdemo/User/Delete').type('form').send({username: user.username}).end((err, res) => {
           let data = JSON.parse(res.text);
           data.status === '1'
               ? (() => {
