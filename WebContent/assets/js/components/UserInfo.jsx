@@ -230,7 +230,7 @@ export default class UserInfo extends React.Component {
               <Button key="back" type="ghost" size="large" loading={this.state.loading} onClick={this.hideUserDetails}>取消</Button >];
         return (
             <div>
-              <Card title="被驳回的单词" extra={<Button type="primary" onClick={this.showCreatBox}>添加新用户</Button>} style={{
+              <Card title="现有人员" extra={<Button type="primary" onClick={this.showCreatBox}>添加新用户</Button>} style={{
                 width: '100%'
               }}>
                 <Table columns={columns} dataSource={data} pagination={this.state.pagination} loading={this.state.loading} onChange={this.fetchNewData}/>
