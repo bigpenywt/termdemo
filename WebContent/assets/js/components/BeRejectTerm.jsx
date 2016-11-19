@@ -288,7 +288,6 @@ export default class ToBeReviewTerm extends React.Component {
                                            <li onClick={this.addPronun.bind(this)}>&#643;</li>
                                            <li onClick={this.addPronun.bind(this)}>&#658;</li>
                                            <li onClick={this.addPronun.bind(this)}>h</li>
-                                           <li onClick={this.addPronun.bind(this)}>x</li>
                                            <li onClick={this.addPronun.bind(this)}>t&#643;</li>
                                            <li onClick={this.addPronun.bind(this)}>d&#658;</li>
                                            <li onClick={this.addPronun.bind(this)}>m</li>
@@ -305,7 +304,7 @@ export default class ToBeReviewTerm extends React.Component {
                                           	<li onClick={this.addPronun.bind(this)}>&#618;</li>
                                           	<li onClick={this.addPronun.bind(this)}>e</li>
                                           	<li onClick={this.addPronun.bind(this)}>&aelig;</li>
-                                          	<li onClick={this.addPronun.bind(this)}>&#596;</li>
+                                          	<li onClick={this.addPronun.bind(this)}>&#594;</li>
                                           	<li onClick={this.addPronun.bind(this)}>&#652;</li>
                                           	<li onClick={this.addPronun.bind(this)}>&#650;</li>
                                           	<li onClick={this.addPronun.bind(this)}>&#601;</li>
@@ -318,23 +317,24 @@ export default class ToBeReviewTerm extends React.Component {
                                               <li style={{ width: '4em' }}>长元音</li>
                                           		<li onClick={this.addPronun.bind(this)}>i:</li>
                                           		<li onClick={this.addPronun.bind(this)}>&#593;:</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#650;:</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#604;:</li>
                                           		<li onClick={this.addPronun.bind(this)}>&#596;:</li>
-                                          		<li onClick={this.addPronun.bind(this)}>u:</li>
+                                              <li style={{ float: 'right', borderTop: '1px solid #eee' }} onClick={this.addPronun.bind(this)}>)</li>
+                                              <li style={{ float: 'right', borderTop: '1px solid #eee' }} onClick={this.addPronun.bind(this)}>(</li>
+                                              <li style={{ float: 'right' }} onClick={this.addPronun.bind(this)}>&#712;</li>
+                                              <li style={{ float: 'right', borderLeft: '1px solid #eee' }} onClick={this.addPronun.bind(this)}>&#716;</li>
                                           	</ul>
                                           <div className="clear"></div>
                                           <ul >
                                              <li style={{ width: '4em' }}>双元音</li>
                                           		<li onClick={this.addPronun.bind(this)}>e&#618;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#593;&#618;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#596;&#618;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>a&#618;</li>
+                                          		<li onClick={this.addPronun.bind(this)}>&#594;&#618;</li>
                                           		<li onClick={this.addPronun.bind(this)}>&#601;&#650;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>o&#650;</li>
                                           		<li onClick={this.addPronun.bind(this)}>&#593;&#650;</li>
                                           		<li onClick={this.addPronun.bind(this)}>&#618;&#601;</li>
                                           		<li onClick={this.addPronun.bind(this)}>e&#601;</li>
                                           		<li onClick={this.addPronun.bind(this)}>&#650;&#601;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#618;&#601;</li>
                                           </ul>
                                           </div>
                                         </div> : null }
