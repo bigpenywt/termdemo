@@ -237,6 +237,7 @@ export default class CreatTerm extends React.Component {
                                           		<li onClick={this.addPronun.bind(this)}>&#593;:</li>
                                           		<li onClick={this.addPronun.bind(this)}>&#604;:</li>
                                           		<li onClick={this.addPronun.bind(this)}>&#596;:</li>
+                                              <li onClick={this.addPronun.bind(this)}>u:</li>
                                               <li style={{ float: 'right', borderTop: '1px solid #eee' }} onClick={this.addPronun.bind(this)}>)</li>
                                               <li style={{ float: 'right', borderTop: '1px solid #eee' }} onClick={this.addPronun.bind(this)}>(</li>
                                               <li style={{ float: 'right' }} onClick={this.addPronun.bind(this)}>&#712;</li>
