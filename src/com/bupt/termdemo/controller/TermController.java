@@ -376,6 +376,7 @@ public class TermController {
 			res = termService.QueryTerm(term, conf);
 			resultmap.put("term", res);
 			resultmap.put("status", "1");
+			resultmap.put("conf", conf);
 		} catch (Exception e) {
 			resultmap.put("status", "0");
 			System.out.println(e.getMessage());
