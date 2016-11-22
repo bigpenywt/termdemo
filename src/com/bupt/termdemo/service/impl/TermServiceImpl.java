@@ -117,4 +117,29 @@ public class TermServiceImpl implements ITermService {
 		// TODO Auto-generated method stub
 		termDao.DeleteDoneTerm(term);
 	}
+
+	@Override
+	public Term QueryTerm(String term, String conf) throws Exception {
+		// TODO Auto-generated method stub
+		Term res = new Term();
+		Term tmp = new Term();
+		tmp = termDao.QueryTerm(term);
+		if(conf.charAt(0) == '1')
+			res.setOrigin(tmp.getOrigin());
+		if(conf.charAt(1) == '1')
+			res.setDefinition(tmp.getDefinition());
+		if(conf.charAt(2) == '1')
+			res.setSource(tmp.getSource());
+		if(conf.charAt(3) == '1')
+			res.setExample(tmp.getExample());
+		if(conf.charAt(4) == '1')
+			res.setTerm_char(tmp.getTerm_char());
+		if(conf.charAt(5) == '1')
+			res.setPronunciation(tmp.getPronunciation());
+		if(conf.charAt(6) == '1')
+			res.setTranslation(tmp.getTranslation());
+		if(conf.charAt(7) == '1')
+			res.setBasis(tmp.getBasis());
+		return res;
+	}
 }

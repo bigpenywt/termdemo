@@ -108,4 +108,8 @@
         set status=#{status},delete_user=#{delete_user},delete_time=#{delete_time}
         where term = #{term}  
     </update> 
+    
+    <select id="QueryTerm" resultMap="TermResultMap">
+    	select * from term where term = #{term}
+    </select>
 </mapper>

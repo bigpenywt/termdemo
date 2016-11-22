@@ -235,4 +235,18 @@ public class TermDaoImpl implements ITermDao {
 			session.close();
 		}
 	}
+
+	@Override
+	public Term QueryTerm(String term) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		Term res = new Term();
+		try {
+			res = session.selectOne("termModule.QueryTerm", term);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return res;
+	}
 }

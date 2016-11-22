@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bupt.termdemo.model.Term;
+import com.bupt.termdemo.service.IConfService;
 import com.bupt.termdemo.service.ILogService;
 import com.bupt.termdemo.service.ITermService;
 
@@ -28,6 +29,9 @@ public class TermController {
 	
 	@Autowired
 	private ILogService logService;
+	
+	@Autowired
+	private IConfService confService;
 	
 	@RequestMapping("/GetCreateTerm")
 	@ResponseBody
@@ -355,6 +359,27 @@ public class TermController {
 			resultmap.put("status", "0");
 			System.out.println(e.getMessage());
 			resultmap.put("msg", "系统异常，恢复失败！"+ e.getMessage());
+		} finally {
+			return resultmap;
+		}
+	}
+	
+	@RequestMapping("/QueryTerm")
+	@ResponseBody
+	public Map<String, Object> QueryTerm(@RequestParam String term){
+		Term res = new Term();
+		Map<String, Object> resultmap = new HashMap<>();
+		String conf = "";
+		
+		try {
+			conf = confService.getConf();
+			res = termService.QueryTerm(term, conf);
+			resultmap.put("term", res);
+			resultmap.put("status", "1");
+		} catch (Exception e) {
+			resultmap.put("status", "0");
+			System.out.println(e.getMessage());
+			resultmap.put("msg", "系统异常，查询失败！"+ e.getMessage());
 		} finally {
 			return resultmap;
 		}

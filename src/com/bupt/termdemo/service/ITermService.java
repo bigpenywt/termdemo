@@ -37,4 +37,6 @@ public interface ITermService {
 	public int GettbReviewTermCount(String username) throws Exception;
 
 	public void DeleteDoneTerm(Term term) throws Exception;
+	
+	public Term QueryTerm(String term, String conf) throws Exception;
 }
