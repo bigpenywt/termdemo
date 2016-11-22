@@ -16,6 +16,7 @@ import ToBeReviewByMe from './ToBeReviewByMe.jsx';
 import DeletedTerm from './DeletedTerm.jsx';
 import Magazine from './Magazine.jsx'
 import UserInfo from './UserInfo.jsx';
+import SearchConfig from './SearchConfig.jsx';
 import Log from './Log.jsx';
 import Welcome from './Welcome.jsx';
 
@@ -42,6 +43,7 @@ export default class Main extends React.Component {
                     <Route path="/deleted" component={DeletedTerm}/>
                     <Route path="/magazine" component={Magazine}/>
                     <Route path="/user" component={UserInfo}/>
+                    <Route path="/searchConfig" component={SearchConfig}/>
                     <Route path="/log" component={Log}/>
                 </Route>
             </Router>
