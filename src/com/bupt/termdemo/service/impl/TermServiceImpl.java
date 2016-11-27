@@ -124,6 +124,8 @@ public class TermServiceImpl implements ITermService {
 		Term res = new Term();
 		Term tmp = new Term();
 		tmp = termDao.QueryTerm(term);
+		res.setTermid(tmp.getTermid());
+		res.setTerm(tmp.getTerm());
 		if(conf.charAt(0) == '1')
 			res.setOrigin(tmp.getOrigin());
 		if(conf.charAt(1) == '1')

@@ -110,6 +110,6 @@
     </update> 
     
     <select id="QueryTerm" resultMap="TermResultMap">
-    	select * from term where term = #{term}
+    	select * from term where term = #{term} and status = '3'
     </select>
 </mapper>
