@@ -2,7 +2,8 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        'index': './assets/js/index.js'
+        'index': './assets/js/index.js',
+        'query': './assets/js/query/App.js'
     },
     output: {
         path:'./public/js/',
