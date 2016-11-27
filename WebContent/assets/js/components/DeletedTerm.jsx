@@ -64,7 +64,7 @@ export default class DeletedTerm extends React.Component {
     }
     showDetails(record) {
         let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
-        let origin = this.state.terms[record.key - 0].origin.split(',');
+        let origin = this.state.terms[record.key - 0].origin.split('%$!**');
         tempTerm = tempTerm.set('origin', {
             magazineName: origin[0],
             year: origin[1] || '',

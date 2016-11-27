@@ -64,7 +64,7 @@ export default class ToBePublishTerm extends React.Component {
     }
     showDetails(record) {
       let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
-      let origin = this.state.terms[record.key - 0].origin.split(',');
+      let origin = this.state.terms[record.key - 0].origin.split('%$!**');
       tempTerm = tempTerm.set('origin', {
         magazineName: origin[0],
         year: origin[1] || '',
@@ -208,9 +208,13 @@ export default class ToBePublishTerm extends React.Component {
                     </FormItem>
                   </Col>
                   <Col span={12}>
-                    <FormItem label="条目" labelCol={{ span: 4}} wrapperCol={{ span: 18 }}>
-                      <Input name="term" value={this.state.record.translation} disabled/>
-                    </FormItem>
+                      <FormItem label="中文翻译" labelCol={{
+                          span: 4
+                      }} wrapperCol={{
+                          span: 18
+                      }}>
+                          <Input disabled name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
+                      </FormItem>
                   </Col>
                 </Row>
                 <Row style={{ borderTop: '1px solid #e9e9e9', marginBottom: '20px' }}>

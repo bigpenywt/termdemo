@@ -117,7 +117,7 @@ export default class ToBeReviewTerm extends React.Component {
     }
     showDetails(record) {
         let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
-        let origin = this.state.terms[record.key - 0].origin.split(',');
+        let origin = this.state.terms[record.key - 0].origin.split('%$!**');
         tempTerm = tempTerm.set('origin', {
             magazineName: origin[0],
             year: origin[1] || '',
@@ -134,9 +134,9 @@ export default class ToBeReviewTerm extends React.Component {
         let tempRecord = this.state.record;
         let origin = '';
         for (let key of Object.keys(tempRecord.origin)) {
-            origin = origin + ',' + tempRecord.origin[key];
+            origin = origin + '%$!**' + tempRecord.origin[key];
         }
-        tempRecord.origin = origin.replace(',', '');
+        tempRecord.origin = origin.replace('%$!**', '');
         this.setState({commitLoading: true});
         request.post('/termdemo/Term/ModifyTerm').type('form').send(tempRecord).end((err, res) => {
             let data = JSON.parse(res.text);

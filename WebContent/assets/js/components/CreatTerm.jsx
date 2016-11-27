@@ -99,9 +99,9 @@ export default class CreatTerm extends React.Component {
         let tempRecord = this.state.record;
         let origin = '';
         for (let key of Object.keys(tempRecord.origin)) {
-            origin = origin + ',' + tempRecord.origin[key];
+            origin = origin + '%$!**' + tempRecord.origin[key];
         }
-        tempRecord.origin = origin.replace(',', '');
+        tempRecord.origin = origin.replace('%$!**', '');
         request.post('/termdemo/Term/SaveTerm').type('form').send(tempRecord).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
