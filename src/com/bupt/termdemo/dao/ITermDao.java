@@ -39,4 +39,6 @@ public interface ITermDao {
 	public void DeleteDoneTerm(Term term) throws Exception;
 	
 	public Term QueryTerm(String term) throws Exception;
+
+	public int FindDoneTerm(String term);
 }

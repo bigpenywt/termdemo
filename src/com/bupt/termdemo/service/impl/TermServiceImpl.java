@@ -144,4 +144,10 @@ public class TermServiceImpl implements ITermService {
 			res.setBasis(tmp.getBasis());
 		return res;
 	}
+
+	@Override
+	public int FindDoneTerm(String term) {
+		// TODO Auto-generated method stub
+		return termDao.FindDoneTerm(term);
+	}
 }

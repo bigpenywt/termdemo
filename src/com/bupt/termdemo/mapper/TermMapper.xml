@@ -112,4 +112,8 @@
     <select id="QueryTerm" resultMap="TermResultMap">
     	select * from term where term = #{term} and status = '3'
     </select>
+    
+    <select id="FindDoneTerm" resultType="Integer">
+		select count(*) from term where term = #{term} and status = '3'
+	</select>
 </mapper>

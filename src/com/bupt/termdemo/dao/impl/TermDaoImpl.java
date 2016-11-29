@@ -249,4 +249,18 @@ public class TermDaoImpl implements ITermDao {
 		}
 		return res;
 	}
+
+	@Override
+	public int FindDoneTerm(String term) {
+		SqlSession session = sessionFactory.openSession();
+		int result = 0;
+		try {
+			result = session.selectOne("termModule.FindDoneTerm", term);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 }

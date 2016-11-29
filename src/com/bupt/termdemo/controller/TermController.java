@@ -370,16 +370,23 @@ public class TermController {
 		Term res = new Term();
 		Map<String, Object> resultmap = new HashMap<>();
 		String conf = "";
+		int count = 0;
 		
 		try {
 			conf = confService.getConf();
-			res = termService.QueryTerm(term, conf);
-			resultmap.put("term", res);
-			resultmap.put("status", "1");
-			resultmap.put("conf", conf);
+			count = termService.FindDoneTerm(term);
+			if(count == 0){
+				resultmap.put("status", "0");
+				resultmap.put("msg", "查无此词！");
+			}
+			else{
+				res = termService.QueryTerm(term, conf);
+				resultmap.put("term", res);
+				resultmap.put("status", "1");
+				resultmap.put("conf", conf);
+			}
 		} catch (Exception e) {
 			resultmap.put("status", "0");
-			System.out.println(e.getMessage());
 			resultmap.put("msg", "系统异常，查询失败！"+ e.getMessage());
 		} finally {
 			return resultmap;
