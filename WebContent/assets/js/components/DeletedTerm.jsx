@@ -11,7 +11,8 @@ import {
     Form,
     Row,
     Col,
-    message
+    message,
+    Switch
 } from 'antd';
 
 const FormItem = Form.Item;
@@ -27,6 +28,7 @@ const emptyRecord = {
         issue: '',
         page: ''
     },
+    useOtherOrigin: false,
     pronunciation: '',
     example: '',
     source: '',
@@ -65,14 +67,16 @@ export default class DeletedTerm extends React.Component {
     showDetails(record) {
         let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
         let origin = this.state.terms[record.key - 0].origin.split('%$!**');
-        tempTerm = tempTerm.set('origin', {
-            magazineName: origin[0],
-            year: origin[1] || '',
-            roll: origin[2] || '',
-            issue: origin[3] || '',
-            page: origin[4] || ''
-        });
-        this.setState({showTermDetails: true, record: tempTerm.toJS()});
+        origin.length > 1
+            ? tempTerm = tempTerm.set('origin', {
+                magazineName: origin[0],
+                year: origin[1] || '',
+                roll: origin[2] || '',
+                issue: origin[3] || '',
+                page: origin[4] || ''
+            })
+            : tempTerm = tempTerm.set('origin', {other: origin[0]});
+        this.setState({showTermDetails: true, record: tempTerm.toJS(),useOtherOrigin: origin.length === 1});
     }
     hideDetails() {
         this.setState({showTermDetails: false, record: emptyRecord});
@@ -203,58 +207,75 @@ export default class DeletedTerm extends React.Component {
                                     background: '#fff'
                                 }}>首次来源</div>
                             </Row>
-                            <Row>
-                                <Col span={12}>
-                                    <FormItem label="杂志名称" labelCol={{
-                                        span: 4
-                                    }} wrapperCol={{
-                                        span: 14
+                            {this.state.useOtherOrigin
+                                ? <Row style={{
+                                        borderBottom: '1px solid #e9e9e9',
+                                        marginBottom: '20px'
                                     }}>
-                                        <p>{this.state.record.origin.magazineName}</p>
-                                    </FormItem>
-                                </Col>
-                            </Row>
-                            <Row style={{
-                                borderBottom: '1px solid #e9e9e9',
-                                marginBottom: '20px'
-                            }}>
-                                <Col span={6}>
-                                    <FormItem label="年份" labelCol={{
-                                        span: 8
-                                    }} wrapperCol={{
-                                        span: 16
-                                    }}>
-                                        <p>{this.state.record.origin.year}</p>
-                                    </FormItem>
-                                </Col>
-                                <Col span={6}>
-                                    <FormItem label="卷号" labelCol={{
-                                        span: 8
-                                    }} wrapperCol={{
-                                        span: 16
-                                    }}>
-                                        <p>{this.state.record.origin.roll}</p>
-                                    </FormItem>
-                                </Col>
-                                <Col span={6}>
-                                    <FormItem label="期号" labelCol={{
-                                        span: 8
-                                    }} wrapperCol={{
-                                        span: 16
-                                    }}>
-                                        <p>{this.state.record.origin.issue}</p>
-                                    </FormItem>
-                                </Col>
-                                <Col span={6}>
-                                    <FormItem label="页码" labelCol={{
-                                        span: 8
-                                    }} wrapperCol={{
-                                        span: 16
-                                    }}>
-                                        <p>{this.state.record.origin.page}</p>
-                                    </FormItem>
-                                </Col>
-                            </Row>
+                                        <Col span={24}>
+                                            <FormItem label="其他" labelCol={{
+                                                span: 2
+                                            }} wrapperCol={{
+                                                span: 16
+                                            }}>
+                                                <p>{this.state.record.origin.other}</p>
+                                            </FormItem>
+                                        </Col>
+                                    </Row>
+                                : <Row>
+                                    <Col span={12}>
+                                        <FormItem label="杂志名称" labelCol={{
+                                            span: 4
+                                        }} wrapperCol={{
+                                            span: 14
+                                        }}>
+                                            <p>{this.state.record.origin.magazineName}</p>
+                                        </FormItem>
+                                    </Col>
+                                </Row>}
+                            {this.state.useOtherOrigin
+                                ? false
+                                : <Row style={{
+                                    borderBottom: '1px solid #e9e9e9',
+                                    marginBottom: '20px'
+                                }}>
+                                    <Col span={6}>
+                                        <FormItem label="年份" labelCol={{
+                                            span: 8
+                                        }} wrapperCol={{
+                                            span: 16
+                                        }}>
+                                            <p>{this.state.record.origin.year}</p>
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={6}>
+                                        <FormItem label="卷号" labelCol={{
+                                            span: 8
+                                        }} wrapperCol={{
+                                            span: 16
+                                        }}>
+                                            <p>{this.state.record.origin.roll}</p>
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={6}>
+                                        <FormItem label="期号" labelCol={{
+                                            span: 8
+                                        }} wrapperCol={{
+                                            span: 16
+                                        }}>
+                                            <p>{this.state.record.origin.issue}</p>
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={6}>
+                                        <FormItem label="页码" labelCol={{
+                                            span: 8
+                                        }} wrapperCol={{
+                                            span: 16
+                                        }}>
+                                            <p>{this.state.record.origin.page}</p>
+                                        </FormItem>
+                                    </Col>
+                                </Row>}
                             <Row>
                                 <Col span={12}>
                                     <FormItem label="英文定义" labelCol={{

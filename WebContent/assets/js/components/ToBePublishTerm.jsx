@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 import Immutable from 'immutable';
-import { Table, Card, Modal, Button, Form, Select, Input, Row, Col, message, Popconfirm } from 'antd';
+import { Table, Card, Modal, Button, Form, Select, Input, Row, Col, message, Popconfirm, Switch } from 'antd';
 
 import {pronunciation} from '../termConfig.js';
 
@@ -19,6 +19,7 @@ const emptyRecord = {
         issue: '',
         page: ''
     },
+    useOtherOrigin: false,
     pronunciation: '',
     example: '',
     source: '',
@@ -65,14 +66,16 @@ export default class ToBePublishTerm extends React.Component {
     showDetails(record) {
       let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
       let origin = this.state.terms[record.key - 0].origin.split('%$!**');
-      tempTerm = tempTerm.set('origin', {
-        magazineName: origin[0],
-        year: origin[1] || '',
-        roll: origin[2] || '',
-        issue: origin[3] || '',
-        page: origin[4] || '',
-      });
-      this.setState({ showTermDetails: true, record: tempTerm.toJS() });
+      origin.length > 1
+          ? tempTerm = tempTerm.set('origin', {
+              magazineName: origin[0],
+              year: origin[1] || '',
+              roll: origin[2] || '',
+              issue: origin[3] || '',
+              page: origin[4] || ''
+          })
+          : tempTerm = tempTerm.set('origin', {other: origin[0]});
+      this.setState({ showTermDetails: true, record: tempTerm.toJS(),useOtherOrigin: origin.length === 1 });
     }
     hideDetails() {
       this.setState({ showTermDetails: false, record: emptyRecord, tempPronuns:[], tempPronun:''});
@@ -189,12 +192,12 @@ export default class ToBePublishTerm extends React.Component {
                 <Row>
                   <Col span={12}>
                     <FormItem label="条目" labelCol={{ span: 4}} wrapperCol={{ span: 18 }}>
-                      <Input name="term" value={this.state.record.term} disabled/>
+                        <p>{this.state.record.term}</p>
                     </FormItem>
                   </Col>
                   <Col span={12}>
                     <FormItem label="词性" labelCol={{ span: 4}} wrapperCol={{ span: 6 }}>
-                      <Input name="term_char" value={this.state.record.term_char} disabled/>
+                      <p>{this.state.record.term_char}</p>
                     </FormItem>
                   </Col>
                 </Row>
@@ -204,7 +207,6 @@ export default class ToBePublishTerm extends React.Component {
                       <Col span={14}>
                           <p>{'[' + this.state.record.pronunciation + ']'}  </p>
                       </Col>
-                      <Input disabled type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
                     </FormItem>
                   </Col>
                   <Col span={12}>
@@ -213,7 +215,7 @@ export default class ToBePublishTerm extends React.Component {
                       }} wrapperCol={{
                           span: 18
                       }}>
-                          <Input disabled name="translation" value={this.state.record.translation} onChange={this.typeForm}/>
+                          <p>{this.state.record.translation}</p>
                       </FormItem>
                   </Col>
                 </Row>
@@ -223,58 +225,98 @@ export default class ToBePublishTerm extends React.Component {
                     首次来源
                   </div>
                 </Row>
-                <Row>
-                  <Col span={12}>
-                    <FormItem label="杂志名称" labelCol={{ span: 4}} wrapperCol={{ span: 14 }}>
-                      <Input data-parent="origin" name="magazineName" value={this.state.record.origin.magazineName} disabled/>
-                    </FormItem>
-                  </Col>
-                </Row>
-                <Row style={{ borderBottom: '1px solid #e9e9e9', marginBottom: '20px' }}>
-                  <Col span={6}>
-                    <FormItem label="年份" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input data-parent="origin" name="year" value={this.state.record.origin.year} disabled/>
-                    </FormItem>
-                  </Col>
-                  <Col span={6}>
-                    <FormItem label="卷号" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input data-parent="origin" name="roll" value={this.state.record.origin.roll} disabled/>
-                    </FormItem>
-                  </Col>
-                  <Col span={6}>
-                    <FormItem label="期号" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input data-parent="origin" name="issue" value={this.state.record.origin.issue} disabled/>
-                    </FormItem>
-                  </Col>
-                  <Col span={6}>
-                    <FormItem label="页码" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input data-parent="origin" name="page" value={this.state.record.origin.page} disabled/>
-                    </FormItem>
-                  </Col>
-                </Row>
+                {this.state.useOtherOrigin
+                    ? <Row style={{
+                            borderBottom: '1px solid #e9e9e9',
+                            marginBottom: '20px'
+                        }}>
+                            <Col span={24}>
+                                <FormItem label="其他" labelCol={{
+                                    span: 2
+                                }} wrapperCol={{
+                                    span: 16
+                                }}>
+                                    <p>{this.state.record.origin.other}</p>
+                                </FormItem>
+                            </Col>
+                        </Row>
+                    : <Row>
+                        <Col span={12}>
+                            <FormItem label="杂志名称" labelCol={{
+                                span: 4
+                            }} wrapperCol={{
+                                span: 14
+                            }}>
+                                <p>{this.state.record.origin.magazineName}</p>
+                            </FormItem>
+                        </Col>
+                    </Row>}
+                {this.state.useOtherOrigin
+                    ? false
+                    : <Row style={{
+                        borderBottom: '1px solid #e9e9e9',
+                        marginBottom: '20px'
+                    }}>
+                        <Col span={6}>
+                            <FormItem label="年份" labelCol={{
+                                span: 8
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <p>{this.state.record.origin.year}</p>
+                            </FormItem>
+                        </Col>
+                        <Col span={6}>
+                            <FormItem label="卷号" labelCol={{
+                                span: 8
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <p>{this.state.record.origin.roll}</p>
+                            </FormItem>
+                        </Col>
+                        <Col span={6}>
+                            <FormItem label="期号" labelCol={{
+                                span: 8
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <p>{this.state.record.origin.issue}</p>
+                            </FormItem>
+                        </Col>
+                        <Col span={6}>
+                            <FormItem label="页码" labelCol={{
+                                span: 8
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <p>{this.state.record.origin.page}</p>
+                            </FormItem>
+                        </Col>
+                    </Row>}
                 <Row>
                   <Col span={12}>
                     <FormItem label="英文定义" labelCol={{ span: 4}} wrapperCol={{ span: 14 }}>
-                      <Input name="definition" value={this.state.record.definition} disabled/>
+                      <p>{this.state.record.definition}</p>
                     </FormItem>
                   </Col>
                   <Col span={12}>
                     <FormItem label="定义来源" labelCol={{ span: 4}} wrapperCol={{ span: 14 }}>
-                      <Input name="source" value={this.state.record.source} disabled/>
+                      <p>{this.state.record.source}</p>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
                   <Col span={24}>
                     <FormItem label="示例" labelCol={{ span: 2}} wrapperCol={{ span: 16 }}>
-                      <Input name="example" value={this.state.record.example} disabled/>
+                      <p>{this.state.record.example}</p>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
                   <Col span={24}>
                     <FormItem label="翻译理据" labelCol={{ span: 2}} wrapperCol={{ span: 16 }}>
-                      <Input name="basis" value={this.state.record.basis} disabled/>
+                      <p>{this.state.record.basis}</p>
                     </FormItem>
                   </Col>
                 </Row>

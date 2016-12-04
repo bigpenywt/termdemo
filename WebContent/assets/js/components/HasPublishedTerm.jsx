@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 import {pronunciation, yearSelect} from '../termConfig.js';
 
 import { Card, Table, Button, Modal, Form, Input,
-  Row, Col, Select, message, Popconfirm } from 'antd';
+  Row, Col, Select, message, Popconfirm, Switch } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const ButtonGroup = Button.Group;
@@ -18,8 +18,10 @@ const emptyRecord = {
         year: '',
         roll: '',
         issue: '',
-        page: ''
+        page: '',
+        other: ''
     },
+    useOtherOrigin: false,
     showKeyboard: false,
     pronunciation: '',
     example: '',
@@ -46,6 +48,7 @@ export default class HasPublishedTerm extends React.Component {
         this.typeForm = this.typeForm.bind(this);
         this.submitModify = this.submitModify.bind(this);
         this.hideDetails = this.hideDetails.bind(this);
+        this.switchOrigin = this.switchOrigin.bind(this);
     }
     componentDidMount() {
       request.get('/termdemo/Magazine/ListAll').end((err, res) => {
@@ -86,6 +89,9 @@ export default class HasPublishedTerm extends React.Component {
             : tempRecord[key] = e
         this.setState({record: tempRecord});
     }
+    switchOrigin(checked) {
+        this.setState({useOtherOrigin: checked});
+    }
     toggleKeyboard() {
         this.setState({ showKeyboard: !this.state.showKeyboard });
     }
@@ -109,14 +115,16 @@ export default class HasPublishedTerm extends React.Component {
     showDetails(record) {
       let tempTerm = Immutable.fromJS(this.state.terms[record.key - 0]);
       let origin = this.state.terms[record.key - 0].origin.split('%$!**');
-      tempTerm = tempTerm.set('origin', {
-          magazineName: origin[0],
-          year: origin[1] || '',
-          roll: origin[2] || '',
-          issue: origin[3] || '',
-          page: origin[4] || ''
-      });
-      this.setState({showTermDetails: true, record: tempTerm.toJS()});
+      origin.length > 1
+          ? tempTerm = tempTerm.set('origin', {
+              magazineName: origin[0],
+              year: origin[1] || '',
+              roll: origin[2] || '',
+              issue: origin[3] || '',
+              page: origin[4] || ''
+          })
+          : tempTerm = tempTerm.set('origin', {other: origin[0]});
+      this.setState({showTermDetails: true, record: tempTerm.toJS(), useOtherOrigin: origin.length === 1});
     }
     hideDetails() {
       this.setState({ showTermDetails: false, record: emptyRecord, tempPronuns:[],tempPronun: ''});
@@ -124,10 +132,15 @@ export default class HasPublishedTerm extends React.Component {
     submitModify() {
       let tempRecord = this.state.record;
       let origin = '';
-      for (let key of Object.keys(tempRecord.origin)) {
-        origin = origin + '%$!**' + tempRecord.origin[key];
+      if (this.state.useOtherOrigin)
+          tempRecord.origin = tempRecord.origin.other;
+      else {
+          delete tempRecord.origin.other
+          for (let key of Object.keys(tempRecord.origin)) {
+              origin = origin + '%$!**' + tempRecord.origin[key];
+          }
+          tempRecord.origin = origin.replace('%$!**', '');
       }
-      tempRecord.origin = origin.replace('%$!**', '');
       this.setState({ submitLoading: true });
       request
         .post('/termdemo/Term/ModifyDoneTerm')
@@ -359,46 +372,97 @@ export default class HasPublishedTerm extends React.Component {
                   </div>
                 </Row>
                 <Row>
-                  <Col span={12}>
-                    <FormItem label="杂志名称" labelCol={{ span: 4}} wrapperCol={{ span: 14 }}>
-                      <Select name="magazineName" value={this.state.record.origin.magazineName} onChange={this.selectFormItem.bind(this, 'magazineName')}>
-                          {this.state.magazineList.map((magazine) => {
-                              return (
-                                  <Option key={magazine.name} value={magazine.name}>{magazine.name}</Option>
-                              )
-                          })}
-                      </Select>
-                    </FormItem>
-                  </Col>
+                    <Col span={12}>
+                        <FormItem label="是否使用其他来源" labelCol={{
+                            span: 8
+                        }} wrapperCol={{
+                            span: 14
+                        }}>
+                            <Switch defaultChecked={this.state.useOtherOrigin} onChange={this.switchOrigin}/>
+                        </FormItem>
+                    </Col>
                 </Row>
-                <Row style={{ borderBottom: '1px solid #e9e9e9', marginBottom: '20px' }}>
-                  <Col span={6}>
-                    <FormItem label="年份" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
-                        {yearSelect.map((year) => {
-                            return (
-                                <Option key={year} value={year}>{year}</Option>
-                            )
-                        })}
-                      </Select>
-                    </FormItem>
-                  </Col>
-                  <Col span={6}>
-                    <FormItem label="卷号" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input data-parent="origin" name="roll" value={this.state.record.origin.roll} onChange={this.typeForm}/>
-                    </FormItem>
-                  </Col>
-                  <Col span={6}>
-                    <FormItem label="期号" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input data-parent="origin" name="issue" value={this.state.record.origin.issue} onChange={this.typeForm}/>
-                    </FormItem>
-                  </Col>
-                  <Col span={6}>
-                    <FormItem label="页码" labelCol={{ span: 8}} wrapperCol={{ span: 16 }}>
-                      <Input data-parent="origin" name="page" value={this.state.record.origin.page} onChange={this.typeForm}/>
-                    </FormItem>
-                  </Col>
-                </Row>
+                {this.state.useOtherOrigin
+                    ? <Row style={{
+                            borderBottom: '1px solid #e9e9e9',
+                            marginBottom: '20px'
+                        }}>
+                            <Col span={24}>
+                                <FormItem label="其他" labelCol={{
+                                    span: 2
+                                }} wrapperCol={{
+                                    span: 16
+                                }}>
+                                    <Input type="textarea" data-parent="origin" name="other" value={this.state.record.origin.other} onChange={this.typeForm}/>
+                                </FormItem>
+                            </Col>
+                        </Row>
+                    : <Row>
+                        <Col span={12}>
+                            <FormItem label="杂志名称" labelCol={{
+                                span: 4
+                            }} wrapperCol={{
+                                span: 14
+                            }}>
+                                <Select name="magazineName" value={this.state.record.origin.magazineName} onChange={this.selectFormItem.bind(this, 'magazineName')}>
+                                    {this.state.magazineList.map((magazine) => {
+                                        return (
+                                            <Option key={magazine.name} value={magazine.name}>{magazine.name}</Option>
+                                        )
+                                    })}
+                                </Select>
+                            </FormItem>
+                        </Col>
+                    </Row>}
+                {this.state.useOtherOrigin
+                    ? false
+                    : <Row style={{
+                        borderBottom: '1px solid #e9e9e9',
+                        marginBottom: '20px'
+                    }}>
+                        <Col span={6}>
+                            <FormItem label="年份" labelCol={{
+                                span: 8
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
+                                    {yearSelect.map((year) => {
+                                        return (
+                                            <Option key={year} value={year}>{year}</Option>
+                                        )
+                                    })}
+                                </Select>
+                            </FormItem>
+                        </Col>
+                        <Col span={6}>
+                            <FormItem label="卷号" labelCol={{
+                                span: 8
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <Input data-parent="origin" name="roll" value={this.state.record.origin.roll} onChange={this.typeForm}/>
+                            </FormItem>
+                        </Col>
+                        <Col span={6}>
+                            <FormItem label="期号" labelCol={{
+                                span: 8
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <Input data-parent="origin" name="issue" value={this.state.record.origin.issue} onChange={this.typeForm}/>
+                            </FormItem>
+                        </Col>
+                        <Col span={6}>
+                            <FormItem label="页码" labelCol={{
+                                span: 8
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <Input data-parent="origin" name="page" value={this.state.record.origin.page} onChange={this.typeForm}/>
+                            </FormItem>
+                        </Col>
+                    </Row>}
                 <Row>
                   <Col span={12}>
                     <FormItem label="英文定义" labelCol={{ span: 4}} wrapperCol={{ span: 14 }}>

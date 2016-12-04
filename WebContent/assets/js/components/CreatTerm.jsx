@@ -9,7 +9,8 @@ import {
     Button,
     Table,
     message,
-    Select
+    Select,
+    Switch
 } from 'antd';
 
 import '../../../public/css/page/app/soft_keyboard.css'
@@ -32,7 +33,8 @@ export default class CreatTerm extends React.Component {
                     year: '',
                     roll: '',
                     issue: '',
-                    page: ''
+                    page: '',
+                    other: ''
                 },
                 pronunciation: '',
                 example: '',
@@ -40,6 +42,7 @@ export default class CreatTerm extends React.Component {
                 translation: '',
                 basis: ''
             },
+            useOtherOrigin: false,
             tempPronun: '',
             tempPronuns: [],
             showKeyboard: false,
@@ -48,6 +51,7 @@ export default class CreatTerm extends React.Component {
         },
         this.typeForm = this.typeForm.bind(this);
         this.creatTerm = this.creatTerm.bind(this);
+        this.switchOrigin = this.switchOrigin.bind(this);
     }
     componentDidMount() {
         request.get('/termdemo/Magazine/ListAll').end((err, res) => {
@@ -73,12 +77,15 @@ export default class CreatTerm extends React.Component {
             : tempRecord[key] = e
         this.setState({record: tempRecord});
     }
+    switchOrigin(checked) {
+        this.setState({useOtherOrigin: checked});
+    }
     toggleKeyboard() {
-      this.setState({ showKeyboard: !this.state.showKeyboard });
+        this.setState({
+            showKeyboard: !this.state.showKeyboard
+        });
     }
     addPronun(e) {
-        console.log('哈哈');
-        console.log(e.target.innerHTML);
         e.preventDefault();
         let tempPronuns = this.state.tempPronuns;
         tempPronuns.push(e.target.innerHTML);
@@ -98,10 +105,15 @@ export default class CreatTerm extends React.Component {
         e.preventDefault();
         let tempRecord = this.state.record;
         let origin = '';
-        for (let key of Object.keys(tempRecord.origin)) {
-            origin = origin + '%$!**' + tempRecord.origin[key];
+        if (this.state.useOtherOrigin)
+            tempRecord.origin = tempRecord.origin.other;
+        else {
+            delete tempRecord.origin.other
+            for (let key of Object.keys(tempRecord.origin)) {
+                origin = origin + '%$!**' + tempRecord.origin[key];
+            }
+            tempRecord.origin = origin.replace('%$!**', '');
         }
-        tempRecord.origin = origin.replace('%$!**', '');
         request.post('/termdemo/Term/SaveTerm').type('form').send(tempRecord).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
@@ -180,83 +192,106 @@ export default class CreatTerm extends React.Component {
                                         <Col span={6}>
                                             <ButtonGroup style={{
                                                 marginLeft: '4px',
-                                                marginTop: '2px', float: 'right'
+                                                marginTop: '2px',
+                                                float: 'right'
                                             }}>
                                                 <Button type="primary" size="large" icon="calculator" onClick={this.toggleKeyboard.bind(this)}></Button>
                                                 <Button type="primary" size="large" icon="minus-square-o" onClick={this.removePronun.bind(this)}></Button>
                                             </ButtonGroup>
                                         </Col>
-                                        { this.state.showKeyboard ?
-                                        <div className="sofe-keyboard" style={{ marginTop: '36px' }} onBlur={this.toggleKeyboard.bind(this)}>
-                                          <div className="IPAZone IPA">
-                                          <ul>
-                                           <li style={{ height: '4em' }}>辅音</li>
-                                           <li onClick={this.addPronun.bind(this)}>p</li>
-                                           <li onClick={this.addPronun.bind(this)}>b</li>
-                                           <li onClick={this.addPronun.bind(this)}>t</li>
-                                           <li onClick={this.addPronun.bind(this)}>d</li>
-                                           <li onClick={this.addPronun.bind(this)}>k</li>
-                                           <li onClick={this.addPronun.bind(this)}>g</li>
-                                           <li onClick={this.addPronun.bind(this)}>f</li>
-                                           <li onClick={this.addPronun.bind(this)}>v</li>
-                                           <li onClick={this.addPronun.bind(this)}>&#952;</li>
-                                           <li onClick={this.addPronun.bind(this)}>&#240;</li>
-                                           <li onClick={this.addPronun.bind(this)}>s</li>
-                                           <li onClick={this.addPronun.bind(this)}>z</li>
-                                           <li onClick={this.addPronun.bind(this)}>&#643;</li>
-                                           <li onClick={this.addPronun.bind(this)}>&#658;</li>
-                                           <li onClick={this.addPronun.bind(this)}>h</li>
-                                           <li onClick={this.addPronun.bind(this)}>t&#643;</li>
-                                           <li onClick={this.addPronun.bind(this)}>d&#658;</li>
-                                           <li onClick={this.addPronun.bind(this)}>m</li>
-                                           <li onClick={this.addPronun.bind(this)}>n</li>
-                                           <li onClick={this.addPronun.bind(this)}>&#331;</li>
-                                           <li onClick={this.addPronun.bind(this)}>l</li>
-                                           <li onClick={this.addPronun.bind(this)}>r</li>
-                                           <li onClick={this.addPronun.bind(this)}>j</li>
-                                           <li onClick={this.addPronun.bind(this)}>w</li>
-                                          </ul>
-                                          <div className="clear"></div>
-                                          <ul >
-                                            <li style={{ width: '4em' }}>短元音</li>
-                                          	<li onClick={this.addPronun.bind(this)}>&#618;</li>
-                                          	<li onClick={this.addPronun.bind(this)}>e</li>
-                                          	<li onClick={this.addPronun.bind(this)}>&aelig;</li>
-                                          	<li onClick={this.addPronun.bind(this)}>&#594;</li>
-                                          	<li onClick={this.addPronun.bind(this)}>&#652;</li>
-                                          	<li onClick={this.addPronun.bind(this)}>&#650;</li>
-                                          	<li onClick={this.addPronun.bind(this)}>&#601;</li>
-                                          	<li onClick={this.addPronun.bind(this)}>i</li>
-                                          	<li onClick={this.addPronun.bind(this)}>u</li>
-                                          	<li onClick={this.addPronun.bind(this)}>&#603;</li>
-                                          </ul>
-                                          <div className="clear"></div>
-                                          	<ul >
-                                              <li style={{ width: '4em' }}>长元音</li>
-                                          		<li onClick={this.addPronun.bind(this)}>i:</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#593;:</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#604;:</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#596;:</li>
-                                              <li onClick={this.addPronun.bind(this)}>u:</li>
-                                              <li style={{ float: 'right', borderTop: '1px solid #eee' }} onClick={this.addPronun.bind(this)}>)</li>
-                                              <li style={{ float: 'right', borderTop: '1px solid #eee' }} onClick={this.addPronun.bind(this)}>(</li>
-                                              <li style={{ float: 'right' }} onClick={this.addPronun.bind(this)}>&#712;</li>
-                                              <li style={{ float: 'right', borderLeft: '1px solid #eee' }} onClick={this.addPronun.bind(this)}>&#716;</li>
-                                          	</ul>
-                                          <div className="clear"></div>
-                                          <ul >
-                                             <li style={{ width: '4em' }}>双元音</li>
-                                          		<li onClick={this.addPronun.bind(this)}>e&#618;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>a&#618;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#594;&#618;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#601;&#650;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#593;&#650;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#618;&#601;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>e&#601;</li>
-                                          		<li onClick={this.addPronun.bind(this)}>&#650;&#601;</li>
-                                          </ul>
-                                          </div>
-                                        </div> : null }
+                                        {this.state.showKeyboard
+                                            ? <div className="sofe-keyboard" style={{
+                                                    marginTop: '36px'
+                                                }} onBlur={this.toggleKeyboard.bind(this)}>
+                                                    <div className="IPAZone IPA">
+                                                        <ul>
+                                                            <li style={{
+                                                                height: '4em'
+                                                            }}>辅音</li>
+                                                            <li onClick={this.addPronun.bind(this)}>p</li>
+                                                            <li onClick={this.addPronun.bind(this)}>b</li>
+                                                            <li onClick={this.addPronun.bind(this)}>t</li>
+                                                            <li onClick={this.addPronun.bind(this)}>d</li>
+                                                            <li onClick={this.addPronun.bind(this)}>k</li>
+                                                            <li onClick={this.addPronun.bind(this)}>g</li>
+                                                            <li onClick={this.addPronun.bind(this)}>f</li>
+                                                            <li onClick={this.addPronun.bind(this)}>v</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#952;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#240;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>s</li>
+                                                            <li onClick={this.addPronun.bind(this)}>z</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#643;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#658;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>h</li>
+                                                            <li onClick={this.addPronun.bind(this)}>t&#643;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>d&#658;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>m</li>
+                                                            <li onClick={this.addPronun.bind(this)}>n</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#331;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>l</li>
+                                                            <li onClick={this.addPronun.bind(this)}>r</li>
+                                                            <li onClick={this.addPronun.bind(this)}>j</li>
+                                                            <li onClick={this.addPronun.bind(this)}>w</li>
+                                                        </ul>
+                                                        <div className="clear"></div>
+                                                        <ul >
+                                                            <li style={{
+                                                                width: '4em'
+                                                            }}>短元音</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#618;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>e</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&aelig;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#594;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#652;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#650;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#601;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>i</li>
+                                                            <li onClick={this.addPronun.bind(this)}>u</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#603;</li>
+                                                        </ul>
+                                                        <div className="clear"></div>
+                                                        <ul >
+                                                            <li style={{
+                                                                width: '4em'
+                                                            }}>长元音</li>
+                                                            <li onClick={this.addPronun.bind(this)}>i:</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#593;:</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#604;:</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#596;:</li>
+                                                            <li onClick={this.addPronun.bind(this)}>u:</li>
+                                                            <li style={{
+                                                                float: 'right',
+                                                                borderTop: '1px solid #eee'
+                                                            }} onClick={this.addPronun.bind(this)}>)</li>
+                                                            <li style={{
+                                                                float: 'right',
+                                                                borderTop: '1px solid #eee'
+                                                            }} onClick={this.addPronun.bind(this)}>(</li>
+                                                            <li style={{
+                                                                float: 'right'
+                                                            }} onClick={this.addPronun.bind(this)}>&#712;</li>
+                                                            <li style={{
+                                                                float: 'right',
+                                                                borderLeft: '1px solid #eee'
+                                                            }} onClick={this.addPronun.bind(this)}>&#716;</li>
+                                                        </ul>
+                                                        <div className="clear"></div>
+                                                        <ul >
+                                                            <li style={{
+                                                                width: '4em'
+                                                            }}>双元音</li>
+                                                            <li onClick={this.addPronun.bind(this)}>e&#618;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>a&#618;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#594;&#618;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#601;&#650;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#593;&#650;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#618;&#601;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>e&#601;</li>
+                                                            <li onClick={this.addPronun.bind(this)}>&#650;&#601;</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            : null}
                                         <Input type="hidden" name="pronunciation" value={this.state.record.pronunciation}/>
                                     </FormItem>
                                 </Col>
@@ -285,68 +320,96 @@ export default class CreatTerm extends React.Component {
                             </Row>
                             <Row>
                                 <Col span={12}>
-                                    <FormItem label="杂志名称" labelCol={{
-                                        span: 4
+                                    <FormItem label="是否使用其他来源" labelCol={{
+                                        span: 8
                                     }} wrapperCol={{
                                         span: 14
                                     }}>
-                                        <Select name="magazineName" value={this.state.record.origin.magazineName} onChange={this.selectFormItem.bind(this, 'magazineName')}>
-                                            {this.state.magazineList.map((magazine) => {
-                                                return (
-                                                    <Option key={magazine.name} value={magazine.name}>{magazine.name}</Option>
-                                                )
-                                            })}
-                                        </Select>
+                                        <Switch defaultChecked={this.state.useOtherOrigin} onChange={this.switchOrigin}/>
                                     </FormItem>
                                 </Col>
                             </Row>
-                            <Row style={{
-                                borderBottom: '1px solid #e9e9e9',
-                                marginBottom: '20px'
-                            }}>
-                                <Col span={6}>
-                                    <FormItem label="年份" labelCol={{
-                                        span: 8
-                                    }} wrapperCol={{
-                                        span: 16
+                            {this.state.useOtherOrigin
+                                ? <Row style={{
+                                        borderBottom: '1px solid #e9e9e9',
+                                        marginBottom: '20px'
                                     }}>
-                                        <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
-                                            {yearSelect.map((year) => {
-                                                return (
-                                                    <Option key={year} value={year}>{year}</Option>
-                                                )
-                                            })}
-                                        </Select>
-                                    </FormItem>
-                                </Col>
-                                <Col span={6}>
-                                    <FormItem label="卷号" labelCol={{
-                                        span: 8
-                                    }} wrapperCol={{
-                                        span: 16
-                                    }}>
-                                        <Input data-parent="origin" name="roll" value={this.state.record.origin.roll} onChange={this.typeForm}/>
-                                    </FormItem>
-                                </Col>
-                                <Col span={6}>
-                                    <FormItem label="期号" labelCol={{
-                                        span: 8
-                                    }} wrapperCol={{
-                                        span: 16
-                                    }}>
-                                        <Input data-parent="origin" name="issue" value={this.state.record.origin.issue} onChange={this.typeForm}/>
-                                    </FormItem>
-                                </Col>
-                                <Col span={6}>
-                                    <FormItem label="页码" labelCol={{
-                                        span: 8
-                                    }} wrapperCol={{
-                                        span: 16
-                                    }}>
-                                        <Input data-parent="origin" name="page" value={this.state.record.origin.page} onChange={this.typeForm}/>
-                                    </FormItem>
-                                </Col>
-                            </Row>
+                                        <Col span={24}>
+                                            <FormItem label="其他" labelCol={{
+                                                span: 2
+                                            }} wrapperCol={{
+                                                span: 16
+                                            }}>
+                                                <Input type="textarea" data-parent="origin" name="other" value={this.state.record.origin.other} onChange={this.typeForm}/>
+                                            </FormItem>
+                                        </Col>
+                                    </Row>
+                                : <Row>
+                                    <Col span={12}>
+                                        <FormItem label="杂志名称" labelCol={{
+                                            span: 4
+                                        }} wrapperCol={{
+                                            span: 14
+                                        }}>
+                                            <Select name="magazineName" value={this.state.record.origin.magazineName} onChange={this.selectFormItem.bind(this, 'magazineName')}>
+                                                {this.state.magazineList.map((magazine) => {
+                                                    return (
+                                                        <Option key={magazine.name} value={magazine.name}>{magazine.name}</Option>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </FormItem>
+                                    </Col>
+                                </Row>}
+                            {this.state.useOtherOrigin
+                                ? false
+                                : <Row style={{
+                                    borderBottom: '1px solid #e9e9e9',
+                                    marginBottom: '20px'
+                                }}>
+                                    <Col span={6}>
+                                        <FormItem label="年份" labelCol={{
+                                            span: 8
+                                        }} wrapperCol={{
+                                            span: 16
+                                        }}>
+                                            <Select name="year" value={this.state.record.origin.year} onChange={this.selectFormItem.bind(this, 'year')}>
+                                                {yearSelect.map((year) => {
+                                                    return (
+                                                        <Option key={year} value={year}>{year}</Option>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={6}>
+                                        <FormItem label="卷号" labelCol={{
+                                            span: 8
+                                        }} wrapperCol={{
+                                            span: 16
+                                        }}>
+                                            <Input data-parent="origin" name="roll" value={this.state.record.origin.roll} onChange={this.typeForm}/>
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={6}>
+                                        <FormItem label="期号" labelCol={{
+                                            span: 8
+                                        }} wrapperCol={{
+                                            span: 16
+                                        }}>
+                                            <Input data-parent="origin" name="issue" value={this.state.record.origin.issue} onChange={this.typeForm}/>
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={6}>
+                                        <FormItem label="页码" labelCol={{
+                                            span: 8
+                                        }} wrapperCol={{
+                                            span: 16
+                                        }}>
+                                            <Input data-parent="origin" name="page" value={this.state.record.origin.page} onChange={this.typeForm}/>
+                                        </FormItem>
+                                    </Col>
+                                </Row>}
                             <Row>
                                 <Col span={12}>
                                     <FormItem label="英文定义" labelCol={{
