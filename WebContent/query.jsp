@@ -9,7 +9,7 @@ response.setDateHeader("Expires", 0);
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>蛋蛋术语中心</title>
+<title>英汉医学新术语中心</title>
 </head>
 <body>
   <div id="query"></div>
