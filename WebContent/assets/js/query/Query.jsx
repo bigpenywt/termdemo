@@ -64,7 +64,7 @@ class Query extends Component {
     }
     renderResult() {
         const {termData, configuration} = this.state;
-        const origin = (() => {
+        const origin = !termData.origin || (() => {
             const tempOrigin = termData.origin.split('%$!**');
             if (tempOrigin[1])
                 return (
@@ -121,7 +121,19 @@ class Query extends Component {
                     </div>
                 )
             return (
-                <div className="indent-content">{termData.origin}</div>
+                <div className="indent-content">
+                    <Row>
+                        <Col span={24}>
+                            <FormItem label="" labelCol={{
+                                span: 2
+                            }} wrapperCol={{
+                                span: 16
+                            }}>
+                                <p className="no-label">{termData.origin}</p>
+                            </FormItem>
+                        </Col>
+                    </Row>
+                </div>
             );
         })()
         return (
@@ -129,105 +141,66 @@ class Query extends Component {
                 <Col span={16} offset={4}>
                     <div className="term-panel">
                         <Row className="block" type="flex" justify="flex-start">
-                            <h2>{termData.term}</h2>
+                            <h1>{termData.term}</h1>
+                            {this.state.configuration[5] === '1' && <p className="in-p">
+                                {'['}
+                                <span className="gr">
+                                    {termData.pronunciation}
+                                </span>{']'}
+                            </p>}
+                            {this.state.configuration[4] === '1' && <p className="in-p wt">
+                                {termData.term_char}
+                            </p>}
                         </Row>
-                        <Row className="block">
-                            {this.state.configuration[5] === '1'
-                                ? <Col span={12}>
-                                        <FormItem label="发音" labelCol={{
-                                            span: 4
-                                        }} wrapperCol={{
-                                            span: 18
-                                        }}>
-                                            <Col span={14}>
-                                                <p>{'[' + termData.pronunciation + ']'}
-                                                </p>
-                                            </Col>
-                                        </FormItem>
-                                    </Col>
-
-                                : null}
-                            {this.state.configuration[4] === '1'
-                                ? <Col span={12}>
-                                        <FormItem label="词性" labelCol={{
-                                            span: 4
-                                        }} wrapperCol={{
-                                            span: 6
-                                        }}>
-                                            <p>{termData.term_char}</p>
-                                        </FormItem>
-                                    </Col>
-                                : null}
-                        </Row>
-                        {this.state.configuration[6] === '1'
-                            ? <Row className="block">
-                                    <Col span={24}>
-                                        <FormItem label="中文翻译" labelCol={{
-                                            span: 2
-                                        }} wrapperCol={{
-                                            span: 18
-                                        }}>
-                                            <p>{termData.translation}</p>
-                                        </FormItem>
-                                    </Col>
-                                </Row>
-                            : null}
-                        {this.state.configuration[7] === '1'
-                            ? <Row className="block">
-                                    <Col span={24}>
-                                        <FormItem label="翻译理据" labelCol={{
-                                            span: 2
-                                        }} wrapperCol={{
-                                            span: 16
-                                        }}>
-                                            <p>{termData.basis}</p>
-                                        </FormItem>
-                                    </Col>
-                                </Row>
-                            : null}
-                        <Row className="block">
-                            {this.state.configuration[1] === '1'
-                                ? <Col span={12}>
-                                        <FormItem label="英文定义" labelCol={{
-                                            span: 4
-                                        }} wrapperCol={{
-                                            span: 14
-                                        }}>
-                                            <p>{termData.definition}</p>
-                                        </FormItem>
-                                    </Col>
-                                : null}
-                            {this.state.configuration[2] === '1'
-                                ? <Col span={12}>
-                                        <FormItem label="定义来源" labelCol={{
-                                            span: 4
-                                        }} wrapperCol={{
-                                            span: 14
-                                        }}>
-                                            <p>{termData.source}</p>
-                                        </FormItem>
-                                    </Col>
-                                : null}
-                        </Row>
+                        {this.state.configuration[6] === '1' && <Row className="block">
+                            <div className="title bl">
+                                <b>中文翻译</b>
+                            </div>
+                            <p className="single-item">{termData.translation}</p>
+                        </Row>}
+                        {this.state.configuration[7] === '1' && <Row className="block">
+                            <div className="title bl">
+                                <b>翻译理据</b>
+                            </div>
+                            <p className="single-item">{termData.basis}</p>
+                        </Row>}
+                        {(this.state.configuration[1] | this.state.configuration[2]) === 1 && <Row className="block">
+                            <div className="title bl">
+                                <b>定义相关</b>
+                            </div>
+                            {this.state.configuration[1] === '1' && <Col span={12}>
+                                <FormItem label="英文定义" labelCol={{
+                                    span: 4
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <p>{termData.definition}</p>
+                                </FormItem>
+                            </Col>}
+                            {this.state.configuration[2] === '1' && <Col span={12}>
+                                <FormItem label="定义来源" labelCol={{
+                                    span: 4
+                                }} wrapperCol={{
+                                    span: 14
+                                }}>
+                                    <p>{termData.source}</p>
+                                </FormItem>
+                            </Col>}
+                        </Row>}
                         {this.state.configuration[0] === '1'
                             ? <Row className="block">
-                                    <div>首次来源</div>
+                                    <div className="title bl">
+                                        <b>首次来源</b>
+                                    </div>
                                     {origin}
                                 </Row>
                             : null}
-                        {this.state.configuration[3] === '1'
-                            ? <Row className="block">
-                                    <Col span={24}>
-                                        <FormItem label="示例" labelCol={{
-                                            span: 2
-                                        }} wrapperCol={{
-                                            span: 16
-                                        }}>
-                                            <p>{termData.example}</p>
-                                        </FormItem>
-                                    </Col>
-                                </Row>
-                            : null}
+                        {this.state.configuration[3] === '1' && <Row className="block">
+                            <div className="title bl">
+                                <b>示例</b>
+                            </div>
+                            <p className="single-item">{termData.example}</p>
+                        </Row>}
                     </div>
                 </Col>
             </Row>
