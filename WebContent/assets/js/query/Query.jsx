@@ -141,7 +141,6 @@ class Query extends Component {
                 <Col span={16} offset={4}>
                     <div className="term-panel">
                         <Row className="block" type="flex" justify="flex-start">
-                            <h1>{termData.term}</h1>
                             {this.state.configuration[5] === '1' && <p className="in-p">
                                 {'['}
                                 <span className="gr">
@@ -153,52 +152,41 @@ class Query extends Component {
                             </p>}
                         </Row>
                         {this.state.configuration[6] === '1' && <Row className="block">
-                            <div className="title bl">
+                            {/* <div className="title bl">
                                 <b>中文翻译</b>
-                            </div>
+                            </div> */}
                             <p className="single-item">{termData.translation}</p>
                         </Row>}
                         {this.state.configuration[7] === '1' && <Row className="block">
-                            <div className="title bl">
+                            {/* <div className="title bl">
                                 <b>翻译理据</b>
-                            </div>
+                            </div> */}
                             <p className="single-item">{termData.basis}</p>
                         </Row>}
-                        {(this.state.configuration[1] | this.state.configuration[2]) === 1 && <Row className="block">
-                            <div className="title bl">
-                                <b>定义相关</b>
-                            </div>
-                            {this.state.configuration[1] === '1' && <Col span={12}>
-                                <FormItem label="英文定义" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 14
-                                }}>
-                                    <p>{termData.definition}</p>
-                                </FormItem>
-                            </Col>}
-                            {this.state.configuration[2] === '1' && <Col span={12}>
-                                <FormItem label="定义来源" labelCol={{
-                                    span: 4
-                                }} wrapperCol={{
-                                    span: 14
-                                }}>
-                                    <p>{termData.source}</p>
-                                </FormItem>
-                            </Col>}
+                        {this.state.configuration[1] === '1' && <Row className="block">
+                            {/* <div className="title bl">
+                                  <b>英文定义</b>
+                              </div> */}
+                            <p className="single-item">{termData.definition}</p>
+                        </Row>}
+                        {this.state.configuration[2] === '1' && <Row className="block">
+                            {/* <div className="title bl">
+                                  <b>定义来源</b>
+                              </div> */}
+                            <p className="single-item">{termData.source}</p>
                         </Row>}
                         {this.state.configuration[0] === '1'
                             ? <Row className="block">
-                                    <div className="title bl">
+                                    {/* <div className="title bl">
                                         <b>首次来源</b>
-                                    </div>
+                                    </div> */}
                                     {origin}
                                 </Row>
                             : null}
                         {this.state.configuration[3] === '1' && <Row className="block">
-                            <div className="title bl">
+                            {/* <div className="title bl">
                                 <b>示例</b>
-                            </div>
+                            </div> */}
                             <p className="single-item">{termData.example}</p>
                         </Row>}
                     </div>
@@ -221,19 +209,19 @@ class Query extends Component {
                             }}>查询</Button>
                         </Col>
                     </Row>
-                    <hr style={{
-                        marginTop: '8px',
-                        color: '#f1f1f1',
-                        marginBottom: '20px'
-                    }}/> {this.renderResult()}
+                    {this.renderResult()}
                 </div>
             : <div>
                 <Row style={{
                     height: '25%',
                     position: 'absolute',
-                    width: '100%'
-                }} type="flex" justify="center" align="bottom">
-                    <h1>英汉医学新术语查询系统</h1>
+                    width: '100%',
+                    paddingTop: '20%'
+                }}>
+                    <h1 style={{
+                        marginLeft: '29.5%'
+                    }}>复旦大学英汉医学新术语查询系统</h1>
+                    <p className="ga tips">Fudan New Medical Terms</p>
                 </Row>
                 <Row className="initial-search" type="flex" justify="center" align="top">
                     <Col span={8}><Input value={this.state.searchTerm} onChange={this.handleChange.bind(this)} style={{
