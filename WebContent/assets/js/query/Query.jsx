@@ -216,12 +216,12 @@ class Query extends Component {
                     height: '25%',
                     position: 'absolute',
                     width: '100%',
-                    paddingTop: '20%'
+                    paddingTop: '20vh'
                 }}>
                     <h1 style={{
                         marginLeft: '29.5%'
                     }}>复旦大学英汉医学新术语查询系统</h1>
-                    <p className="ga tips">Fudan New Medical Terms</p>
+                    <img className="ga" src={require('../../../img/logo.jpg')}/>
                 </Row>
                 <Row className="initial-search" type="flex" justify="center" align="top">
                     <Col span={8}><Input value={this.state.searchTerm} onChange={this.handleChange.bind(this)} style={{

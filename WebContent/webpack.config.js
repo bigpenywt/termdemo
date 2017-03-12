@@ -39,7 +39,7 @@ module.exports = {
                 loaders: ["style-loader", "css-loader", "sass-loader?outputStyle:compressed"]
             }, {
                 test: /\.(png|jpg|gif|jpeg)$/,
-                loader: 'url-loader?limit=8192&name=../../img/[hash].[ext]'
+                loader: 'url-loader?limit=8192&name=../img/[hash].[ext]'
             }
         ]
     },
