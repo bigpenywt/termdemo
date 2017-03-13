@@ -54,7 +54,7 @@ export default class CreatTerm extends React.Component {
         this.switchOrigin = this.switchOrigin.bind(this);
     }
     componentDidMount() {
-        request.get('/termdemo/Magazine/ListAll').end((err, res) => {
+        request.get('/fnmt/Magazine/ListAll').end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 this.setState({magazineList: data.magazines, isFirstFetch: false});
@@ -114,7 +114,7 @@ export default class CreatTerm extends React.Component {
             }
             tempRecord.origin = origin.replace('%$!**', '');
         }
-        request.post('/termdemo/Term/SaveTerm').type('form').send(tempRecord).end((err, res) => {
+        request.post('/fnmt/Term/SaveTerm').type('form').send(tempRecord).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {

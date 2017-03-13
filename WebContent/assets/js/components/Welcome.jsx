@@ -23,7 +23,7 @@ export default class Welcome extends React.Component {
         }
     }
     componentDidMount() {
-        request.get('/termdemo/Term/GetTotal').end((err, res) => {
+        request.get('/fnmt/Term/GetTotal').end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 this.setState({termInfo: data, isFirstFetch: false});

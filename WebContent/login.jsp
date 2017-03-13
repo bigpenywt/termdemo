@@ -9,7 +9,7 @@
 <title>登录页</title>
 </head>
 <body>
-	<form action="/termdemo/loginCtl/login">
+	<form action="/fnmt/loginCtl/login">
     <div class="login-block">
       <p class="login-title">登陆到术语库</p>
       <p class="login-tips">用户名</p>

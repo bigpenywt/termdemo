@@ -59,10 +59,10 @@ export default class ToBeReviewTerm extends React.Component {
             showRejectModal: false,
             operateByMe: this.props.author === 'me',
             getUrl: this.props.author === 'me'
-                ? '/termdemo/Term/GetCreateTerm/'
-                : '/termdemo/Term/GettbReviewTerm',
+                ? '/fnmt/Term/GetCreateTerm/'
+                : '/fnmt/Term/GettbReviewTerm',
             commitUrl: this.props.author === 'me'
-                ? '/termdemo/Term/ModifyTerm'
+                ? '/fnmt/Term/ModifyTerm'
                 : '',
             showKeyboard: false,
             tempPronun: '',
@@ -81,7 +81,7 @@ export default class ToBeReviewTerm extends React.Component {
         this.switchOrigin = this.switchOrigin.bind(this);
     }
     componentDidMount() {
-        request.get('/termdemo/Magazine/ListAll').end((err, res) => {
+        request.get('/fnmt/Magazine/ListAll').end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 this.setState({magazineList: data.magazines});
@@ -132,7 +132,7 @@ export default class ToBeReviewTerm extends React.Component {
         this.setState({record: tempRecord});
     }
     deleteTerm(record) {
-        request.post('/termdemo/Term/DeleteTerm').type('form').send({term: record.term}).end((err, res) => {
+        request.post('/fnmt/Term/DeleteTerm').type('form').send({term: record.term}).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
@@ -230,7 +230,7 @@ export default class ToBeReviewTerm extends React.Component {
     passCalibrate() {
         let term = this.state.record.term;
         this.setState({commitLoading: true});
-        request.post('/termdemo/Term/ReviewTerm').type('form').send({term: term}).end((err, res) => {
+        request.post('/fnmt/Term/ReviewTerm').type('form').send({term: term}).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
@@ -255,7 +255,7 @@ export default class ToBeReviewTerm extends React.Component {
             reason: this.state.record.rejectReason
         }
         this.setState({commitLoading: true});
-        request.post('/termdemo/Term/RejectTerm').type('form').send(data).end((err, res) => {
+        request.post('/fnmt/Term/RejectTerm').type('form').send(data).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {

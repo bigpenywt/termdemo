@@ -43,7 +43,7 @@ export default class SearchConfig extends React.Component {
         this.setConfig = this.setConfig.bind(this);
     }
     componentDidMount() {
-        request.get('/termdemo/Conf/getConf').end((err, res) => {
+        request.get('/fnmt/Conf/getConf').end((err, res) => {
             let data = JSON.parse(res.text);
             let defaultConfig = [];
             data.configuration.split('').map((value, i) => {
@@ -61,7 +61,7 @@ export default class SearchConfig extends React.Component {
         let configStr = new Array(8).fill(0);
         for (let index of this.state.checkedChars)
             configStr[index] = 1;
-        request.post('/termdemo/Conf/setConf').type('form').send({configuration: configStr.join('')}).end((err, res) => {
+        request.post('/fnmt/Conf/setConf').type('form').send({configuration: configStr.join('')}).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {

@@ -23,7 +23,7 @@ export default class ActionLayout extends React.Component {
             okText: '确认',
             cancelText: '取消',
             onOk() {
-                window.location.href = '/termdemo/loginCtl/logout';
+                window.location.href = '/fnmt/loginCtl/logout';
             }
         });
     }

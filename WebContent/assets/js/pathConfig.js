@@ -1,5 +1,5 @@
 const pathConfig = {
-    rootPath: 'termDemo/index.jsp'
+    rootPath: 'fnmt/index.jsp'
 }
 
 module.exports = {

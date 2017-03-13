@@ -14,7 +14,7 @@ import './query.scss'
 
 function _searchTerm(searchTerm) {
     return new Promise((resolve, reject) => {
-        superagent.get('/termdemo/Term/QueryTerm').query({term: searchTerm}).end((err, res) => {
+        superagent.get('/fnmt/Term/QueryTerm').query({term: searchTerm}).end((err, res) => {
             if (err)
                 return reject(err);
             if (res.body.status === '0') {
@@ -26,7 +26,7 @@ function _searchTerm(searchTerm) {
 }
 function getConfiguration() {
     return new Promise((resolve, reject) => {
-        superagent.get('/termdemo/Conf/getConf').end((err, res) => {
+        superagent.get('/fnmt/Conf/getConf').end((err, res) => {
             if (err)
                 return reject(err);
             if (res.body.status === '0') {

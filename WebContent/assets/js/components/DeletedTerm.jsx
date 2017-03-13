@@ -54,7 +54,7 @@ export default class DeletedTerm extends React.Component {
         this.resumeTerm = this.resumeTerm.bind(this);
     }
     componentDidMount() {
-        request.get('/termdemo/Term/GetTermByStatus/').query({status: 4, page: 0, rows: 10}).end((err, res) => {
+        request.get('/fnmt/Term/GetTermByStatus/').query({status: 4, page: 0, rows: 10}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 const pagination = {
@@ -85,7 +85,7 @@ export default class DeletedTerm extends React.Component {
         let pager = this.state.pagination;
         pager.current = pagination.current;
         this.setState({pagination: pager, loading: true});
-        request.get('/termdemo/Term/GetTermByStatus/').query({status: 4, page: pager.current, rows: pagination.pageSize}).end((err, res) => {
+        request.get('/fnmt/Term/GetTermByStatus/').query({status: 4, page: pager.current, rows: pagination.pageSize}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 let pagination = this.state.pagination;
@@ -95,7 +95,7 @@ export default class DeletedTerm extends React.Component {
         });
     }
     resumeTerm() {
-        request.post('/termdemo/Term/ResumeTerm').type('form').send({term: this.state.record.term}).end((err, res) => {
+        request.post('/fnmt/Term/ResumeTerm').type('form').send({term: this.state.record.term}).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {

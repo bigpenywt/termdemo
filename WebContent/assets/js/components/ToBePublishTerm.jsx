@@ -50,7 +50,7 @@ export default class ToBePublishTerm extends React.Component {
     }
     componentDidMount() {
       request
-        .get('/termdemo/Term/GetTermByStatus')
+        .get('/fnmt/Term/GetTermByStatus')
         .query({ status: 1, page: 0, rows: 10})
         .end((err, res) => {
           let data = JSON.parse(res.text);
@@ -91,7 +91,7 @@ export default class ToBePublishTerm extends React.Component {
       pager.current = pagination.current;
       this.setState({ pagination: pager, loading: true });
       request
-        .get('/termdemo/Term/GetTermByStatus')
+        .get('/fnmt/Term/GetTermByStatus')
         .query({ status: 1, rows: pagination.pageSize, page: pager.current })
         .end((err, res) => {
           if (err) return;
@@ -106,7 +106,7 @@ export default class ToBePublishTerm extends React.Component {
     publish() {
       let term = this.state.record.term;
       request
-        .post('/termdemo/Term/PublishTerm')
+        .post('/fnmt/Term/PublishTerm')
         .query({ term })
         .end((err, res) => {
           if (err) return;
@@ -125,7 +125,7 @@ export default class ToBePublishTerm extends React.Component {
     }
     unpublish() {
       request
-        .post('/termdemo/Term/RejectTerm')
+        .post('/fnmt/Term/RejectTerm')
         .type('form')
         .send({ term: this.state.record.term, reason: this.state.record.rejectReason })
         .end((err, res) => {

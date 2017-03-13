@@ -51,7 +51,7 @@ export default class HasPublishedTerm extends React.Component {
         this.switchOrigin = this.switchOrigin.bind(this);
     }
     componentDidMount() {
-      request.get('/termdemo/Magazine/ListAll').end((err, res) => {
+      request.get('/fnmt/Magazine/ListAll').end((err, res) => {
           let data = JSON.parse(res.text);
           if (data.status === '1') {
               this.setState({magazineList: data.magazines});
@@ -60,7 +60,7 @@ export default class HasPublishedTerm extends React.Component {
           }
       )
       request
-        .get('/termdemo/Term/GetTermByStatus')
+        .get('/fnmt/Term/GetTermByStatus')
         .query({ status: 3, page: 0, rows: 20 })
         .end((err, res) => {
           if (err) return;
@@ -143,7 +143,7 @@ export default class HasPublishedTerm extends React.Component {
       }
       this.setState({ submitLoading: true });
       request
-        .post('/termdemo/Term/ModifyDoneTerm')
+        .post('/fnmt/Term/ModifyDoneTerm')
         .type('form')
         .send(tempRecord)
         .end((err, res) => {
@@ -165,7 +165,7 @@ export default class HasPublishedTerm extends React.Component {
     }
     deleteTerm(record) {
       request
-        .post('/termdemo/Term/DeleteDoneTerm')
+        .post('/fnmt/Term/DeleteDoneTerm')
         .type('form')
         .send({term: record.term})
         .end((err, res) => {
@@ -189,7 +189,7 @@ export default class HasPublishedTerm extends React.Component {
       pager.current = pagination.current;
       this.setState({ pagination: pager, loading: true });
       request
-        .get('/termdemo/Term/GetTermByStatus')
+        .get('/fnmt/Term/GetTermByStatus')
         .query({ status: 3, rows: pagination.pageSize, page: pager.current })
         .end((err, res) => {
           if (err) return;

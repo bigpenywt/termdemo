@@ -13,6 +13,6 @@ response.setDateHeader("Expires", 0);
 </head>
 <body>
   <div id="query"></div>
-	<script src="<%=request.getContextPath()%>/public/js/query.bundle.js"></script>
+	<script src="<%=request.getContextPath()%>/public/js/query.bundle_v1.js"></script>
 </body>
 </html>

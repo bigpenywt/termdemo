@@ -19,7 +19,7 @@ export default class UserInfo extends React.Component {
     getUserInfo() {
       return new Promise((resolve, reject) => {
         superagent
-          .get('/termdemo/User/GetUserInfo')
+          .get('/fnmt/User/GetUserInfo')
           .end((err, res) => {
             if (err) reject(new Error(err));
             if (res.body.status === 0) reject(res.body.msg);
@@ -74,7 +74,7 @@ export default class UserInfo extends React.Component {
         const userinfo = this.state.userinfo;
         return new Promise((resolve, reject) => {
           superagent
-            .post('/termdemo/User/ModifyUserInfo')
+            .post('/fnmt/User/ModifyUserInfo')
             .type('form')
             .send(userinfo)
             .end((err, res) => {

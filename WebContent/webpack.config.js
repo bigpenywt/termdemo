@@ -7,8 +7,8 @@ module.exports = {
     },
     output: {
         path: './public/js/',
-        filename: '[name].bundle.js',
-        publicPath: '/termdemo/img/'
+        filename: '[name].bundle_v1.js',
+        publicPath: '/fnmt/img/'
     },
     // devtool: 'cheap-module-eval-source-map',
     module: {

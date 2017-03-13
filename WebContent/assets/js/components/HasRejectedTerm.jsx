@@ -58,7 +58,7 @@ export default class ToBeReviewTerm extends React.Component {
         this.hideRejectModal = this.hideRejectModal.bind(this);
     }
     componentDidMount() {
-        request.get('/termdemo/Term/GetRejectedTerm/').query({page: 0, rows: 10}).end((err, res) => {
+        request.get('/fnmt/Term/GetRejectedTerm/').query({page: 0, rows: 10}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 const pagination = {
@@ -108,7 +108,7 @@ export default class ToBeReviewTerm extends React.Component {
             reason: this.state.record.rejectReason
         }
         this.setState({commitLoading: true});
-        request.post('/termdemo/Term/RejectTerm').type('form').send(data).end((err, res) => {
+        request.post('/fnmt/Term/RejectTerm').type('form').send(data).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
@@ -131,7 +131,7 @@ export default class ToBeReviewTerm extends React.Component {
         let pager = this.state.pagination;
         pager.current = pagination.current;
         this.setState({pagination: pager, loading: true});
-        request.get('/termdemo/Term/GetRejectedTerm').query({page: pager.current, rows: pagination.pageSize}).end((err, res) => {
+        request.get('/fnmt/Term/GetRejectedTerm').query({page: pager.current, rows: pagination.pageSize}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 let pagination = this.state.pagination;

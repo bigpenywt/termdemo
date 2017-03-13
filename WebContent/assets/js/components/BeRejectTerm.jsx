@@ -66,7 +66,7 @@ export default class ToBeReviewTerm extends React.Component {
         this.switchOrigin = this.switchOrigin.bind(this);
     }
     componentDidMount() {
-        request.get('/termdemo/Magazine/ListAll').end((err, res) => {
+        request.get('/fnmt/Magazine/ListAll').end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 this.setState({magazineList: data.magazines});
@@ -74,7 +74,7 @@ export default class ToBeReviewTerm extends React.Component {
                 this.setState({magazineList: []});
             }
         )
-        request.get('/termdemo/Term/GetCreateTerm/').query({status: 2, page: 0, rows: 10}).end((err, res) => {
+        request.get('/fnmt/Term/GetCreateTerm/').query({status: 2, page: 0, rows: 10}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 const pagination = {
@@ -152,7 +152,7 @@ export default class ToBeReviewTerm extends React.Component {
             tempRecord.origin = origin.replace('%$!**', '');
         }
         this.setState({commitLoading: true});
-        request.post('/termdemo/Term/ModifyTerm').type('form').send(tempRecord).end((err, res) => {
+        request.post('/fnmt/Term/ModifyTerm').type('form').send(tempRecord).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
@@ -174,7 +174,7 @@ export default class ToBeReviewTerm extends React.Component {
         let pager = this.state.pagination;
         pager.current = pagination.current;
         this.setState({pagination: pager, loading: true});
-        request.get('/termdemo/Term/GetCreateTerm/').query({status: 2, page: pager.current, rows: pagination.pageSize}).end((err, res) => {
+        request.get('/fnmt/Term/GetCreateTerm/').query({status: 2, page: pager.current, rows: pagination.pageSize}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 let pagination = this.state.pagination;

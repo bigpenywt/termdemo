@@ -30,7 +30,7 @@ export default class Magazine extends React.Component {
         this.addMagazine = this.addMagazine.bind(this);
     }
     componentDidMount() {
-        request.get('/termdemo/Magazine/GetAllMagazine').query({page: 0, rows: 10}).end((err, res) => {
+        request.get('/fnmt/Magazine/GetAllMagazine').query({page: 0, rows: 10}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 const pagination = {
@@ -45,7 +45,7 @@ export default class Magazine extends React.Component {
         let pager = this.state.pagination;
         pager.current = pagination.current;
         this.setState({pagination: pager, loading: true});
-        request.get('/termdemo/Magazine/GetAllMagazine').query({page: pager.current, rows: pagination.pageSize}).end((err, res) => {
+        request.get('/fnmt/Magazine/GetAllMagazine').query({page: pager.current, rows: pagination.pageSize}).end((err, res) => {
             let data = JSON.parse(res.text);
             if (data.status === '1') {
                 let pagination = this.state.pagination;
@@ -60,7 +60,7 @@ export default class Magazine extends React.Component {
         this.setState({newMagazine: tempNewMagazine});
     }
     deleteMagazine(magazine) {
-        request.post('/termdemo/Magazine/Delete').type('form').send({name: magazine.name}).end((err, res) => {
+        request.post('/fnmt/Magazine/Delete').type('form').send({name: magazine.name}).end((err, res) => {
             let data = JSON.parse(res.text);
             data.status === '1'
                 ? (() => {
@@ -79,7 +79,7 @@ export default class Magazine extends React.Component {
     }
     addMagazine() {
         if (this.state.newMagazine)
-            request.post('/termdemo/Magazine/AddMagazine').type('form').send({name: this.state.newMagazine}).end((err, res) => {
+            request.post('/fnmt/Magazine/AddMagazine').type('form').send({name: this.state.newMagazine}).end((err, res) => {
                 let data = JSON.parse(res.text);
                 data.status === '1'
                     ? (() => {
