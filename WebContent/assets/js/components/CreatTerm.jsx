@@ -172,6 +172,11 @@ export default class CreatTerm extends React.Component {
                                             <Option value="vt.">vt.</Option>
                                             <Option value="vi.">vi.</Option>
                                             <Option value="adv.">adv.</Option>
+                                            <Option value="adv.">n. / adj.</Option>
+                                            <Option value="adv.">n. / v.</Option>
+                                            <Option value="adv.">n. / v.</Option>
+                                            <Option value="adv.">adj. / adv.</Option>
+                                          <Option value="adv.">abbr.</Option>
                                         </Select>
                                     </FormItem>
                                 </Col>
