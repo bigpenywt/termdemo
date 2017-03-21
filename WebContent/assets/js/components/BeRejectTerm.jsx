@@ -256,11 +256,10 @@ export default class ToBeReviewTerm extends React.Component {
                                             <Option value="vt.">vt.</Option>
                                             <Option value="vi.">vi.</Option>
                                             <Option value="adv.">adv.</Option>
-                                            <Option value="adv.">n. / adj.</Option>
-                                            <Option value="adv.">n. / v.</Option>
-                                            <Option value="adv.">n. / v.</Option>
-                                            <Option value="adv.">adj. / adv.</Option>
-                                            <Option value="adv.">abbr.</Option>
+                                            <Option value="n. / adj.">n. / adj.</Option>
+                                            <Option value="n. / v.">n. / v.</Option>
+                                            <Option value="adj. / adv.">adj. / adv.</Option>
+                                            <Option value="abbr.">abbr.</Option>
                                         </Select>
                                     </FormItem>
                                 </Col>
