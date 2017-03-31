@@ -11,7 +11,7 @@
 <body>
 	<form action="/fnmt/loginCtl/login">
     <div class="login-block">
-      <p class="login-title">登陆到术语库</p>
+      <p class="login-title">登录到术语库</p>
       <p class="login-tips">用户名</p>
   		<input type="text" class="user-name" placeholder="请输入您的用户名" name="username"/>
       <p class="login-tips">密码</p>
